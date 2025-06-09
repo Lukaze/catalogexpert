@@ -282,12 +282,12 @@ class SearchEngine {
     renderSearchResultCard(result) {
         const { appId, app, audienceMap, hasEntitlements } = result;
         const entitlementCount = hasEntitlements ? Array.from(this.appEntitlements.get(appId).keys()).length : 0;
-        
-        // Get audience groups and convert to shorthand
+          // Get audience groups and convert to shorthand
         const audienceGroups = Array.from(audienceMap.keys()).sort();
-        const audienceBubbles = audienceGroups.map(audience => 
-            `<span class="audience-bubble">${window.utils.getAudienceGroupShorthand(audience)}</span>`
-        ).join('');
+        const audienceBubbles = audienceGroups.map(audience => {
+            const shorthand = window.utils.getAudienceGroupShorthand(audience);
+            return `<span class="audience-bubble" data-audience="${audience.toLowerCase()}">${shorthand}</span>`;
+        }).join('');
 
         return `
             <div class="search-result-card" onclick="window.appExplorer.showAppModal('${appId}');">
