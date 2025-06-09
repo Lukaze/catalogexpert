@@ -276,13 +276,17 @@ class SearchEngine {
                 <p>Try a different search term or check your spelling.</p>
             </div>
         `;
-    }
-
-    /**
+    }    /**
      * Render individual search result card
      */    renderSearchResultCard(result) {
-        const { appId, app, hasEntitlements } = result;
+        const { appId, app, audienceMap, hasEntitlements } = result;
         const entitlementCount = hasEntitlements ? Array.from(this.appEntitlements.get(appId).keys()).length : 0;
+        
+        // Get audience groups and convert to shorthand
+        const audienceGroups = Array.from(audienceMap.keys()).sort();
+        const audienceBubbles = audienceGroups.map(audience => 
+            `<span class="audience-bubble">${window.utils.getAudienceGroupShorthand(audience)}</span>`
+        ).join('');
 
         return `
             <div class="search-result-card" onclick="window.appExplorer.showAppModal('${appId}');">                <div class="app-header">
@@ -310,6 +314,9 @@ class SearchEngine {
                             `<span class="entitlement-badge has-entitlements">✓ ${entitlementCount} entitlement${entitlementCount !== 1 ? 's' : ''}</span>` : 
                             '<span class="entitlement-badge no-entitlements">No entitlements</span>'
                         }
+                    </div>
+                    <div class="audience-groups">
+                        ${audienceBubbles}
                     </div>
                 </div>
             </div>

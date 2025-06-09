@@ -1907,3 +1907,33 @@ body {
     margin-right: 8px;
     vertical-align: middle;
 }
+
+/* Audience Group Bubbles */
+.audience-groups {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #f1f5f9;
+}
+
+.audience-bubble {
+    display: inline-block;
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    box-shadow: 0 1px 3px rgba(79, 70, 229, 0.2);
+    transition: all 0.2s ease;
+}
+
+.audience-bubble:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(79, 70, 229, 0.3);
+}

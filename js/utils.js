@@ -58,6 +58,23 @@ class Utils {
         `).join('');
     }
 
+    // Convert audience group names to shorthand
+    static getAudienceGroupShorthand(audienceGroup) {
+        const shorthandMap = {
+            'general': 'Gen',
+            'ring0': 'R0',
+            'ring1': 'R1',
+            'ring1_5': 'R1.5',
+            'ring1_6': 'R1.6',
+            'ring2': 'R2',
+            'ring3': 'R3',
+            'ring3_6': 'R3.6',
+            'ring3_9': 'R3.9',
+            'staff': 'Staff'
+        };
+        return shorthandMap[audienceGroup.toLowerCase()] || audienceGroup;
+    }
+
     // Constants for commonly used strings
     static get CONSTANTS() {
         return {
