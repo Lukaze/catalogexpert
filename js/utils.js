@@ -47,20 +47,21 @@ class Utils {
         const iconHtml = Utils.createSmallAppIconHtml(iconUrl);
         const displayName = Utils.getAppDisplayName(app, appId);
         return `${iconHtml}${displayName}`;
-    }
-
-    // Convert audience map to HTML
+    }    // Convert audience map to HTML
     static createAudienceVersionsHtml(audienceMap) {
-        return Array.from(audienceMap.entries()).map(([audience, app]) => `
-            <div class="detail-item">
-                <span class="detail-label">${audience}:</span>
-                <span class="detail-value">
-                    v${app.version}
-                    ${app.sourceType ? `<span class="tag" style="margin-left: 8px; font-size: 0.7rem;">${app.sourceType}</span>` : ''}
-                </span>
-            </div>
-        `).join('');
-    }    // Convert audience group names to shorthand
+        return Array.from(audienceMap.entries()).map(([audience, app]) => {
+            const shorthand = Utils.getAudienceGroupShorthand(audience);
+            return `
+                <div class="detail-item">
+                    <span class="detail-label">${shorthand}:</span>
+                    <span class="detail-value">
+                        v${app.version}
+                        ${app.sourceType ? `<span class="tag" style="margin-left: 8px; font-size: 0.7rem;">${app.sourceType}</span>` : ''}
+                    </span>
+                </div>
+            `;
+        }).join('');
+    }// Convert audience group names to shorthand
     static getAudienceGroupShorthand(audienceGroup) {
         const shorthandMap = {
             'general': 'R4',

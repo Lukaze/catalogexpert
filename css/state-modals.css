@@ -227,32 +227,116 @@
     color: #64748b;
     border-radius: 20px;
     font-size: 0.8rem;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
     user-select: none;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .audience-filter-btn:hover {
-    border-color: #4f46e5;
-    color: #4f46e5;
+    transform: translateY(-1px);
+    filter: brightness(1.1);
 }
 
-.audience-filter-btn.selected {
-    background: #4f46e5;
-    border-color: #4f46e5;
+/* Specific colors for each audience group filter button */
+.audience-filter-btn[data-audience="general"],
+.audience-filter-btn[data-audience="r4"] {
+    background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
     color: white;
+    border-color: #dc2626;
+    box-shadow: 0 1px 3px rgba(220, 38, 38, 0.3);
+}
+
+.audience-filter-btn[data-audience="ring0"],
+.audience-filter-btn[data-audience="r0"] {
+    background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
+    color: white;
+    border-color: #7c3aed;
+    box-shadow: 0 1px 3px rgba(124, 58, 237, 0.3);
+}
+
+.audience-filter-btn[data-audience="ring1"],
+.audience-filter-btn[data-audience="r1"] {
+    background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+    color: white;
+    border-color: #2563eb;
+    box-shadow: 0 1px 3px rgba(37, 99, 235, 0.3);
+}
+
+.audience-filter-btn[data-audience="ring1_5"],
+.audience-filter-btn[data-audience="r1.5"] {
+    background: linear-gradient(135deg, #0891b2 0%, #06b6d4 100%);
+    color: white;
+    border-color: #0891b2;
+    box-shadow: 0 1px 3px rgba(8, 145, 178, 0.3);
+}
+
+.audience-filter-btn[data-audience="ring1_6"],
+.audience-filter-btn[data-audience="r1.6"] {
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+    color: white;
+    border-color: #059669;
+    box-shadow: 0 1px 3px rgba(5, 150, 105, 0.3);
+}
+
+.audience-filter-btn[data-audience="ring2"],
+.audience-filter-btn[data-audience="r2"] {
+    background: linear-gradient(135deg, #16a34a 0%, #22c55e 100%);
+    color: white;
+    border-color: #16a34a;
+    box-shadow: 0 1px 3px rgba(22, 163, 74, 0.3);
+}
+
+.audience-filter-btn[data-audience="ring3"],
+.audience-filter-btn[data-audience="r3"] {
+    background: linear-gradient(135deg, #ca8a04 0%, #eab308 100%);
+    color: white;
+    border-color: #ca8a04;
+    box-shadow: 0 1px 3px rgba(202, 138, 4, 0.3);
+}
+
+.audience-filter-btn[data-audience="ring3_6"],
+.audience-filter-btn[data-audience="r3.6"] {
+    background: linear-gradient(135deg, #ea580c 0%, #f97316 100%);
+    color: white;
+    border-color: #ea580c;
+    box-shadow: 0 1px 3px rgba(234, 88, 12, 0.3);
+}
+
+.audience-filter-btn[data-audience="ring3_9"],
+.audience-filter-btn[data-audience="r3.9"] {
+    background: linear-gradient(135deg, #c2410c 0%, #ea580c 100%);
+    color: white;
+    border-color: #c2410c;
+    box-shadow: 0 1px 3px rgba(194, 65, 12, 0.3);
+}
+
+.audience-filter-btn[data-audience="staff"] {
+    background: linear-gradient(135deg, #be185d 0%, #ec4899 100%);
+    color: white;
+    border-color: #be185d;
+    box-shadow: 0 1px 3px rgba(190, 24, 93, 0.3);
+}
+
+/* Selected state - slightly darker */
+.audience-filter-btn.selected {
+    filter: brightness(0.9);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .audience-filter-btn.selected:hover {
-    background: #3730a3;
-    border-color: #3730a3;
+    filter: brightness(1.0);
 }
 
-.audience-filter-btn.active {
-    background: #4f46e5;
-    border-color: #4f46e5;
+/* Fallback for unknown audience groups */
+.audience-filter-btn:not([data-audience]) {
+    background: linear-gradient(135deg, #6b7280 0%, #9ca3af 100%);
     color: white;
+    border-color: #6b7280;
+    box-shadow: 0 1px 3px rgba(107, 114, 128, 0.3);
 }
 
 .filter-summary {

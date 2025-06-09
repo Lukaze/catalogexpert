@@ -163,32 +163,38 @@ class ModalManager {
     createAudienceVersionsHtml(audienceMap) {
         return Array.from(audienceMap.entries())
             .sort(([a], [b]) => a.localeCompare(b))
-            .map(([audience, app]) => `
+            .map(([audience, app]) => {
+                const shorthand = window.utils.getAudienceGroupShorthand(audience);
+                return `
                 <div class="detail-item">
-                    <span class="detail-label">${audience}:</span>
+                    <span class="detail-label">
+                        <span class="audience-bubble" data-audience="${audience.toLowerCase()}">${shorthand}</span>:
+                    </span>
                     <span class="detail-value">
                         v${app.version}
                         ${app.sourceType ? `<span class="tag" style="margin-left: 8px; font-size: 0.7rem;">${app.sourceType}</span>` : ''}
                     </span>
                 </div>
-            `).join('');
-    }
-
-    /**
+            `}).join('');
+    }    /**
      * Create versions grid for modal
      */
     createVersionsGrid(audienceMap) {
         return Array.from(audienceMap.entries())
             .sort(([a], [b]) => a.localeCompare(b))
-            .map(([audience, app]) => `
+            .map(([audience, app]) => {
+                const shorthand = window.utils.getAudienceGroupShorthand(audience);
+                return `
                 <div class="version-card">
                     <div class="version-header">
-                        <h6>${audience}</h6>
+                        <h6>
+                            <span class="audience-bubble" data-audience="${audience.toLowerCase()}">${shorthand}</span>
+                        </h6>
                         <span class="version-number">v${app.version}</span>
                     </div>
                     ${app.sourceType ? `<div class="version-source">${app.sourceType}</div>` : ''}
                 </div>
-            `).join('');
+            `}).join('');
     }
 
     /**
@@ -234,12 +240,14 @@ class ModalManager {
                 
                 <div class="entitlements-grid">
         `;
-        
-        Object.entries(entitlementInfo).forEach(([audience, entitlements]) => {
+          Object.entries(entitlementInfo).forEach(([audience, entitlements]) => {
+            const shorthand = window.utils.getAudienceGroupShorthand(audience);
             html += `
                 <div class="entitlement-audience-card">
                     <div class="audience-header">
-                        <h6>${audience}</h6>
+                        <h6>
+                            <span class="audience-bubble" data-audience="${audience.toLowerCase()}">${shorthand}</span>
+                        </h6>
                         <span class="entitlement-count">${entitlements.length} entitlement${entitlements.length !== 1 ? 's' : ''}</span>
                     </div>
                     <div class="entitlements-list">
@@ -474,26 +482,24 @@ class ModalManager {
             <div class="audience-filter-container">
                 <h4 class="audience-filter-title">🎯 Filter by Audience Groups</h4>
                 <div class="audience-filter-buttons">
-        `;
-
-        // Add filter buttons for each audience group
+        `;        // Add filter buttons for each audience group
         allAudiences.forEach(audience => {
             const isSelected = selectedAudiences.has(audience);
             const selectedClass = isSelected ? 'selected' : '';
+            const shorthand = window.utils.getAudienceGroupShorthand(audience);
             html += `
                 <button class="audience-filter-btn ${selectedClass}" 
+                        data-audience="${audience.toLowerCase()}"
                         onclick="window.appExplorer.toggleAudienceFilter('${audience}')">
-                    ${audience}
+                    ${shorthand}
                 </button>
             `;
-        });
-
-        html += `
+        });        html += `
                 </div>
                 <div style="margin-top: 10px; font-size: 0.8rem; color: #64748b;">
                     ${selectedAudiences.size === 0 ? 'No audience groups selected (showing no apps)' : 
                       selectedAudiences.size === allAudiences.length ? 'Showing all audience groups' : 
-                      `Filtering by: ${Array.from(selectedAudiences).join(', ')}`}
+                      `Filtering by: ${Array.from(selectedAudiences).map(audience => window.utils.getAudienceGroupShorthand(audience)).join(', ')}`}
                     ${selectedAudiences.size < allAudiences.length ? `<button class="audience-filter-btn" onclick="window.appExplorer.clearAudienceFilters()" style="margin-left: 10px; font-size: 0.7rem;">Select All</button>` : ''}
                 </div>
             </div>
@@ -517,13 +523,14 @@ class ModalManager {
             <div>
                 <h4 style="color: #4338ca; margin-bottom: 15px;">📱 Applications</h4>
                 <div class="state-app-simple-list">
-        `;
-
-        // Add filtered apps to the list
+        `;        // Add filtered apps to the list
         filteredApps.forEach(appData => {
             const { appId, app, audiences } = appData;
             const iconUrl = app.largeImageUrl || '';
             const appItemHtml = window.utils.createAppItemHtml(app, appId, iconUrl);
+            const audienceShorthands = audiences.map(audience => 
+                window.utils.getAudienceGroupShorthand(audience)
+            );
             
             html += `
                 <div class="state-app-list-item" onclick="window.appExplorer.showAppModal('${appId}')">
@@ -532,7 +539,7 @@ class ModalManager {
                             ${appItemHtml}
                         </span>
                         <span class="state-app-list-audiences">
-                            ${audiences.join(', ')}
+                            ${audienceShorthands.join(', ')}
                         </span>
                     </div>
                 </div>

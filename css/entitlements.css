@@ -260,6 +260,27 @@
     max-width: 300px;
 }
 
+/* Audience bubbles in entitlement contexts */
+.audience-header .audience-bubble {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.audience-header .audience-bubble:hover {
+    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.3);
+}
+
 @media (max-width: 768px) {
     .entitlements-grid {
         grid-template-columns: 1fr;

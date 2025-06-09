@@ -221,6 +221,29 @@
     font-size: 0.9rem;
 }
 
+/* Audience bubbles in modal contexts */
+.detail-item .audience-bubble,
+.version-header .audience-bubble,
+.audience-header .audience-bubble {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
+.detail-item .audience-bubble:hover,
+.version-header .audience-bubble:hover,
+.audience-header .audience-bubble:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.1);
+}
+
 @media (max-width: 768px) {
     .modal-overview-grid {
         grid-template-columns: 1fr;

@@ -195,22 +195,23 @@ class UIRenderer {
                 ${firstApp.industries ? firstApp.industries.map(ind => `<span class="tag">${ind}</span>`).join('') : ''}
             </div>
         `;
-    }
-
-    /**
+    }    /**
      * Create audience versions HTML
      */
     createAudienceVersionsHtml(audienceMap) {
-        return Array.from(audienceMap.entries()).map(([audience, app]) => `
-            <div class="detail-item">
-                <span class="detail-label">${audience}:</span>
-                <span class="detail-value">
-                    v${app.version}
-                    ${app.sourceType ? `<span class="tag" style="margin-left: 8px; font-size: 0.7rem;">${app.sourceType}</span>` : ''}
-                </span>
-            </div>
-        `).join('');
-    }    /**
+        return Array.from(audienceMap.entries()).map(([audience, app]) => {
+            const shorthand = window.utils.getAudienceGroupShorthand(audience);
+            return `
+                <div class="detail-item">
+                    <span class="detail-label">${shorthand}:</span>
+                    <span class="detail-value">
+                        v${app.version}
+                        ${app.sourceType ? `<span class="tag" style="margin-left: 8px; font-size: 0.7rem;">${app.sourceType}</span>` : ''}
+                    </span>
+                </div>
+            `;
+        }).join('');
+    }/**
      * Create app item HTML with icon and name
      */
     createAppItemHtml(app, appId, iconUrl) {
@@ -266,17 +267,17 @@ class UIRenderer {
             filterContainer.innerHTML = '<p style="color: #64748b; font-style: italic;">No audience groups loaded yet.</p>';
             filterSummary.innerHTML = '';
             return;
-        }
-
-        // Generate filter buttons
+        }        // Generate filter buttons
         let buttonsHtml = '';
         allAudiences.forEach(audience => {
             const isSelected = globalSelectedAudiences.has(audience);
             const selectedClass = isSelected ? 'selected' : '';
+            const shorthand = window.utils.getAudienceGroupShorthand(audience);
             buttonsHtml += `
                 <button class="audience-filter-btn ${selectedClass}" 
+                        data-audience="${audience.toLowerCase()}"
                         onclick="window.appExplorer.toggleGlobalAudienceFilter('${audience}')">
-                    ${audience}
+                    ${shorthand}
                 </button>
             `;
         });
@@ -300,15 +301,16 @@ class UIRenderer {
             </button>
         `;
 
-        filterContainer.innerHTML = buttonsHtml;
-
-        // Update summary
+        filterContainer.innerHTML = buttonsHtml;        // Update summary
         if (globalSelectedAudiences.size === 0) {
             filterSummary.innerHTML = '<span style="color: #ef4444;">No audience groups selected - no entitlement states will be shown</span>';
         } else if (globalSelectedAudiences.size === allAudiences.length) {
             filterSummary.innerHTML = `<span style="color: #10b981;">All ${allAudiences.length} audience groups selected</span>`;
         } else {
-            filterSummary.innerHTML = `<span style="color: #4f46e5;">${globalSelectedAudiences.size} of ${allAudiences.length} audience groups selected: ${Array.from(globalSelectedAudiences).sort().join(', ')}</span>`;
+            const selectedShorthands = Array.from(globalSelectedAudiences).sort().map(audience => 
+                window.utils.getAudienceGroupShorthand(audience)
+            ).join(', ');
+            filterSummary.innerHTML = `<span style="color: #4f46e5;">${globalSelectedAudiences.size} of ${allAudiences.length} audience groups selected: ${selectedShorthands}</span>`;
         }
     }
 
