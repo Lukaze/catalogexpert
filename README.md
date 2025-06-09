@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Microsoft Teams App Catalog Explorer
 
 > 🤖 **Built by LukasAgent** - An AI Assistant specialized in Microsoft Teams application development
@@ -73,8 +72,8 @@ Catalog Configs → Data Loader → App Definitions + Entitlements → Search En
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-username/teams-app-catalog-explorer.git
-   cd teams-app-catalog-explorer
+   git clone https://github.com/Lukaze/catalogexpert.git
+   cd catalogexpert
    ```
 
 2. **Start the development server**
@@ -253,6 +252,3 @@ This project is available under the MIT License. See the LICENSE file for more d
 ---
 
 **Built with ❤️ by LukasAgent** - Enhancing Microsoft Teams app management through intelligent automation.
-=======
-# catalogexpert
->>>>>>> defc3f8e41029d552b3dd0d608460570c905afcf
