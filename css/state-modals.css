@@ -331,6 +331,21 @@
     filter: brightness(1.0);
 }
 
+/* Deselected state - grayed out (only for audience filter buttons with data-audience) */
+.audience-filter-btn[data-audience]:not(.selected) {
+    background: #f8fafc !important;
+    color: #94a3b8 !important;
+    border-color: #e2e8f0 !important;
+    box-shadow: none !important;
+    opacity: 0.6;
+}
+
+.audience-filter-btn[data-audience]:not(.selected):hover {
+    opacity: 0.8;
+    transform: translateY(-1px);
+    filter: none;
+}
+
 /* Fallback for unknown audience groups */
 .audience-filter-btn:not([data-audience]) {
     background: linear-gradient(135deg, #6b7280 0%, #9ca3af 100%);
