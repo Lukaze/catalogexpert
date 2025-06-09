@@ -27,7 +27,11 @@ class Utils {
         return `<a href="${url}" target="_blank">${url}</a>`;
     }    // Create app icon HTML with consistent styling
     static createAppIconHtml(iconUrl) {
-        return iconUrl ? `<img src="${iconUrl}" alt="" onerror="this.style.display='none'">` : '';
+        if (iconUrl) {
+            return `<img src="${iconUrl}" alt="App icon" onerror="this.parentElement.innerHTML='<div class=\\'card-icon-placeholder\\'>${iconUrl.split('/').pop().charAt(0).toUpperCase()}</div>'">`;
+        } else {
+            return `<div class="card-icon-placeholder">?</div>`;
+        }
     }
 
     // Create small app icon HTML for inline use
@@ -56,12 +60,10 @@ class Utils {
                 </span>
             </div>
         `).join('');
-    }
-
-    // Convert audience group names to shorthand
+    }    // Convert audience group names to shorthand
     static getAudienceGroupShorthand(audienceGroup) {
         const shorthandMap = {
-            'general': 'Gen',
+            'general': 'R4',
             'ring0': 'R0',
             'ring1': 'R1',
             'ring1_5': 'R1.5',

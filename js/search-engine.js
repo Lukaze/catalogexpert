@@ -278,7 +278,8 @@ class SearchEngine {
         `;
     }    /**
      * Render individual search result card
-     */    renderSearchResultCard(result) {
+     */
+    renderSearchResultCard(result) {
         const { appId, app, audienceMap, hasEntitlements } = result;
         const entitlementCount = hasEntitlements ? Array.from(this.appEntitlements.get(appId).keys()).length : 0;
         
@@ -289,35 +290,30 @@ class SearchEngine {
         ).join('');
 
         return `
-            <div class="search-result-card" onclick="window.appExplorer.showAppModal('${appId}');">                <div class="app-header">
-                    <div class="app-icon">
+            <div class="search-result-card" onclick="window.appExplorer.showAppModal('${appId}');">
+                <div class="card-header">
+                    <div class="card-icon">
                         ${window.utils.createAppIconHtml(app.largeImageUrl)}
                     </div>
-                    <div class="app-title">
-                        <h4>${window.utils.escapeHtml(window.utils.getAppDisplayName(app, appId))}</h4>
-                        <p class="app-developer">${window.utils.escapeHtml(app.developerName || 'Unknown Developer')}</p>
-                        <p class="app-version-header">v${window.utils.escapeHtml(app.version || 'Unknown')}</p>
+                    <div class="card-title-section">
+                        <h4 class="card-title">${window.utils.escapeHtml(window.utils.getAppDisplayName(app, appId))}</h4>
+                        <p class="card-id">${window.utils.escapeHtml(appId)}</p>
                     </div>
                 </div>
-                <div class="app-details">
-                    <div class="app-id">
-                        <strong>App ID:</strong> ${window.utils.escapeHtml(appId)}
-                    </div>
-                    ${app.officeAssetId ? `<div class="office-asset-id">
-                        <strong>Office Asset ID:</strong> ${window.utils.escapeHtml(app.officeAssetId)}
-                    </div>` : ''}
-                    ${app.description ? `<div class="app-description">
-                        <strong>Description:</strong> ${window.utils.escapeHtml(app.description).substring(0, 150)}${app.description.length > 150 ? '...' : ''}
-                    </div>` : ''}
-                    <div class="entitlement-status">
+                <div class="card-content">
+                    <p class="card-developer"><strong>Developer:</strong> ${window.utils.escapeHtml(app.developerName || 'Unknown Developer')}</p>
+                    <p class="card-version"><strong>Version:</strong> v${window.utils.escapeHtml(app.version || 'Unknown')}</p>
+                    ${app.officeAssetId ? `<p class="card-office-asset"><strong>Office Asset ID:</strong> ${window.utils.escapeHtml(app.officeAssetId)}</p>` : ''}
+                    ${app.description ? `<p class="card-description">${window.utils.escapeHtml(app.description).substring(0, 120)}${app.description.length > 120 ? '...' : ''}</p>` : ''}
+                    <div class="card-badges">
                         ${hasEntitlements ? 
                             `<span class="entitlement-badge has-entitlements">✓ ${entitlementCount} entitlement${entitlementCount !== 1 ? 's' : ''}</span>` : 
                             '<span class="entitlement-badge no-entitlements">No entitlements</span>'
                         }
                     </div>
-                    <div class="audience-groups">
-                        ${audienceBubbles}
-                    </div>
+                </div>
+                <div class="audience-groups">
+                    ${audienceBubbles}
                 </div>
             </div>
         `;

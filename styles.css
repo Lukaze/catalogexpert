@@ -734,9 +734,20 @@ body {
     width: 28px;
     height: 28px;
     border-radius: 6px;
-    object-fit: cover;
     flex-shrink: 0;
     border: 1px solid #e2e8f0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8fafc;
+}
+
+.card-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
 }
 
 .card-icon-placeholder {
@@ -790,18 +801,24 @@ body {
     margin-bottom: 12px;
 }
 
-.card-developer, .card-version {
-    margin: 0;
-    font-size: 0.9rem;
+.card-developer, .card-version, .card-office-asset {
+    margin: 0 0 4px 0;
+    font-size: 0.85rem;
     color: #374151;
+}
+
+.card-description {
+    margin: 8px 0 0 0;
+    font-size: 0.85rem;
+    color: #6b7280;
+    line-height: 1.4;
 }
 
 .card-badges {
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
-    margin-top: auto;
-    margin-bottom: 10px;
+    margin-top: 8px;
 }
 
 .badge {
@@ -1913,16 +1930,23 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 4px;
-    margin-top: 8px;
-    padding-top: 8px;
+    margin-top: auto;
+    padding: 8px 12px;
+    margin-left: -16px;
+    margin-right: -16px;
+    margin-bottom: -16px;
     border-top: 1px solid #f1f5f9;
+    background: linear-gradient(to right, #f8fafc, #f1f5f9);
+    border-radius: 0 0 10px 10px;
+    min-height: 32px;
+    align-items: center;
 }
 
 .audience-bubble {
     display: inline-block;
     background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
     color: white;
-    padding: 2px 8px;
+    padding: 3px 8px;
     border-radius: 12px;
     font-size: 0.65rem;
     font-weight: 600;
@@ -1936,4 +1960,28 @@ body {
 .audience-bubble:hover {
     transform: translateY(-1px);
     box-shadow: 0 2px 6px rgba(79, 70, 229, 0.3);
+}
+
+/* Entitlement badge styles for search results */
+.entitlement-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+.entitlement-badge.has-entitlements {
+    background: #dcfce7;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+}
+
+.entitlement-badge.no-entitlements {
+    background: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
 }
