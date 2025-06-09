@@ -1,0 +1,83 @@
+/**
+ * Utility functions and helpers for the Teams App Catalog Explorer
+ */
+
+class Utils {
+    // HTML escaping function to prevent XSS
+    static escapeHtml(text) {
+        if (typeof text !== 'string') return text;
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    // Format date for display
+    static formatDate(dateString) {
+        if (!dateString) return 'N/A';
+        try {
+            return new Date(dateString).toLocaleDateString();
+        } catch (error) {
+            return 'Invalid Date';
+        }
+    }
+
+    // Format URL for display
+    static formatUrl(url) {
+        if (!url) return 'N/A';
+        return `<a href="${url}" target="_blank">${url}</a>`;
+    }    // Create app icon HTML with consistent styling
+    static createAppIconHtml(iconUrl) {
+        return iconUrl ? `<img src="${iconUrl}" alt="" onerror="this.style.display='none'">` : '';
+    }
+
+    // Create small app icon HTML for inline use
+    static createSmallAppIconHtml(iconUrl) {
+        return iconUrl ? `<img src="${iconUrl}" alt="" class="small-icon" onerror="this.style.display='none'">` : '';
+    }
+
+    // Get app display name with HTML escaping
+    static getAppDisplayName(app, appId) {
+        return Utils.escapeHtml(app.name || appId);
+    }    // Create app HTML with icon and name
+    static createAppItemHtml(app, appId, iconUrl) {
+        const iconHtml = Utils.createSmallAppIconHtml(iconUrl);
+        const displayName = Utils.getAppDisplayName(app, appId);
+        return `${iconHtml}${displayName}`;
+    }
+
+    // Convert audience map to HTML
+    static createAudienceVersionsHtml(audienceMap) {
+        return Array.from(audienceMap.entries()).map(([audience, app]) => `
+            <div class="detail-item">
+                <span class="detail-label">${audience}:</span>
+                <span class="detail-value">
+                    v${app.version}
+                    ${app.sourceType ? `<span class="tag" style="margin-left: 8px; font-size: 0.7rem;">${app.sourceType}</span>` : ''}
+                </span>
+            </div>
+        `).join('');
+    }
+
+    // Constants for commonly used strings
+    static get CONSTANTS() {
+        return {
+            UNKNOWN_APP: 'Unknown App',
+            UNKNOWN_DEVELOPER: 'Unknown',
+            VERSION_NA: 'N/A',
+            CLICK_TO_VIEW: 'Click to view details →',
+            LOADING_MESSAGE: 'Loading...',
+            NO_RESULTS: 'No results found',
+            CORE_APP_BADGE: 'Core App',
+            TEAMS_OWNED_BADGE: 'Teams Owned'
+        };
+    }
+
+    // Audience groups configuration
+    static get AUDIENCE_GROUPS() {
+        return ['general', 'ring0', 'ring1', 'ring1_5', 'ring1_6', 'ring2', 'ring3', 'ring3_6', 'ring3_9'];
+    }
+}
+
+// Export for use in other modules
+window.Utils = Utils;
+window.utils = Utils;

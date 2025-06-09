@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Validation</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 20px; 
+            background: #f8fafc; 
+        }
+        .header { 
+            text-align: center; 
+            margin-bottom: 30px; 
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .instruction { 
+            background: #e0f2fe; 
+            padding: 15px; 
+            border-radius: 8px; 
+            margin: 20px 0;
+            border-left: 4px solid #0284c7;
+        }
+        .console-tip {
+            background: #f0f9ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #3b82f6;
+        }
+        .status {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+        }
+        .loading { background: #fef3c7; color: #92400e; }
+        .success { background: #d1fae5; color: #065f46; }
+        .error { background: #fee2e2; color: #991b1b; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🚀 Teams App Catalog Explorer</h1>
+        <h2>Application Validation Suite</h2>
+        <p>This page validates that all modules are working correctly after modularization</p>
+    </div>
+
+    <div class="instruction">
+        <h3>📋 Instructions:</h3>
+        <ol>
+            <li>Open your browser's Developer Tools (F12)</li>
+            <li>Go to the <strong>Console</strong> tab</li>
+            <li>Watch the validation tests run automatically</li>
+            <li>Check for any errors or failed tests</li>
+        </ol>
+    </div>
+
+    <div class="console-tip">
+        <h3>💡 What the tests check:</h3>
+        <ul>
+            <li>✅ All JavaScript modules load correctly</li>
+            <li>✅ Utils and constants are accessible</li>
+            <li>✅ Global application instance is created</li>
+            <li>✅ Circular dependency issue is resolved</li>
+            <li>✅ Data stores are shared properly between modules</li>
+            <li>✅ DOM elements exist and are accessible</li>
+            <li>✅ Core application methods are available</li>
+        </ul>
+    </div>
+
+    <div id="status" class="status loading">
+        🔄 Loading application modules and running validation tests...
+    </div>
+
+    <!-- Load all application modules first -->
+    <script src="js/utils.js"></script>
+    <script src="js/data-loader.js"></script>
+    <script src="js/search-engine.js"></script>
+    <script src="js/ui-renderer.js"></script>
+    <script src="js/modal-manager.js"></script>
+    <script src="js/event-handlers.js"></script>
+    <script src="js/app-explorer.js"></script>
+    
+    <script>
+        // Create the global instance
+        window.appExplorer = new TeamsAppCatalogExplorer();
+        
+        // Update status
+        document.getElementById('status').innerHTML = '✅ Application loaded. Running validation tests...';
+        document.getElementById('status').className = 'status success';
+    </script>
+
+    <!-- Load and run validation suite -->
+    <script src="validation-suite.js"></script>
+
+    <script>
+        // Final status update based on console results
+        setTimeout(() => {
+            const statusEl = document.getElementById('status');
+            statusEl.innerHTML = '🔍 Validation complete! Check the browser console for detailed results.';
+            
+            // Try to detect if there were any errors
+            const hadErrors = window.console && console.error;
+            if (!hadErrors) {
+                statusEl.innerHTML += '<br><br>🎉 If you see green checkmarks in the console, everything is working perfectly!';
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

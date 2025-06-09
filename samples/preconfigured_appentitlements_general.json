@@ -1,0 +1,1467 @@
+{
+  "value": {
+    "appEntitlements": {
+      "user": {
+        "common": [
+          {
+            "id": "4574ff7c-3529-44c3-b585-481241cca7f1",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "f3371bc4-0447-4820-b666-c05b0df18d03",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "25c8502f-159b-478a-9366-20ac0d689c0a",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "8658fe70-540a-4930-b02b-65ae253193ff",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "a63f7012-8cc9-42d5-99c3-e35f526fab17",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "34b01851-c13d-4604-bb3b-5de1ecbf0288",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "9ee3f5db-d9ed-4702-a84d-dcf146d8d1cd",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "86fcd49b-61a2-4701-b771-54728cd291fb",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "20c3440d-c67e-4420-9f80-0e50c39693df",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "7831feaf-c4c4-4669-ba64-ce4ea0b56d31",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "b5abf2ae-c16b-4310-8f8a-d3bcdb52f162",
+            "state": "InstalledAndPermanent",
+            "requiredServicePlanIdSets": [
+              {
+                "requiredServicePlanIds": [
+                  "3f30311c-6b1e-48a4-ab79-725b469da960"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "2a84919f-59d8-4441-a975-2a8c2643b741",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "5af6a76b-40fc-4ba1-af29-8f49b08e44fd",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "ec69e4c5-8dd3-4591-aa21-8bcef8616835",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "def85aef-c838-4f6b-b76e-53292aaa43d9",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "a2da8768-95d5-419e-9441-3b539865b118",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "ef56c0de-36fc-4ef8-b417-3d82ba9d073c",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "5db56dd0-534d-467b-aeda-d622bee2574a",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "14d6962d-6eeb-4f48-8890-de55454bb136",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "39fec4fb-e722-4780-b700-d0b71be0c73d",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "75ae081d-997c-4ca2-9997-1b6d2ff17295",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "9f1a4ae0-6ae2-475d-973d-c89687d03753",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "3b64df9d-7e97-4d9c-ac5c-2e0a5d8e6f40",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "42f6c1da-a241-483a-a3cc-4f5be9185951",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "com.microsoft.teamspace.tab.web",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "com.microsoft.teamspace.tab.wiki",
+            "state": "InstalledAndDeprecated"
+          },
+          {
+            "id": "7a0c1d53-f647-4d76-ab2c-fbc0d73c8bb0",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "90a27c51-5c74-453b-944a-134ba86da790",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "5a0e35f9-d3c8-45b6-9dd9-983ab47f1b83",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "3a6c38d2-9d25-4c1f-8e06-9da286c1bfc4",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "9d17e873-c4c4-424d-869c-67f62a3d3174",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "b56991b4-3924-49b2-b4bf-1710940ec7d9",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "72b6f7f9-1673-46ba-9e65-e4c51c07a92e",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "76d3ba6c-19d4-40db-824f-057484e04250",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "5ae4a320-4d98-4bc7-b20a-ffe3224f7f04",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "com.microsoftstream.embed.skypeteamstab",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "40517485-2262-4135-b174-401da4aa6f0f",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "41af5cfd-c249-424b-a3ea-5c4b115c3dc6",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "00001016-de05-492e-9106-4828fc8a8687",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "d7958adf-f419-46fa-941b-1b946497ef95",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "25b07509-bc6a-4a53-b683-9beb24e55570",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "d5305801-d9c4-4dd1-aadf-d3cdb0d9d893",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "7a78fde8-7c5c-445d-945e-9354649f9562",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "cae3a8a8-1ba9-4517-a708-4e0ab7fab7ee",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "9781bc7d-5b2e-4cd7-a179-46de9a6f0247",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "4c0c1f9b-7500-4eac-8d48-3fffe69b3b91",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "3bf2e254-d6c9-4e0c-b269-1c80c1220dc4",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "1d192ad2-6590-4179-a088-daff383a52b5",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "effe13ef-00e2-4d55-a207-f2d9d1dd7263",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "eb62d082-2c0a-4672-9252-e8e456f192b1",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "8e14e873-35ba-4720-b787-0bed94370b17",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "d7958adf-f419-46fa-941b-1b946497ef84",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "1c256a65-83a6-4b5c-9ccf-78f8afb6f1e8",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "3e0a4fec-499b-4138-8e7c-71a9d88a62ed",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "8e55a7b1-6766-4f0a-8610-ecacfe3d569a",
+            "state": "PreConsented"
+          },
+          {
+            "id": "a6b63365-31a4-4f43-92ec-710b71557af9",
+            "state": "PreConsented"
+          },
+          {
+            "id": "d2c6f111-ffad-42a0-b65e-ee00425598aa",
+            "state": "Installed",
+            "authorization": {
+              "permissions": {
+                "resourceSpecific": [
+                  {
+                    "name": "SearchQuery.Read.User",
+                    "type": "Delegated"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "id": "db5e5970-212f-477f-a3fc-2227dc7782bf",
+            "state": "PreConsented"
+          },
+          {
+            "id": "com.microsoft.teamspace.tab.planner",
+            "state": "Installed"
+          },
+          {
+            "id": "0d820ecd-def2-4297-adad-78056cde7c78",
+            "state": "Installed"
+          },
+          {
+            "id": "d832a33f-28c2-4969-8ad0-4fee681dc5b4",
+            "state": "Installed"
+          },
+          {
+            "id": "7c316234-ded0-4f95-8a83-8453d0876592",
+            "state": "Installed"
+          },
+          {
+            "id": "2e3a628d-6f54-4100-9e7a-f00bc3621a85",
+            "state": "Installed"
+          },
+          {
+            "id": "95de633a-083e-42f5-b444-a4295d8e9314",
+            "state": "Installed"
+          },
+          {
+            "id": "57e078b5-6c0e-44a1-a83f-45f75b030d4a",
+            "state": "Installed"
+          },
+          {
+            "id": "99e46335-5250-4a68-8499-3e4f55e6f3f6",
+            "state": "Installed"
+          },
+          {
+            "id": "306a2667-81f6-4286-a9e4-242c88d60251",
+            "state": "Featured"
+          },
+          {
+            "id": "4fbe105f-b772-4b09-9279-6e8589087289",
+            "state": "Featured"
+          },
+          {
+            "id": "852a6067-4fec-4895-a3ab-a776c77be161",
+            "state": "Featured"
+          },
+          {
+            "id": "b4f7d39f-ddc7-4f7e-b320-4344444c5e0e",
+            "state": "Featured"
+          },
+          {
+            "id": "25492237-70ef-4c56-a36e-dd3405edd40e",
+            "state": "Featured"
+          },
+          {
+            "id": "com.microsoft.teamspace.tab.youtube",
+            "state": "Featured"
+          },
+          {
+            "id": "fc6b6d20-89ed-45fb-9e62-e4b4ca8fbf3f",
+            "state": "Featured"
+          },
+          {
+            "id": "7299542a-1697-4ec1-812b-6b70065c0795",
+            "state": "Featured"
+          },
+          {
+            "id": "40517485-2262-4135-b174-401da4aa6f0f",
+            "state": "Featured"
+          },
+          {
+            "id": "aa183fd9-7104-46c4-af9f-9ee9b81d717e",
+            "state": "Featured"
+          },
+          {
+            "id": "1542629c-01b3-4a6d-8f76-1938b779e48d",
+            "state": "Featured"
+          },
+          {
+            "id": "6858f123-0a59-4938-bb98-4f6c480a5cc8",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "c781aecf-c235-4660-86f1-0a574c14f540",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "c3a1996d-db0f-4857-a6ea-7aabf0266b00",
+            "state": "PreConsented"
+          },
+          {
+            "id": "1a69c0fd-6ec8-488e-8900-ff3a2fcf5f51",
+            "state": "PreConsented"
+          },
+          {
+            "id": "6d276f45-f124-48f5-856f-39bbfa951efe",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "cd22c4a1-3135-48c5-b1c3-26de0785b5ae",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "42da7003-809a-4ef5-9a65-39c5a4c5cb08",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "a02e4d17-af86-4ceb-9c97-4c2626eb3587",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "4a6520d6-94a8-4730-9184-24997b9b3401",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "100e3882-b881-4b6e-8dba-2cc8884af5d3",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "981bbfd0-5eb8-4393-8158-bfff69d2d6b5",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "5966c135-e05f-4ce0-81e0-e138fe8e9583",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "683f3525-d193-4a67-8d91-22093beab1ca",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "1c4340de-2a85-40e5-8eb0-4f295368978b",
+            "state": "PreConsented"
+          }
+        ],
+        "teacher": [
+          {
+            "id": "77be3f72-7c14-415f-992c-3511dd54a4ae",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "66aeee93-507d-479a-a3ef-8f494af43945",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "62554c36-4756-4d4e-b8fb-f4b24875ae0c",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "b85718a3-6d15-4f59-8fad-b6809c6fc6a9",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "5a22b425-b693-4f86-b668-31baeb3dad6c",
+            "state": "Installed"
+          },
+          {
+            "id": "73d49226-b5c0-42f0-b918-acd20e8a22d8",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "3051bc8e-e666-491a-afe9-03b0855ef83e",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "1820aede-4323-4996-825e-08f059160995",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "3ddb70b6-c3c0-48af-8c47-f2b00a246ef0",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "ef2cf5dc-03c5-4322-b62e-cfe9f5287cf2",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "5da73017-15bb-408d-a65f-47ab9a55938d",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "2c95977d-f2fb-4df3-ad70-1aece87afe03",
+            "state": "InstalledAndPermanent"
+          }
+        ],
+        "student": [
+          {
+            "id": "77be3f72-7c14-415f-992c-3511dd54a4ae",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "66aeee93-507d-479a-a3ef-8f494af43945",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "62554c36-4756-4d4e-b8fb-f4b24875ae0c",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "73d49226-b5c0-42f0-b918-acd20e8a22d8",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "3051bc8e-e666-491a-afe9-03b0855ef83e",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "1820aede-4323-4996-825e-08f059160995",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "3ddb70b6-c3c0-48af-8c47-f2b00a246ef0",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "ef2cf5dc-03c5-4322-b62e-cfe9f5287cf2",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "5da73017-15bb-408d-a65f-47ab9a55938d",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "2c95977d-f2fb-4df3-ad70-1aece87afe03",
+            "state": "InstalledAndPermanent"
+          }
+        ],
+        "default": [
+          {
+            "id": "14d6962d-6eeb-4f48-8890-de55454bb136",
+            "state": "InstalledAndPermanent",
+            "isAppBarPinned": true,
+            "appBarOrder": 1
+          },
+          {
+            "id": "86fcd49b-61a2-4701-b771-54728cd291fb",
+            "state": "InstalledAndPermanent",
+            "isAppBarPinned": true,
+            "appBarOrder": 2
+          },
+          {
+            "id": "2a84919f-59d8-4441-a975-2a8c2643b741",
+            "state": "InstalledAndPermanent",
+            "isAppBarPinned": true,
+            "appBarOrder": 3
+          },
+          {
+            "id": "ef56c0de-36fc-4ef8-b417-3d82ba9d073c",
+            "state": "InstalledAndPermanent",
+            "isAppBarPinned": true,
+            "appBarOrder": 4
+          },
+          {
+            "id": "20c3440d-c67e-4420-9f80-0e50c39693df",
+            "state": "InstalledAndPermanent",
+            "isAppBarPinned": true,
+            "appBarOrder": 5
+          },
+          {
+            "id": "5af6a76b-40fc-4ba1-af29-8f49b08e44fd",
+            "state": "InstalledAndPermanent",
+            "isAppBarPinned": true,
+            "appBarOrder": 6
+          },
+          {
+            "id": "a2da8768-95d5-419e-9441-3b539865b118",
+            "state": "InstalledAndPermanent",
+            "isAppBarPinned": false
+          },
+          {
+            "id": "34b01851-c13d-4604-bb3b-5de1ecbf0288",
+            "state": "InstalledAndPermanent",
+            "isAppBarPinned": false
+          }
+        ]
+      },
+      "team": {
+        "common": [
+          {
+            "id": "f3371bc4-0447-4820-b666-c05b0df18d03",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "25c8502f-159b-478a-9366-20ac0d689c0a",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "8658fe70-540a-4930-b02b-65ae253193ff",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "a63f7012-8cc9-42d5-99c3-e35f526fab17",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "34b01851-c13d-4604-bb3b-5de1ecbf0288",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "86fcd49b-61a2-4701-b771-54728cd291fb",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "20c3440d-c67e-4420-9f80-0e50c39693df",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "2a84919f-59d8-4441-a975-2a8c2643b741",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "5db56dd0-534d-467b-aeda-d622bee2574a",
+            "state": "InstalledAndPermanent",
+            "authorization": {
+              "permissions": {
+                "resourceSpecific": [
+                  {
+                    "name": "ChannelMeeting.ReadBasic.Group",
+                    "type": "Delegated"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "id": "5af6a76b-40fc-4ba1-af29-8f49b08e44fd",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "3ed5b337-c2c9-4d5d-b7b4-84ff09a8fc1c",
+            "state": "InstalledAndPermanent",
+            "tabMetadata": {
+              "isPrepinnned": true,
+              "order": 2
+            }
+          },
+          {
+            "id": "a2da8768-95d5-419e-9441-3b539865b118",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "ef56c0de-36fc-4ef8-b417-3d82ba9d073c",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "14d6962d-6eeb-4f48-8890-de55454bb136",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "39fec4fb-e722-4780-b700-d0b71be0c73d",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "75ae081d-997c-4ca2-9997-1b6d2ff17295",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "9f1a4ae0-6ae2-475d-973d-c89687d03753",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "com.microsoft.teamspace.tab.file.staticviewer.pdf",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "com.microsoft.teamspace.tab.files.sharepoint",
+            "state": "InstalledAndDeprecated"
+          },
+          {
+            "id": "com.microsoft.teamspace.tab.web",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "aa39b2f8-3c8d-4ce1-8b8b-7fe02c59ae3e",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "com.microsoft.teamspace.tab.wiki",
+            "state": "InstalledAndDeprecated"
+          },
+          {
+            "id": "7a0c1d53-f647-4d76-ab2c-fbc0d73c8bb0",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "95de633a-083e-42f5-b444-a4295d8e9314",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "com.microsoftstream.embed.skypeteamstab",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "40517485-2262-4135-b174-401da4aa6f0f",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "41af5cfd-c249-424b-a3ea-5c4b115c3dc6",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "00001016-de05-492e-9106-4828fc8a8687",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "d7958adf-f419-46fa-941b-1b946497ef95",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "25b07509-bc6a-4a53-b683-9beb24e55570",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "d5305801-d9c4-4dd1-aadf-d3cdb0d9d893",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "7a78fde8-7c5c-445d-945e-9354649f9562",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "cae3a8a8-1ba9-4517-a708-4e0ab7fab7ee",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "9781bc7d-5b2e-4cd7-a179-46de9a6f0247",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "4c0c1f9b-7500-4eac-8d48-3fffe69b3b91",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "3bf2e254-d6c9-4e0c-b269-1c80c1220dc4",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "eb62d082-2c0a-4672-9252-e8e456f192b1",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "8e14e873-35ba-4720-b787-0bed94370b17",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "7d71c4a5-dd44-4525-b21b-867d7b2d6e94",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "d7958adf-f419-46fa-941b-1b946497ef84",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "1c256a65-83a6-4b5c-9ccf-78f8afb6f1e8",
+            "state": "InstalledAndPermanent",
+            "authorization": {
+              "permissions": {
+                "resourceSpecific": [
+                  {
+                    "name": "ChannelMeeting.ReadBasic.Group",
+                    "type": "Delegated"
+                  },
+                  {
+                    "name": "ChannelMeetingStage.Write.Group",
+                    "type": "Delegated"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "id": "3e0a4fec-499b-4138-8e7c-71a9d88a62ed",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "com.microsoft.teamspace.tab.planner",
+            "state": "Installed"
+          },
+          {
+            "id": "0ae35b36-0fd7-422e-805b-d53af1579093",
+            "state": "Installed"
+          },
+          {
+            "id": "0d820ecd-def2-4297-adad-78056cde7c78",
+            "state": "Installed"
+          },
+          {
+            "id": "2a527703-1f6f-4559-a332-d8a7d288cd88",
+            "state": "Installed"
+          },
+          {
+            "id": "81fef3a6-72aa-4648-a763-de824aeafb7d",
+            "state": "Installed"
+          },
+          {
+            "id": "d832a33f-28c2-4969-8ad0-4fee681dc5b4",
+            "state": "Installed"
+          },
+          {
+            "id": "1c4340de-2a85-40e5-8eb0-4f295368978b",
+            "state": "Installed"
+          },
+          {
+            "id": "26bc2873-6023-480c-a11b-76b66605ce8c",
+            "state": "Installed"
+          },
+          {
+            "id": "99e46335-5250-4a68-8499-3e4f55e6f3f6",
+            "state": "Installed"
+          },
+          {
+            "id": "42f6c1da-a241-483a-a3cc-4f5be9185951",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "5eef5f1a-5fdc-4313-b851-d6bc21522ad9",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "com.microsoft.teamspace.tab.notes",
+            "state": "InstalledAndDeprecated"
+          },
+          {
+            "id": "com.microsoft.teamspace.tab.powerbi",
+            "state": "InstalledAndDeprecated"
+          },
+          {
+            "id": "a199d45c-a646-4ad3-b4a9-ca288046bb17",
+            "state": "InstalledAndDeprecated"
+          },
+          {
+            "id": "fb2796fa-25f4-4afc-8e55-6836af2c4921",
+            "state": "InstalledAndDeprecated"
+          },
+          {
+            "id": "com.microsoft.teamspace.tab.file.staticviewer.excel",
+            "state": "InstalledAndDeprecated"
+          },
+          {
+            "id": "com.microsoft.teamspace.tab.file.staticviewer.powerpoint",
+            "state": "InstalledAndDeprecated"
+          },
+          {
+            "id": "com.microsoft.teamspace.tab.file.staticviewer.word",
+            "state": "InstalledAndDeprecated"
+          },
+          {
+            "id": "com.microsoft.teamspace.tab.file.staticviewer.visio",
+            "state": "InstalledAndDeprecated"
+          },
+          {
+            "id": "040880f4-0c68-4c38-8821-d5efd2b6ddbe",
+            "state": "InstalledAndDeprecated"
+          },
+          {
+            "id": "c1a1764c-6272-4d03-8495-7da9698ad40a",
+            "state": "InstalledAndDeprecated"
+          },
+          {
+            "id": "28db939f-b39d-4c81-8899-622f917cb1c6",
+            "state": "InstalledAndDeprecated"
+          },
+          {
+            "id": "b7fad6ce-2e23-4aba-b209-859a59ca230e",
+            "state": "InstalledAndDeprecated"
+          },
+          {
+            "id": "29ae87cf-6545-4e79-8093-925d91e4150e",
+            "state": "InstalledAndDeprecated"
+          },
+          {
+            "id": "1a69c0fd-6ec8-488e-8900-ff3a2fcf5f51",
+            "state": "PreConsented"
+          },
+          {
+            "id": "com.example.microsoftteamstabs.maps",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "com.example.microsoftteamstabs.test",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "com.microsoft.teamspace.tab.vsts",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "com.microsoft.teamspace.tab.youtube",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "01b22ab6-c657-491c-97a0-d745bea11269",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "05274a45-7312-4c23-8f64-d57fe4a28d6d",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "0f56a9d1-f502-40f9-a9e8-816d7adbb68b",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "0fd925a0-357f-4d25-8456-b3022aaa41a9",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "14510476-fa9d-4dad-add9-aa5975a60a8b",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "1542629c-01b3-4a6d-8f76-1938b779e48d",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "256ff1bc-fd16-4f82-aeb3-8a6977ff2ec4",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "28b871ff-85bf-48a5-9bee-364f2b74d104",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "4892605a-e6eb-457c-9e45-c680503987c6",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "49e6f432-d79c-49e8-94f7-89b94f3672fd",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "4d0f0848-3fdd-4046-9976-d5568c8b71f4",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "627bdb14-de72-4b86-9f12-e8c2654259f4",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "67cf2c5a-db0e-4256-a423-14010cbeafdd",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "77258206-eaee-4ff8-a5fe-72300f4b4bbb",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "7c01af81-ae7d-416e-98a3-c139cae8cfb0",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "8b3f8cfa-83d1-40d7-8634-8dfd42a3ea46",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "923f8bc4-c1be-462c-bea7-c0ad0d4b2eeb",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "9ce8b7b7-4435-4edb-9c6f-205a9efe944d",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "a6b63365-31a4-4f43-92ec-710b71557af9",
+            "state": "PreConsented"
+          },
+          {
+            "id": "aa183fd9-7104-46c4-af9f-9ee9b81d717e",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "aa5fe6c5-f91c-45ed-88de-640e235ad21b",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "afe63f50-aadc-4139-82dc-ba8da6270be9",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "b66766e5-61ce-4001-b2e6-6817710d6d02",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "bcb050bd-ad7e-4e0e-94a7-e38d7fa098c9",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "bf6bf67a-1990-472d-a75a-1eb17b52cd68",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "d3e6a505-8fbe-419c-ae64-00025cb33b10",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "d57df3b4-c70a-4e6b-9292-0539b54fce7b",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "d7c11157-7535-44c4-af2d-48d286a311ed",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "dce6afe6-4718-4679-80b0-9281ef1b07b8",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "efe3ee7c-3637-4064-b8a9-20fd3b34f36d",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "f02fddc9-159a-4d58-9800-d94c4f64bfe8",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "f0e33e18-08fc-4511-a2a7-c6bdff367263",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "f2933645-edd3-4b8b-88a3-0ee5084eb014",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "f46ad259-0fe5-4f12-872d-c737b174bcb4",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "f4d81e8e-4500-44c2-8328-9e06cbe037c5",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "f7ce9d83-5f93-47ee-910c-06703ef847d1",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "35c4c1c0-368c-47c4-99e0-c0a1e846d8c9",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "25227ff9-e66c-42db-819a-a154498c3d2e",
+            "state": "NotInstalled"
+          },
+          {
+            "id": "5eef5f1a-5fdc-4313-b851-d6bc21522ad9",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "6858f123-0a59-4938-bb98-4f6c480a5cc8",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "c781aecf-c235-4660-86f1-0a574c14f540",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "4a6520d6-94a8-4730-9184-24997b9b3401",
+            "state": "InstalledAndPermanent"
+          }
+        ],
+        "class": [
+          {
+            "id": "1d20e5e6-7310-4029-aa63-3efc9e84e926",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "9d17e873-c4c4-424d-869c-67f62a3d3174",
+            "state": "InstalledAndPermanent",
+            "tabMetadata": {
+              "isPrepinnned": true,
+              "order": 50
+            }
+          },
+          {
+            "id": "2c95977d-f2fb-4df3-ad70-1aece87afe03",
+            "state": "InstalledAndPermanent",
+            "tabMetadata": {
+              "isPrepinnned": true,
+              "order": 62
+            }
+          },
+          {
+            "id": "77be3f72-7c14-415f-992c-3511dd54a4ae",
+            "state": "InstalledAndPermanent",
+            "tabMetadata": {
+              "isPrepinnned": true,
+              "order": 59
+            }
+          },
+          {
+            "id": "66aeee93-507d-479a-a3ef-8f494af43945",
+            "state": "InstalledAndPermanent",
+            "tabMetadata": {
+              "isPrepinnned": true,
+              "order": 60
+            }
+          },
+          {
+            "id": "62554c36-4756-4d4e-b8fb-f4b24875ae0c",
+            "state": "InstalledAndPermanent",
+            "tabMetadata": {
+              "isPrepinnned": true,
+              "order": 61
+            }
+          },
+          {
+            "id": "72b6f7f9-1673-46ba-9e65-e4c51c07a92e",
+            "state": "InstalledAndPermanent",
+            "tabMetadata": {
+              "isPrepinnned": true,
+              "order": 50
+            }
+          },
+          {
+            "id": "5a22b425-b693-4f86-b668-31baeb3dad6c",
+            "state": "InstalledAndPermanent",
+            "tabMetadata": {
+              "isPrepinnned": true,
+              "order": 62
+            }
+          },
+          {
+            "id": "b85718a3-6d15-4f59-8fad-b6809c6fc6a9",
+            "state": "InstalledAndPermanent",
+            "tabMetadata": {
+              "isPrepinnned": true,
+              "order": 63
+            }
+          },
+          {
+            "id": "3a6c38d2-9d25-4c1f-8e06-9da286c1bfc4",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "b56991b4-3924-49b2-b4bf-1710940ec7d9",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "76d3ba6c-19d4-40db-824f-057484e04250",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "5ae4a320-4d98-4bc7-b20a-ffe3224f7f04",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "bd9fb5cb-4d02-4cc6-a7f4-52a8a62d30b7",
+            "state": "InstalledAndPermanent",
+            "tabMetadata": {
+              "isPrepinnned": true,
+              "order": 40
+            }
+          }
+        ],
+        "staff": [
+          {
+            "id": "b56991b4-3924-49b2-b4bf-1710940ec7d9",
+            "state": "InstalledAndPermanent",
+            "tabMetadata": {
+              "isPrepinnned": true,
+              "order": 50
+            }
+          },
+          {
+            "id": "76d3ba6c-19d4-40db-824f-057484e04250",
+            "state": "InstalledAndPermanent",
+            "tabMetadata": {
+              "isPrepinnned": true,
+              "order": 50
+            }
+          },
+          {
+            "id": "2c95977d-f2fb-4df3-ad70-1aece87afe03",
+            "state": "InstalledAndPermanent",
+            "tabMetadata": {
+              "isPrepinnned": true,
+              "order": 62
+            }
+          },
+          {
+            "id": "3a6c38d2-9d25-4c1f-8e06-9da286c1bfc4",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "9d17e873-c4c4-424d-869c-67f62a3d3174",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "72b6f7f9-1673-46ba-9e65-e4c51c07a92e",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "5ae4a320-4d98-4bc7-b20a-ffe3224f7f04",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "b85718a3-6d15-4f59-8fad-b6809c6fc6a9",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "77be3f72-7c14-415f-992c-3511dd54a4ae",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "66aeee93-507d-479a-a3ef-8f494af43945",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "62554c36-4756-4d4e-b8fb-f4b24875ae0c",
+            "state": "HiddenFromAppStore"
+          }
+        ],
+        "plc": [
+          {
+            "id": "3a6c38d2-9d25-4c1f-8e06-9da286c1bfc4",
+            "state": "InstalledAndPermanent",
+            "tabMetadata": {
+              "isPrepinnned": true,
+              "order": 50
+            }
+          },
+          {
+            "id": "5ae4a320-4d98-4bc7-b20a-ffe3224f7f04",
+            "state": "InstalledAndPermanent",
+            "tabMetadata": {
+              "isPrepinnned": true,
+              "order": 50
+            }
+          },
+          {
+            "id": "b56991b4-3924-49b2-b4bf-1710940ec7d9",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "9d17e873-c4c4-424d-869c-67f62a3d3174",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "72b6f7f9-1673-46ba-9e65-e4c51c07a92e",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "76d3ba6c-19d4-40db-824f-057484e04250",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "b85718a3-6d15-4f59-8fad-b6809c6fc6a9",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "77be3f72-7c14-415f-992c-3511dd54a4ae",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "66aeee93-507d-479a-a3ef-8f494af43945",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "62554c36-4756-4d4e-b8fb-f4b24875ae0c",
+            "state": "HiddenFromAppStore"
+          }
+        ],
+        "edu": [
+          {
+            "id": "3a6c38d2-9d25-4c1f-8e06-9da286c1bfc4",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "b56991b4-3924-49b2-b4bf-1710940ec7d9",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "9d17e873-c4c4-424d-869c-67f62a3d3174",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "72b6f7f9-1673-46ba-9e65-e4c51c07a92e",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "76d3ba6c-19d4-40db-824f-057484e04250",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "5ae4a320-4d98-4bc7-b20a-ffe3224f7f04",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "b85718a3-6d15-4f59-8fad-b6809c6fc6a9",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "77be3f72-7c14-415f-992c-3511dd54a4ae",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "66aeee93-507d-479a-a3ef-8f494af43945",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "62554c36-4756-4d4e-b8fb-f4b24875ae0c",
+            "state": "HiddenFromAppStore"
+          }
+        ]
+      },
+      "groupChat": {
+        "common": [
+          {
+            "id": "f3371bc4-0447-4820-b666-c05b0df18d03",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "25c8502f-159b-478a-9366-20ac0d689c0a",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "8658fe70-540a-4930-b02b-65ae253193ff",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "a63f7012-8cc9-42d5-99c3-e35f526fab17",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "com.microsoft.teamspace.tab.web",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "7a0c1d53-f647-4d76-ab2c-fbc0d73c8bb0",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "com.microsoft.teamspace.tab.file.staticviewer.pdf",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "5db56dd0-534d-467b-aeda-d622bee2574a",
+            "state": "InstalledAndPermanent",
+            "authorization": {
+              "permissions": {
+                "resourceSpecific": [
+                  {
+                    "name": "OnlineMeeting.ReadBasic.Chat",
+                    "type": "Delegated"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "id": "95de633a-083e-42f5-b444-a4295d8e9314",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "com.microsoftstream.embed.skypeteamstab",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "40517485-2262-4135-b174-401da4aa6f0f",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "41af5cfd-c249-424b-a3ea-5c4b115c3dc6",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "00001016-de05-492e-9106-4828fc8a8687",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "d7958adf-f419-46fa-941b-1b946497ef95",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "25b07509-bc6a-4a53-b683-9beb24e55570",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "com.microsoft.teamspace.tab.wiki",
+            "state": "InstalledAndDeprecated"
+          },
+          {
+            "id": "d5305801-d9c4-4dd1-aadf-d3cdb0d9d893",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "7a78fde8-7c5c-445d-945e-9354649f9562",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "cae3a8a8-1ba9-4517-a708-4e0ab7fab7ee",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "9781bc7d-5b2e-4cd7-a179-46de9a6f0247",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "4c0c1f9b-7500-4eac-8d48-3fffe69b3b91",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "3bf2e254-d6c9-4e0c-b269-1c80c1220dc4",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "eb62d082-2c0a-4672-9252-e8e456f192b1",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "8e14e873-35ba-4720-b787-0bed94370b17",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "7d71c4a5-dd44-4525-b21b-867d7b2d6e94",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "d7958adf-f419-46fa-941b-1b946497ef84",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "1c256a65-83a6-4b5c-9ccf-78f8afb6f1e8",
+            "state": "InstalledAndPermanent",
+            "authorization": {
+              "permissions": {
+                "resourceSpecific": [
+                  {
+                    "name": "OnlineMeeting.ReadBasic.Chat",
+                    "type": "Delegated"
+                  },
+                  {
+                    "name": "MeetingStage.Write.Chat",
+                    "type": "Delegated"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "id": "3e0a4fec-499b-4138-8e7c-71a9d88a62ed",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "5eef5f1a-5fdc-4313-b851-d6bc21522ad9",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "a6b63365-31a4-4f43-92ec-710b71557af9",
+            "state": "PreConsented"
+          },
+          {
+            "id": "1a69c0fd-6ec8-488e-8900-ff3a2fcf5f51",
+            "state": "PreConsented"
+          },
+          {
+            "id": "8e55a7b1-6766-4f0a-8610-ecacfe3d569a",
+            "state": "PreConsented"
+          },
+          {
+            "id": "0d820ecd-def2-4297-adad-78056cde7c78",
+            "state": "Installed"
+          },
+          {
+            "id": "1c4340de-2a85-40e5-8eb0-4f295368978b",
+            "state": "Installed"
+          },
+          {
+            "id": "99e46335-5250-4a68-8499-3e4f55e6f3f6",
+            "state": "Installed"
+          },
+          {
+            "id": "com.microsoft.teamspace.tab.powerbi",
+            "state": "InstalledAndDeprecated"
+          },
+          {
+            "id": "com.microsoft.teamspace.tab.file.staticviewer.excel",
+            "state": "InstalledAndDeprecated"
+          },
+          {
+            "id": "com.microsoft.teamspace.tab.file.staticviewer.powerpoint",
+            "state": "InstalledAndDeprecated"
+          },
+          {
+            "id": "com.microsoft.teamspace.tab.file.staticviewer.word",
+            "state": "InstalledAndDeprecated"
+          },
+          {
+            "id": "com.microsoft.teamspace.tab.file.staticviewer.visio",
+            "state": "InstalledAndDeprecated"
+          },
+          {
+            "id": "6858f123-0a59-4938-bb98-4f6c480a5cc8",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "c781aecf-c235-4660-86f1-0a574c14f540",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "6d276f45-f124-48f5-856f-39bbfa951efe",
+            "state": "HiddenFromAppStore"
+          },
+          {
+            "id": "4a6520d6-94a8-4730-9184-24997b9b3401",
+            "state": "InstalledAndPermanent"
+          },
+          {
+            "id": "683f3525-d193-4a67-8d91-22093beab1ca",
+            "state": "InstalledAndPermanent"
+          }
+        ]
+      }
+    }
+  }
+}

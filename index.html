@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft Teams App Catalog Explorer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="built-by-credit" title="Built by LukasAgent - AI Assistant">
+                <span class="icon">🤖</span>
+                <span>Built by LukasAgent</span>
+            </div>
+            <h1>Microsoft Teams App Catalog Explorer</h1>
+            <p>Search and explore Microsoft Teams applications with detailed information and preconfigured entitlement states</p>
+        </div>
+
+        <div class="search-section">
+            <!-- Tab Navigation -->
+            <div class="tab-navigation">
+                <button class="tab-button active" id="searchTab" onclick="window.appExplorer.switchTab('search')">
+                    Search Apps
+                </button>
+                <button class="tab-button" id="entitlementStatesTab" onclick="window.appExplorer.switchTab('entitlementStates')">
+                    Entitlement States
+                </button>
+            </div>
+
+            <!-- Search Tab Content -->
+            <div id="searchTabContent" class="tab-content active">
+                <div class="search-container">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Search by App ID, Name, Developer, Office Asset ID, or Version..." />
+                </div>
+                
+                <div class="stats" id="catalogStats" style="display: none;">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalApps">0</div>
+                        <div class="stat-label">Total Apps</div>
+                    </div>
+                    <div class="stat-card clickable" onclick="window.appExplorer.showLoadedSourcesModal()">
+                        <div class="stat-number" id="loadedSources">0</div>
+                        <div class="stat-label">Loaded Sources (Click to View)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="entitlementConfigs">0</div>
+                        <div class="stat-label">Total Preconfigured Entitlements</div>
+                    </div>
+                </div>
+
+                <div id="statusMessage" class="status" style="display: none;"></div>
+            </div>
+
+            <!-- Entitlement States Tab Content -->
+            <div id="entitlementStatesTabContent" class="tab-content">
+                <!-- Global Audience Filter -->
+                <div id="globalAudienceFilter" class="audience-filter-container" style="display: none; margin-bottom: 20px;">
+                    <h4 class="audience-filter-title">🎯 Filter All States by Audience Groups</h4>
+                    <div class="audience-filter-buttons" id="globalAudienceFilterButtons">
+                        <!-- Filter buttons will be populated by JavaScript -->
+                    </div>
+                    <div style="margin-top: 10px; font-size: 0.8rem; color: #64748b;" id="globalFilterSummary">
+                        <!-- Filter summary will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="stats" id="entitlementStatesStats" style="display: none;">
+                    <div class="stat-card clickable" onclick="window.appExplorer.showStateReference()">
+                        <div class="stat-number" id="uniqueStates">0</div>
+                        <div class="stat-label">Unique States (Click for Reference)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="appsWithEntitlements">0</div>
+                        <div class="stat-label">Apps with Entitlements</div>
+                    </div>
+                </div>
+
+                <div id="entitlementStatesStatus" class="status" style="display: none;"></div>
+                <div id="entitlementStatesResults" class="entitlement-states-grid"></div>
+            </div>
+        </div>
+
+        <div class="results-section">
+            <div id="results"></div>
+        </div>
+    </div>
+
+    <!-- Modal for detailed app information -->
+    <div id="appModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>App Details</h2>
+                <button class="close" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- App details will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- State Reference Modal -->
+    <div id="stateReferenceModal" class="state-reference-modal">
+        <div class="state-reference-content">
+            <div class="state-reference-header">
+                <h2>Preconfigured Entitlement States Reference</h2>
+                <button class="close" id="closeStateReferenceModal">&times;</button>
+            </div>
+            <div class="state-reference-body">
+                <div class="state-definition">
+                    <h4>🔒 InstalledAndPermanent</h4>
+                    <p>The app is installed and cannot be uninstalled by the user and will not show up in store. <strong>Note:</strong> This state is not to be used if the app contains bot in specified scope or resource specific permissions.</p>
+                </div>
+                <div class="state-definition">
+                    <h4>🟢 Installed</h4>
+                    <p>The app is installed and can be uninstalled by the user.</p>
+                </div>
+                <div class="state-definition">
+                    <h4>✅ PreConsented</h4>
+                    <p>The app is preconsented and gets silently installed upon first use.</p>
+                </div>
+                <div class="state-definition">
+                    <h4>⭐ Featured</h4>
+                    <p>The app is featured and needs to be installed by the user on first use.</p>
+                </div>
+                <div class="state-definition">
+                    <h4>❌ NotInstalled</h4>
+                    <p>The app is not installed but existing tabs are shown. This is also known as the grandfathered state and should not be used for any new apps.</p>
+                </div>
+                <div class="state-definition">
+                    <h4>⚠️ InstalledAndDeprecated</h4>
+                    <p>The app has been marked for deprecation. It will still show up in Teams Admin Center but will not show up for users in Teams Client.</p>
+                </div>
+                <div class="state-definition">
+                    <h4>🚫 HiddenFromAppStore</h4>
+                    <p>The app would get hidden from all app discovery entry points including Teams Client App Store and Teams Admin Center.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- State Details Modal -->
+    <div id="stateDetailsModal" class="state-details-modal">
+        <div class="state-details-content">
+            <div class="state-details-header">
+                <h2 id="stateDetailsTitle">State Details</h2>
+                <button class="close" id="closeStateDetailsModal">&times;</button>
+            </div>
+            <div class="state-details-body" id="stateDetailsBody">
+                <!-- State details will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Loaded Sources Modal -->
+    <div id="loadedSourcesModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Loaded Sources</h2>
+                <button class="close" id="closeLoadedSourcesModal">&times;</button>
+            </div>
+            <div class="modal-app-details" id="loadedSourcesContent">
+                <!-- Loaded sources will be inserted here -->
+            </div>
+        </div>
+    </div>    <!-- Enhanced Blocking Loader -->
+    <div id="blockingLoader" class="blocking-loader">
+        <div class="loader-container">
+            <div class="loader-header">
+                <h2 class="loader-title">Loading Teams App Catalog</h2>
+                <p class="loader-subtitle">Gathering app data from Microsoft Teams</p>
+            </div>
+            
+            <div class="loader-spinner"></div>
+            
+            <div class="loader-progress">
+                <div class="loader-progress-bar" id="loaderProgressBar"></div>
+            </div>
+            
+            <div class="loader-message" id="loaderMessage">Initializing...</div>
+            
+            <div class="loader-stats" id="loaderStats" style="display: none;">
+                <div class="loader-stat">
+                    <div class="loader-stat-number" id="loaderSourcesLoaded">0</div>
+                    <div class="loader-stat-label">Sources Loaded</div>
+                </div>
+                <div class="loader-stat">
+                    <div class="loader-stat-number" id="loaderTotalSources">0</div>
+                    <div class="loader-stat-label">Total Sources</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Modules -->
+    <script src="js/utils.js"></script>
+    <script src="js/data-loader.js"></script>
+    <script src="js/search-engine.js"></script>
+    <script src="js/ui-renderer.js"></script>
+    <script src="js/modal-manager.js"></script>
+    <script src="js/event-handlers.js"></script>
+    <script src="js/app-explorer.js"></script>
+    
+    <script>
+        // Create the global instance and make it accessible
+        window.appExplorer = new TeamsAppCatalogExplorer();
+    </script>
+
+</body>
+</html>
