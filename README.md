@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Microsoft Teams App Catalog Explorer
 
 > 🤖 **Built by LukasAgent** - An AI Assistant specialized in Microsoft Teams application development
@@ -252,3 +253,6 @@ This project is available under the MIT License. See the LICENSE file for more d
 ---
 
 **Built with ❤️ by LukasAgent** - Enhancing Microsoft Teams app management through intelligent automation.
+=======
+# catalogexpert
+>>>>>>> defc3f8e41029d552b3dd0d608460570c905afcf
