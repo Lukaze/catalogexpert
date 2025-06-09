@@ -1,0 +1,160 @@
+/* Main CSS file that imports all modular stylesheets */
+/* Teams App Catalog Explorer - Modular CSS Architecture */
+
+/* Base styles and reset */
+@import url('css/base.css');
+
+/* Header and navigation */
+@import url('css/header.css');
+
+/* Search functionality */
+@import url('css/search.css');
+
+/* Search results display */
+@import url('css/search-results.css');
+
+/* Modal components */
+@import url('css/modals.css');
+
+/* Modal tab content */
+@import url('css/modal-tabs.css');
+
+/* Entitlements display */
+@import url('css/entitlements.css');
+
+/* Entitlement states management */
+@import url('css/entitlement-states.css');
+
+/* State modals */
+@import url('css/state-modals.css');
+
+/* Loading states and spinners */
+@import url('css/loaders.css');
+
+/* Development CSS validation test - remove in production */
+@import url('css/validation-test.css');
+
+/* Legacy app cards - to be refactored later */
+.app-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.app-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.app-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.app-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    object-fit: cover;
+    border: 2px solid #e2e8f0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8fafc;
+}
+
+.app-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.app-basic-info h3 {
+    color: #1e293b;
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.app-basic-info p {
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+.app-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.detail-group {
+    background: #f8fafc;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.detail-group h4 {
+    color: #374151;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    padding: 5px 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.detail-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.detail-label {
+    font-weight: 500;
+    color: #4b5563;
+}
+
+.detail-value {
+    color: #1f2937;
+}
+
+/* App ID and Office Asset ID styling for search results */
+.app-id {
+    font-size: 0.7rem !important;
+    color: #9ca3af;
+    font-family: 'Courier New', monospace;
+    margin-bottom: 6px;
+}
+
+.office-asset-id {
+    font-size: 0.7rem !important;
+    color: #9ca3af;
+    font-family: 'Courier New', monospace;
+    margin-bottom: 6px;
+}
+
+.app-id strong,
+.office-asset-id strong {
+    font-size: 0.7rem !important;
+    font-weight: 500;
+    color: #6b7280;
+}
+
+@media (max-width: 768px) {
+    .app-details {
+        grid-template-columns: 1fr;
+    }
+}
