@@ -30,6 +30,17 @@
 
             <!-- Search Tab Content -->
             <div id="searchTabContent" class="tab-content active">
+                <!-- Search Audience Filter -->
+                <div id="searchAudienceFilter" class="audience-filter-container" style="display: none; margin-bottom: 20px;">
+                    <h4 class="audience-filter-title">🎯 Filter Apps by Audience Groups</h4>
+                    <div class="audience-filter-buttons" id="searchAudienceFilterButtons">
+                        <!-- Filter buttons will be populated by JavaScript -->
+                    </div>
+                    <div style="margin-top: 10px; font-size: 0.8rem; color: #64748b;" id="searchFilterSummary">
+                        <!-- Filter summary will be populated by JavaScript -->
+                    </div>
+                </div>
+
                 <div class="search-container">
                     <input type="text" id="searchInput" class="search-input" placeholder="Search by App ID, Name, Developer, Office Asset ID, or Version..." />
                 </div>
@@ -196,8 +207,7 @@
     <script src="js/utils.js"></script>
     <script src="js/data-loader.js"></script>
     <script src="js/search-engine.js"></script>
-    <script src="js/ui-renderer.js"></script>
-    <script src="js/modal-manager.js"></script>
+    <script src="js/ui-renderer.js"></script>    <script src="js/modal-manager.js"></script>
     <script src="js/event-handlers.js"></script>
     <script src="js/app-explorer.js"></script>
     

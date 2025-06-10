@@ -70,17 +70,92 @@ class SearchEngine {
     }
 
     /**
-     * Handle real-time search input (as you type)
+     * Display all available apps with audience filtering
      */
-    handleSearchInput(searchTerm) {
+    showAllAppsWithAudienceFilter(selectedAudiences) {
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            searchInput.value = '';
+        }
+        
+        // Get all apps and filter by selected audiences
+        const allApps = [];
+        const seenAppIds = new Set();
+        
+        this.appDefinitions.forEach((audienceMap, appId) => {
+            if (seenAppIds.has(appId)) return;
+            
+            // Check if app exists in any of the selected audience groups
+            const hasSelectedAudience = Array.from(audienceMap.keys()).some(audience => 
+                selectedAudiences.has(audience)
+            );
+            
+            if (!hasSelectedAudience && selectedAudiences.size > 0) {
+                return; // Skip apps not in selected audiences
+            }
+            
+            const firstApp = audienceMap.values().next().value;
+            if (firstApp) {
+                seenAppIds.add(appId);
+                allApps.push({
+                    appId,
+                    app: firstApp,
+                    audienceMap,
+                    hasEntitlements: this.appEntitlements.has(appId)
+                });
+            }
+        });
+        
+        // Sort results: apps with entitlements first, then alphabetically by name
+        const sortedApps = allApps.sort((a, b) => {
+            if (a.hasEntitlements && !b.hasEntitlements) return -1;
+            if (!a.hasEntitlements && b.hasEntitlements) return 1;
+            return (a.app.name || '').localeCompare(b.app.name || '');
+        });
+        
+        this.displayAllAppsResults(sortedApps);
+    }    /**
+     * Handle real-time search input (as you type) with optional audience filtering
+     */
+    handleSearchInput(searchTerm, selectedAudiences = null) {
         if (!searchTerm || searchTerm.trim() === '') {
-            // If search is empty, show all apps
-            this.showAllApps();
+            // If search is empty, show all apps (with or without audience filtering)
+            if (selectedAudiences && selectedAudiences.size > 0) {
+                this.showAllAppsWithAudienceFilter(selectedAudiences);
+            } else {
+                this.showAllApps();
+            }
             return;
         }
         
-        // Perform search with wildcard and operator support
-        const results = this.performAdvancedSearch(searchTerm.trim());
+        // Perform search with wildcard and operator support (with or without audience filtering)
+        let results;
+        if (selectedAudiences && selectedAudiences.size > 0) {
+            results = this.performAdvancedSearchWithAudienceFilter(searchTerm.trim(), selectedAudiences);
+        } else {
+            results = this.performAdvancedSearch(searchTerm.trim());
+        }
+        
+        if (results.length === 0) {
+            this.displayNoResults(searchTerm);
+            return;
+        }
+        
+        this.displaySearchResults(results, searchTerm);
+    }
+
+    /**
+     * Handle real-time search input with audience filtering
+     */
+    handleSearchInputWithAudienceFilter(searchTerm, selectedAudiences) {
+        if (!searchTerm || searchTerm.trim() === '') {
+            // If search is empty, show all apps with audience filtering
+            this.showAllAppsWithAudienceFilter(selectedAudiences);
+            return;
+        }
+        
+        // Perform search with wildcard and operator support, plus audience filtering
+        const results = this.performAdvancedSearchWithAudienceFilter(searchTerm.trim(), selectedAudiences);
         
         if (results.length === 0) {
             this.displayNoResults(searchTerm);
@@ -116,6 +191,67 @@ class SearchEngine {
         
         this.appDefinitions.forEach((audienceMap, appId) => {
             if (seenAppIds.has(appId)) return;
+            
+            const firstApp = audienceMap.values().next().value;
+            if (!firstApp) return;
+            
+            // Check if app matches the search conditions
+            const matches = this.evaluateSearchConditions(firstApp, appId, searchConditions);
+            
+            if (matches) {
+                seenAppIds.add(appId);
+                results.push({
+                    appId,
+                    app: firstApp,
+                    audienceMap,
+                    hasEntitlements: this.appEntitlements.has(appId)
+                });
+            }
+        });
+        
+        // Sort results: apps with entitlements first, then alphabetically by name
+        return results.sort((a, b) => {
+            if (a.hasEntitlements && !b.hasEntitlements) return -1;
+            if (!a.hasEntitlements && b.hasEntitlements) return 1;
+            return (a.app.name || '').localeCompare(b.app.name || '');
+        });
+    }
+
+    /**
+     * Advanced search with wildcard (*), AND, OR operators and audience filtering
+     */
+    performAdvancedSearchWithAudienceFilter(searchTerm, selectedAudiences) {
+        // Check if the search contains operators
+        const hasOperators = /\b(AND|OR)\b/i.test(searchTerm) || searchTerm.includes('*');
+        
+        if (hasOperators) {
+            return this.performWildcardSearchWithAudienceFilter(searchTerm, selectedAudiences);
+        } else {
+            return this.performMultiCriteriaSearchWithAudienceFilter(searchTerm, selectedAudiences);
+        }
+    }
+
+    /**
+     * Wildcard and operator search with audience filtering
+     */
+    performWildcardSearchWithAudienceFilter(searchTerm, selectedAudiences) {
+        const results = [];
+        const seenAppIds = new Set();
+        
+        // Parse search terms with operators
+        const searchConditions = this.parseSearchConditions(searchTerm);
+        
+        this.appDefinitions.forEach((audienceMap, appId) => {
+            if (seenAppIds.has(appId)) return;
+            
+            // Check if app exists in any of the selected audience groups
+            const hasSelectedAudience = Array.from(audienceMap.keys()).some(audience => 
+                selectedAudiences.has(audience)
+            );
+            
+            if (!hasSelectedAudience && selectedAudiences.size > 0) {
+                return; // Skip apps not in selected audiences
+            }
             
             const firstApp = audienceMap.values().next().value;
             if (!firstApp) return;
@@ -191,6 +327,60 @@ class SearchEngine {
         // Search through all app definitions
         this.appDefinitions.forEach((audienceMap, appId) => {
             if (seenAppIds.has(appId)) return;
+            
+            // Get first app instance for searching (they should have same basic info)
+            const firstApp = audienceMap.values().next().value;
+            if (!firstApp) return;
+            
+            // Check multiple criteria
+            const matches = [
+                appId.toLowerCase().includes(searchLower),
+                firstApp.name?.toLowerCase().includes(searchLower),
+                firstApp.developerName?.toLowerCase().includes(searchLower),
+                firstApp.officeAssetId?.toLowerCase().includes(searchLower),
+                firstApp.version?.toLowerCase().includes(searchLower),
+                firstApp.description?.toLowerCase().includes(searchLower)
+            ].some(match => match);
+            
+            if (matches) {
+                seenAppIds.add(appId);
+                results.push({
+                    appId,
+                    app: firstApp,
+                    audienceMap,
+                    hasEntitlements: this.appEntitlements.has(appId)
+                });
+            }
+        });
+        
+        // Sort results: apps with entitlements first, then alphabetically by name
+        return results.sort((a, b) => {
+            if (a.hasEntitlements && !b.hasEntitlements) return -1;
+            if (!a.hasEntitlements && b.hasEntitlements) return 1;
+            return (a.app.name || '').localeCompare(b.app.name || '');
+        });
+    }
+
+    /**
+     * Multi-criteria search with audience filtering (basic search without operators)
+     */
+    performMultiCriteriaSearchWithAudienceFilter(searchTerm, selectedAudiences) {
+        const results = [];
+        const seenAppIds = new Set();
+        const searchLower = searchTerm.toLowerCase();
+        
+        // Search through all app definitions with audience filtering
+        this.appDefinitions.forEach((audienceMap, appId) => {
+            if (seenAppIds.has(appId)) return;
+            
+            // Check if app exists in any of the selected audience groups
+            const hasSelectedAudience = Array.from(audienceMap.keys()).some(audience => 
+                selectedAudiences.has(audience)
+            );
+            
+            if (!hasSelectedAudience && selectedAudiences.size > 0) {
+                return; // Skip apps not in selected audiences
+            }
             
             // Get first app instance for searching (they should have same basic info)
             const firstApp = audienceMap.values().next().value;

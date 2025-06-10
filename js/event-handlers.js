@@ -137,9 +137,7 @@ class EventHandlers {
                 appExplorer.modalManager.closeAllModals();
             }
         });
-    }
-
-    /**
+    }    /**
      * Handle search input with debouncing
      */
     handleSearchInput(query, appExplorer) {
@@ -147,12 +145,21 @@ class EventHandlers {
         if (this.searchTimeout) {
             clearTimeout(this.searchTimeout);
         }
-        
-        // Set new timeout for debounced search
+          // Set new timeout for debounced search
         this.searchTimeout = setTimeout(() => {
-            appExplorer.searchEngine.handleSearchInput(query);
+            // Check if we're on the search tab and have audience filters selected
+            const searchTab = document.getElementById('searchTab');
+            const isSearchTabActive = searchTab && searchTab.classList.contains('active');
+            
+            if (isSearchTabActive && appExplorer.searchSelectedAudiences && appExplorer.searchSelectedAudiences.size > 0) {
+                // Use audience filtering for search
+                appExplorer.searchEngine.handleSearchInput(query, appExplorer.searchSelectedAudiences);
+            } else {
+                // Use regular search
+                appExplorer.searchEngine.handleSearchInput(query);
+            }
         }, 300); // 300ms debounce
-    }    /**
+    }/**
      * Tab switching functionality
      */
     switchTab(tabName) {
@@ -231,6 +238,54 @@ class EventHandlers {
             appExplorer.globalSelectedAudiences
         );
         appExplorer.refreshEntitlementStatesDisplay();
+    }
+
+    /**
+     * Handle search audience filter selection for Search Apps tab
+     */
+    toggleSearchAudienceFilter(audience, appExplorer) {
+        if (appExplorer.searchSelectedAudiences.has(audience)) {
+            appExplorer.searchSelectedAudiences.delete(audience);
+        } else {
+            appExplorer.searchSelectedAudiences.add(audience);
+        }
+        
+        // Update the filter UI and refresh search display
+        appExplorer.uiRenderer.renderSearchAudienceFilter(
+            appExplorer.audienceGroups, 
+            appExplorer.searchSelectedAudiences
+        );
+        appExplorer.refreshSearchDisplay();
+    }
+
+    /**
+     * Select all search audience filters
+     */
+    selectAllSearchAudiences(appExplorer) {
+        appExplorer.audienceGroups.forEach(audience => {
+            appExplorer.searchSelectedAudiences.add(audience);
+        });
+        
+        // Update the filter UI and refresh search display
+        appExplorer.uiRenderer.renderSearchAudienceFilter(
+            appExplorer.audienceGroups, 
+            appExplorer.searchSelectedAudiences
+        );
+        appExplorer.refreshSearchDisplay();
+    }
+
+    /**
+     * Clear all search audience filters
+     */
+    clearAllSearchAudiences(appExplorer) {
+        appExplorer.searchSelectedAudiences.clear();
+        
+        // Update the filter UI and refresh search display
+        appExplorer.uiRenderer.renderSearchAudienceFilter(
+            appExplorer.audienceGroups, 
+            appExplorer.searchSelectedAudiences
+        );
+        appExplorer.refreshSearchDisplay();
     }
 
     /**

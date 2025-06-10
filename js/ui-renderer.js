@@ -315,6 +315,73 @@ class UIRenderer {
     }
 
     /**
+     * Render the search audience filter for the Search Apps tab
+     */
+    renderSearchAudienceFilter(audienceGroups, searchSelectedAudiences) {
+        const filterContainer = document.getElementById('searchAudienceFilterButtons');
+        const filterSummary = document.getElementById('searchFilterSummary');
+        
+        if (!filterContainer || !filterSummary) return;
+
+        // Get all unique audience groups from loaded data
+        const allAudiences = Array.from(audienceGroups).sort();
+        
+        if (allAudiences.length === 0) {
+            filterContainer.innerHTML = '<p style="color: #64748b; font-style: italic;">No audience groups loaded yet.</p>';
+            filterSummary.innerHTML = '';
+            return;
+        }
+
+        // Generate filter buttons
+        let buttonsHtml = '';
+        allAudiences.forEach(audience => {
+            const isSelected = searchSelectedAudiences.has(audience);
+            const selectedClass = isSelected ? 'selected' : '';
+            const shorthand = window.utils.getAudienceGroupShorthand(audience);
+            buttonsHtml += `
+                <button class="audience-filter-btn ${selectedClass}" 
+                        data-audience="${audience.toLowerCase()}"
+                        onclick="window.appExplorer.toggleSearchAudienceFilter('${audience}')">
+                    ${shorthand}
+                </button>
+            `;
+        });
+
+        // Add "Select All" and "Clear All" buttons
+        const allSelected = searchSelectedAudiences.size === allAudiences.length;
+        const noneSelected = searchSelectedAudiences.size === 0;
+        
+        buttonsHtml += `
+            <button class="audience-filter-btn" 
+                    onclick="window.appExplorer.selectAllSearchAudiences()" 
+                    style="margin-left: 10px; font-size: 0.8rem; background: #10b981; border-color: #10b981; color: white;"
+                    ${allSelected ? 'disabled' : ''}>
+                Select All
+            </button>
+            <button class="audience-filter-btn" 
+                    onclick="window.appExplorer.clearAllSearchAudiences()" 
+                    style="margin-left: 5px; font-size: 0.8rem; background: #ef4444; border-color: #ef4444; color: white;"
+                    ${noneSelected ? 'disabled' : ''}>
+                Clear All
+            </button>
+        `;
+
+        filterContainer.innerHTML = buttonsHtml;
+
+        // Update summary
+        if (searchSelectedAudiences.size === 0) {
+            filterSummary.innerHTML = '<span style="color: #ef4444;">No audience groups selected - no apps will be shown</span>';
+        } else if (searchSelectedAudiences.size === allAudiences.length) {
+            filterSummary.innerHTML = `<span style="color: #10b981;">All ${allAudiences.length} audience groups selected</span>`;
+        } else {
+            const selectedShorthands = Array.from(searchSelectedAudiences).sort().map(audience => 
+                window.utils.getAudienceGroupShorthand(audience)
+            ).join(', ');
+            filterSummary.innerHTML = `<span style="color: #4f46e5;">${searchSelectedAudiences.size} of ${allAudiences.length} audience groups selected: ${selectedShorthands}</span>`;
+        }
+    }
+
+    /**
      * Render the state details content with current filters
      */
     renderStateDetailsContent(currentStateDetails) {

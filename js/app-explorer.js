@@ -10,11 +10,14 @@ class TeamsAppCatalogExplorer {
         this.appEntitlements = new Map(); // App ID -> Map of "audienceGroup.scope.context" -> preconfigured entitlement
         this.loadedSources = 0;
         this.totalSources = 0;
-        this.isLoading = false;
-
-        // Configuration        this.audienceGroups = new Set(); // Will be populated from actual data
-        this.constants = window.utils.CONSTANTS;        // Global audience filter state for Entitlement States tab
+        this.isLoading = false;        // Configuration        this.audienceGroups = new Set(); // Will be populated from actual data
+        this.constants = window.utils.CONSTANTS;
+        
+        // Global audience filter state for Entitlement States tab
         this.globalSelectedAudiences = new Set(); // Will be populated when data is loaded
+        
+        // Search audience filter state for Search Apps tab
+        this.searchSelectedAudiences = new Set(); // Will be populated when data is loaded
         
         // Initialize modules
         this.dataLoader = new window.DataLoader(
@@ -240,12 +243,17 @@ class TeamsAppCatalogExplorer {
      */
     updateStats() {
         this.uiRenderer.updateStats();
-    }
-
-    /**
+    }    /**
      * Show all available apps
      */
     showAllApps() {
+        // Populate audience groups from loaded data
+        this.populateAudienceGroups();
+        
+        // Initialize search tab now that we have data
+        this.initializeSearchTab();
+        
+        // Show all apps in the search results
         this.searchEngine.showAllApps();
     }
 
@@ -254,6 +262,25 @@ class TeamsAppCatalogExplorer {
      */
     handleSearchInput(query) {
         this.searchEngine.handleSearchInput(query);
+    }    /**
+     * Refresh search display with audience filtering
+     */
+    refreshSearchDisplay() {
+        // Get current search term
+        const searchInput = document.getElementById('searchInput');
+        const searchTerm = searchInput ? searchInput.value.trim() : '';
+        
+        if (searchTerm) {
+            // If there's a search term, perform filtered search
+            this.searchEngine.handleSearchInput(searchTerm, this.searchSelectedAudiences);
+        } else {
+            // If no search term, show all apps with audience filtering
+            if (this.searchSelectedAudiences && this.searchSelectedAudiences.size > 0) {
+                this.searchEngine.showAllAppsWithAudienceFilter(this.searchSelectedAudiences);
+            } else {
+                this.searchEngine.showAllApps();
+            }
+        }
     }
 
     /**
@@ -294,10 +321,11 @@ class TeamsAppCatalogExplorer {
      */
     showLoadedSourcesModal() {
         this.modalManager.showLoadedSourcesModal(
-            this.uiRenderer,
-            this.dataLoader.urlToAudienceGroups
+            this.uiRenderer,        this.dataLoader.urlToAudienceGroups
         );
-    }    /**
+    }
+
+    /**
      * Tab switching functionality
      */
     switchTab(tabName) {
@@ -306,11 +334,56 @@ class TeamsAppCatalogExplorer {
         // Initialize tab-specific content
         if (tabName === 'entitlementStates') {
             this.initializeEntitlementStatesTab();
+        } else if (tabName === 'search') {
+            this.initializeSearchTab();
         }
     }    /**
-     * Initialize the Entitlement States tab content
+     * Populate audience groups from loaded data
      */
-    initializeEntitlementStatesTab() {
+    populateAudienceGroups() {
+        const actualAudienceGroups = new Set();
+        
+        // Collect audience groups from app definitions (always available)
+        for (const [appId, audienceMap] of this.appDefinitions.entries()) {
+            for (const [audienceGroup] of audienceMap.entries()) {
+                actualAudienceGroups.add(audienceGroup);
+            }
+        }
+        
+        // Also collect from entitlements if available (for consistency)
+        if (this.appEntitlements.size > 0) {
+            for (const [appId, entitlementMap] of this.appEntitlements.entries()) {
+                for (const [entitlementKey] of entitlementMap.entries()) {
+                    // Extract audience group from the entitlement key format: "audienceGroup.scope.context"
+                    const [audienceGroup] = entitlementKey.split('.');
+                    if (audienceGroup) {
+                        actualAudienceGroups.add(audienceGroup);
+                    }
+                }
+            }
+        }
+
+        // Update the audienceGroups with actual data
+        this.audienceGroups = actualAudienceGroups;
+
+        // Initialize global selected audiences if empty or if using old hardcoded data
+        if (this.globalSelectedAudiences.size === 0 || 
+            !Array.from(this.globalSelectedAudiences).some(audience => actualAudienceGroups.has(audience))) {
+            // Start with all actual audience groups selected
+            this.globalSelectedAudiences = new Set(actualAudienceGroups);
+        }
+
+        // Initialize search selected audiences if empty or if using old hardcoded data
+        if (this.searchSelectedAudiences.size === 0 || 
+            !Array.from(this.searchSelectedAudiences).some(audience => actualAudienceGroups.has(audience))) {
+            // Start with all actual audience groups selected for search
+            this.searchSelectedAudiences = new Set(actualAudienceGroups);
+        }
+    }
+
+    /**
+     * Initialize the Entitlement States tab content
+     */    initializeEntitlementStatesTab() {
         // Only initialize if we have data loaded
         if (this.appDefinitions.size === 0 || this.appEntitlements.size === 0) {
             const resultsElement = document.getElementById('entitlementStatesResults');
@@ -325,27 +398,8 @@ class TeamsAppCatalogExplorer {
             return;
         }
 
-        // Collect actual audience groups from loaded entitlements data
-        const actualAudienceGroups = new Set();
-        for (const [appId, entitlementMap] of this.appEntitlements.entries()) {
-            for (const [entitlementKey] of entitlementMap.entries()) {
-                // Extract audience group from the entitlement key format: "audienceGroup.scope.context"
-                const [audienceGroup] = entitlementKey.split('.');
-                if (audienceGroup) {
-                    actualAudienceGroups.add(audienceGroup);
-                }
-            }
-        }
-
-        // Update the audienceGroups with actual data
-        this.audienceGroups = actualAudienceGroups;
-
-        // Initialize global selected audiences if empty or if using old hardcoded data
-        if (this.globalSelectedAudiences.size === 0 || 
-            !Array.from(this.globalSelectedAudiences).some(audience => actualAudienceGroups.has(audience))) {
-            // Start with all actual audience groups selected
-            this.globalSelectedAudiences = new Set(actualAudienceGroups);
-        }
+        // Populate audience groups from data
+        this.populateAudienceGroups();
 
         // Show and populate the global audience filter
         const filterContainer = document.getElementById('globalAudienceFilter');
@@ -364,6 +418,37 @@ class TeamsAppCatalogExplorer {
 
         // Refresh the entitlement states display
         this.refreshEntitlementStatesDisplay();
+    }    /**
+     * Initialize the Search tab content
+     */
+    initializeSearchTab() {
+        // Only initialize if we have data loaded
+        if (this.appDefinitions.size === 0) {
+            const filterContainer = document.getElementById('searchAudienceFilter');
+            if (filterContainer) {
+                filterContainer.style.display = 'none';
+            }
+            return;
+        }
+
+        // Initialize search selected audiences if empty or if using old hardcoded data
+        if (this.searchSelectedAudiences.size === 0 || 
+            !Array.from(this.searchSelectedAudiences).some(audience => this.audienceGroups.has(audience))) {
+            // Start with all actual audience groups selected for search
+            this.searchSelectedAudiences = new Set(this.audienceGroups);
+        }
+
+        // Show and populate the search audience filter
+        const filterContainer = document.getElementById('searchAudienceFilter');
+        if (filterContainer) {
+            filterContainer.style.display = 'block';
+        }
+
+        // Render the search audience filter with actual audience groups
+        this.uiRenderer.renderSearchAudienceFilter(this.audienceGroups, this.searchSelectedAudiences);
+        
+        // Refresh the search display to apply any existing filters
+        this.refreshSearchDisplay();
     }
 
     /**
@@ -385,6 +470,27 @@ class TeamsAppCatalogExplorer {
      */
     clearAllGlobalAudiences() {
         this.eventHandlers.clearAllGlobalAudiences(this);
+    }
+
+    /**
+     * Toggle search audience filter
+     */
+    toggleSearchAudienceFilter(audience) {
+        this.eventHandlers.toggleSearchAudienceFilter(audience, this);
+    }
+
+    /**
+     * Select all search audiences
+     */
+    selectAllSearchAudiences() {
+        this.eventHandlers.selectAllSearchAudiences(this);
+    }
+
+    /**
+     * Clear all search audiences
+     */
+    clearAllSearchAudiences() {
+        this.eventHandlers.clearAllSearchAudiences(this);
     }
 
     /**
