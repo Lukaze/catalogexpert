@@ -744,68 +744,238 @@ class ModalManager {
         `;
         
         return html;
-    }
-
-    /**
+    }    /**
      * Render app properties in a readable format
      */
     renderAppProperties(app, appId) {
-        const properties = [
-            { label: 'App ID', value: appId, type: 'code' },
-            { label: 'Name', value: app.name, type: 'text' },
-            { label: 'Version', value: app.version, type: 'version' },
-            { label: 'Developer Name', value: app.developerName, type: 'text' },
-            { label: 'Developer URL', value: app.developerUrl, type: 'url' },
-            { label: 'Description', value: app.description, type: 'description' },
-            { label: 'Manifest Version', value: app.manifestVersion, type: 'text' },
-            { label: 'Office Asset ID', value: app.officeAssetId, type: 'code' },
-            { label: 'Large Image URL', value: app.largeImageUrl, type: 'url' },
-            { label: 'Last Updated', value: app.lastUpdatedAt, type: 'date' },
-            { label: 'Source Type', value: app.sourceType, type: 'badge' },
-            { label: 'Audience Group', value: app.audienceGroup, type: 'text' },
-            { label: 'Core App', value: app.isCoreApp, type: 'boolean' },
-            { label: 'Teams Owned', value: app.isTeamsOwned, type: 'boolean' },
-            { label: 'Pinnable', value: app.isPinnable, type: 'boolean' },
-            { label: 'Preinstallable', value: app.isPreinstallable, type: 'boolean' },
-            { label: 'Blockable', value: app.isBlockable, type: 'boolean' },
-            { label: 'Full Trust', value: app.isFullTrust, type: 'boolean' },
-            { label: 'Categories', value: app.categories, type: 'array' },
-            { label: 'Industries', value: app.industries, type: 'array' }
-        ];
+        // Define property categories with all known properties
+        const propertyCategories = {
+            'Core App Properties': [
+                { key: 'id', label: 'App ID', type: 'code' },
+                { key: 'permissions', label: 'Permissions', type: 'array' },
+                { key: 'etag', label: 'ETag', type: 'code' },
+                { key: 'officeAssetId', label: 'Office Asset ID', type: 'code' },
+                { key: 'externalId', label: 'External ID', type: 'code' },
+                { key: 'manifestVersion', label: 'Manifest Version', type: 'version' },
+                { key: 'version', label: 'Version', type: 'version' },
+                { key: 'supportedPlatforms', label: 'Supported Platforms', type: 'array' },
+                { key: 'name', label: 'Name', type: 'text' },
+                { key: 'shortDescription', label: 'Short Description', type: 'description' },
+                { key: 'longDescription', label: 'Long Description', type: 'description' },
+                { key: 'smallImageUrl', label: 'Small Image URL (44px)', type: 'url' },
+                { key: 'largeImageUrl', label: 'Large Image URL (88px)', type: 'url' },
+                { key: 'accentColor', label: 'Accent Color', type: 'color' },
+                { key: 'screenshotUrls', label: 'Screenshot URLs', type: 'array' },
+                { key: 'videoUrl', label: 'Video URL', type: 'url' },
+                { key: 'categories', label: 'Categories', type: 'array' },
+                { key: 'disabledScopes', label: 'Disabled Scopes', type: 'array' }
+            ],
+            'Developer Information': [
+                { key: 'developerName', label: 'Developer Name', type: 'text' },
+                { key: 'developerUrl', label: 'Developer URL', type: 'url' },
+                { key: 'privacyUrl', label: 'Privacy URL', type: 'url' },
+                { key: 'termsOfUseUrl', label: 'Terms of Use URL', type: 'url' },
+                { key: 'thirdPartyNoticesUrl', label: 'Third Party Notices URL', type: 'url' }
+            ],
+            'Security & Permissions': [
+                { key: 'validDomains', label: 'Valid Domains', type: 'array' },
+                { key: 'devicePermissions', label: 'Device Permissions', type: 'array' },
+                { key: 'authorization', label: 'Authorization', type: 'object' },
+                { key: 'webApplicationInfo', label: 'Web Application Info', type: 'object' },
+                { key: 'securityComplianceInfo', label: 'Security Compliance Info', type: 'object' },
+                { key: 'sensitivityLabel', label: 'Sensitivity Label', type: 'text' }
+            ],
+            'App Capabilities': [
+                { key: 'bots', label: 'Bots', type: 'array' },
+                { key: 'customBots', label: 'Custom Bots', type: 'array' },
+                { key: 'galleryTabs', label: 'Gallery Tabs', type: 'array' },
+                { key: 'staticTabs', label: 'Static Tabs', type: 'array' },
+                { key: 'inputExtensions', label: 'Input Extensions', type: 'array' },
+                { key: 'connectors', label: 'Connectors', type: 'array' },
+                { key: 'mobileModules', label: 'Mobile Modules', type: 'array' },
+                { key: 'hostedCapabilities', label: 'Hosted Capabilities', type: 'array' },
+                { key: 'meetingExtensionDefinition', label: 'Meeting Extension Definition', type: 'object' },
+                { key: 'extensionItems', label: 'Extension Items', type: 'array' },
+                { key: 'dashboardCards', label: 'Dashboard Cards', type: 'array' },
+                { key: 'plugins', label: 'Plugins', type: 'array' },
+                { key: 'copilotGpts', label: 'Copilot GPTs', type: 'array' },
+                { key: 'customEngineCopilots', label: 'Custom Engine Copilots', type: 'array' },
+                { key: 'copilotActions', label: 'Copilot Actions', type: 'array' }
+            ],
+            'Display & UI': [
+                { key: 'isFullScreen', label: 'Is Full Screen', type: 'boolean' },
+                { key: 'showLoadingIndicator', label: 'Show Loading Indicator', type: 'boolean' },
+                { key: 'color32x32ImageUrl', label: 'Color Icon URL (32px)', type: 'url' },
+                { key: 'abbreviatedName', label: 'Abbreviated Name', type: 'text' },
+                { key: 'backgroundLoadConfiguration', label: 'Background Load Configuration', type: 'object' }
+            ],
+            'Tenant & Identity': [
+                { key: 'tenantId', label: 'Tenant ID', type: 'code' },
+                { key: 'creatorId', label: 'Creator ID', type: 'code' },
+                { key: 'restrictedTenantTypes', label: 'Restricted Tenant Types', type: 'array' },
+                { key: 'supportedTenantRegions', label: 'Supported Tenant Regions', type: 'array' }
+            ],
+            'Localization': [
+                { key: 'supportedLanguages', label: 'Supported Languages', type: 'array' },
+                { key: 'languageTag', label: 'Language Tag', type: 'text' },
+                { key: 'localizedDefinitions', label: 'Localized Definitions', type: 'array' }
+            ],
+            'Business & Marketplace': [
+                { key: 'subscriptionOffer', label: 'Subscription Offer', type: 'object' },
+                { key: 'freePlanItem', label: 'Free Plan Item', type: 'object' },
+                { key: 'appCatalogExtension', label: 'App Catalog Extension', type: 'object' },
+                { key: 'storeExtensionAttributes', label: 'Store Extension Attributes', type: 'object' },
+                { key: 'mpnId', label: 'Microsoft Partner Network ID', type: 'code' },
+                { key: 'templatedAppId', label: 'Templated App ID', type: 'code' },
+                { key: 'industries', label: 'Industries', type: 'array' },
+                { key: 'keywords', label: 'Keywords', type: 'array' },
+                { key: 'publisherDocsUrl', label: 'Publisher Docs URL', type: 'url' }
+            ],
+            'Configuration': [
+                { key: 'configurableProperties', label: 'Configurable Properties', type: 'object' },
+                { key: 'defaultInstallScope', label: 'Default Install Scope', type: 'text' },
+                { key: 'defaultGroupCapability', label: 'Default Group Capability', type: 'text' },
+                { key: 'scopeConstraints', label: 'Scope Constraints', type: 'object' },
+                { key: 'supportedChannelTypes', label: 'Supported Channel Types', type: 'array' },
+                { key: 'supportedHubs', label: 'Supported Hubs', type: 'array' },
+                { key: 'supportsChannelFeatures', label: 'Supports Channel Features', type: 'text' }
+            ],
+            'Status & Metadata': [
+                { key: 'deletedDateTimeUtc', label: 'Deleted Date (UTC)', type: 'date' },
+                { key: 'lastUpdatedAt', label: 'Last Updated At', type: 'date' },
+                { key: 'appAvailabilityStatus', label: 'App Availability Status', type: 'badge' },
+                { key: 'publishingPolicy', label: 'Publishing Policy', type: 'object' },
+                { key: 'appPackageInfo', label: 'App Package Info', type: 'object' },
+                { key: 'elementRelationshipSet', label: 'Element Relationship Set', type: 'object' },
+                { key: 'apiDependencies', label: 'API Dependencies', type: 'array' },
+                { key: 'appMetadata', label: 'App Metadata', type: 'object' }
+            ],
+            'Office Add-ins': [
+                { key: 'officeAddInElementItem', label: 'Office Add-in Element Item', type: 'object' },
+                { key: 'exchangeAddInElementItem', label: 'Exchange Add-in Element Item', type: 'object' },
+                { key: 'supportedElementTypes', label: 'Supported Element Types', type: 'array' }
+            ],
+            'App Enhancement Features': [
+                { key: 'isFullTrust', label: 'Is Full Trust', type: 'boolean' },
+                { key: 'isTenantConfigurable', label: 'Is Tenant Configurable', type: 'boolean' },
+                { key: 'applicableLicenseCategories', label: 'Applicable License Categories', type: 'array' },
+                { key: 'validTrouterPaths', label: 'Valid Trouter Paths', type: 'array' },
+                { key: 'activities', label: 'Activities', type: 'array' },
+                { key: 'graphConnector', label: 'Graph Connector', type: 'object' },
+                { key: 'sharedAppResource', label: 'Shared App Resource', type: 'object' },
+                { key: 'intuneInfo', label: 'Intune Info', type: 'object' },
+                { key: 'contactInfo', label: 'Contact Info', type: 'object' },
+                { key: 'blockedConfigurations', label: 'Blocked Configurations', type: 'array' }
+            ],
+            'MetaOS Features': [
+                { key: 'isMetaOSApp', label: 'Is MetaOS App', type: 'boolean' },
+                { key: 'titleId', label: 'Title ID', type: 'code' },
+                { key: 'manifestId', label: 'Manifest ID', type: 'code' }
+            ],
+            'Copilot & AI Features': [
+                { key: 'copilotEnabled', label: 'Copilot Enabled', type: 'boolean' },
+                { key: 'isCopilotPluginSupported', label: 'Is Copilot Plugin Supported', type: 'boolean' }
+            ],
+            'Security & Compliance': [
+                { key: 'isCoreApp', label: 'Is Core App', type: 'boolean' },
+                { key: 'isPinnable', label: 'Is Pinnable', type: 'boolean' },
+                { key: 'isBlockable', label: 'Is Blockable', type: 'boolean' },
+                { key: 'isPreinstallable', label: 'Is Preinstallable', type: 'boolean' },
+                { key: 'isTeamsOwned', label: 'Is Teams Owned', type: 'boolean' },
+                { key: 'defaultBlockUntilAdminAction', label: 'Default Block Until Admin Action', type: 'boolean' },
+                { key: 'isAppIOSAcquirable', label: 'Is App iOS Acquirable', type: 'boolean' },
+                { key: 'requiredServicePlanIdSets', label: 'Required Service Plan ID Sets', type: 'array' },
+                { key: 'isUninstallable', label: 'Is Uninstallable', type: 'boolean' }
+            ],
+            'Additional Properties': [
+                { key: 'sourceType', label: 'Source Type', type: 'badge' },
+                { key: 'audienceGroup', label: 'Audience Group', type: 'text' },
+                { key: 'description', label: 'Description', type: 'description' }
+            ]
+        };
 
-        let html = '<div class="definition-properties">';
+        let html = '<div class="definition-properties-categorized">';
 
-        properties.forEach(prop => {
-            if (prop.value !== undefined && prop.value !== null && prop.value !== '') {
-                html += `<div class="definition-property">`;
-                html += `<span class="property-label">${prop.label}:</span>`;
-                html += `<span class="property-value ${prop.type}">${this.formatPropertyValue(prop.value, prop.type)}</span>`;
-                html += `</div>`;
+        // Track which properties we've displayed
+        const displayedProperties = new Set();
+
+        // Display properties by category
+        Object.entries(propertyCategories).forEach(([categoryName, properties]) => {
+            const categoryProperties = properties.filter(prop => {
+                const value = this.getNestedProperty(app, prop.key) ?? app[prop.key];
+                const hasValue = value !== undefined && value !== null && value !== '';
+                if (hasValue) {
+                    displayedProperties.add(prop.key);
+                }
+                return hasValue;
+            });
+
+            if (categoryProperties.length > 0) {
+                html += `<div class="property-category">`;
+                html += `<h6 class="category-header">${categoryName}</h6>`;
+                html += `<div class="category-properties">`;
+
+                categoryProperties.forEach(prop => {
+                    const value = this.getNestedProperty(app, prop.key) ?? app[prop.key];
+                    html += `<div class="definition-property">`;
+                    html += `<span class="property-label">${prop.label}:</span>`;
+                    html += `<span class="property-value ${prop.type}">${this.formatPropertyValue(value, prop.type)}</span>`;
+                    html += `</div>`;
+                });
+
+                html += `</div></div>`;
             }
         });
 
-        // Add any additional properties that might exist in the app object
-        const knownProperties = new Set([
-            'id', 'name', 'version', 'developerName', 'developerUrl', 'description', 
-            'manifestVersion', 'officeAssetId', 'largeImageUrl', 'lastUpdatedAt', 
-            'sourceType', 'audienceGroup', 'isCoreApp', 'isTeamsOwned', 'isPinnable', 
-            'isPreinstallable', 'isBlockable', 'isFullTrust', 'categories', 'industries'
-        ]);
+        // Add any remaining properties that weren't categorized
+        const remainingProperties = Object.keys(app).filter(key => 
+            !displayedProperties.has(key) && 
+            app[key] !== undefined && 
+            app[key] !== null && 
+            app[key] !== ''
+        );
 
-        Object.keys(app).forEach(key => {
-            if (!knownProperties.has(key) && app[key] !== undefined && app[key] !== null && app[key] !== '') {
+        if (remainingProperties.length > 0) {
+            html += `<div class="property-category">`;
+            html += `<h6 class="category-header">Other Properties</h6>`;
+            html += `<div class="category-properties">`;
+
+            remainingProperties.forEach(key => {
                 html += `<div class="definition-property">`;
-                html += `<span class="property-label">${key}:</span>`;
+                html += `<span class="property-label">${this.formatPropertyName(key)}:</span>`;
                 html += `<span class="property-value other">${this.formatPropertyValue(app[key], 'other')}</span>`;
                 html += `</div>`;
-            }
-        });
+            });
+
+            html += `</div></div>`;
+        }
 
         html += '</div>';
         return html;
     }
 
     /**
+     * Get nested property value using dot notation
+     */
+    getNestedProperty(obj, path) {
+        // Handle simple property access first
+        if (obj.hasOwnProperty(path)) {
+            return obj[path];
+        }
+        
+        // Handle nested paths if needed in the future
+        return path.split('.').reduce((current, key) => current?.[key], obj);
+    }
+
+    /**
+     * Format property names for display
+     */
+    formatPropertyName(key) {
+        return key
+            .replace(/([A-Z])/g, ' $1')
+            .replace(/^./, str => str.toUpperCase())
+            .trim();
+    }    /**
      * Format property values based on their type
      */
     formatPropertyValue(value, type) {
@@ -832,14 +1002,35 @@ class ModalManager {
             case 'badge':
                 return `<span class="property-badge">${window.utils.escapeHtml(value)}</span>`;
             
+            case 'text':
+                return value ? `<span class="property-text">${window.utils.escapeHtml(value)}</span>` : '<span class="property-empty">N/A</span>';
+                
+            case 'color':
+                if (value) {
+                    return `<span class="property-color">
+                        <span class="color-swatch" style="background-color: ${window.utils.escapeHtml(value)}"></span>
+                        ${window.utils.escapeHtml(value)}
+                    </span>`;
+                }
+                return '<span class="property-empty">N/A</span>';
+            
             case 'array':
                 if (Array.isArray(value) && value.length > 0) {
-                    return value.map(item => `<span class="property-tag">${window.utils.escapeHtml(item)}</span>`).join('');
+                    return value.map(item => `<span class="property-tag">${window.utils.escapeHtml(String(item))}</span>`).join('');
                 }
                 return '<span class="property-empty">None</span>';
             
             case 'description':
                 return value ? `<span class="property-description">${window.utils.escapeHtml(value)}</span>` : '<span class="property-empty">N/A</span>';
+            
+            case 'object':
+                if (value && typeof value === 'object') {
+                    return `<details class="property-object-details">
+                        <summary class="property-object-summary">View Object (${Object.keys(value).length} properties)</summary>
+                        <pre class="property-json">${JSON.stringify(value, null, 2)}</pre>
+                    </details>`;
+                }
+                return '<span class="property-empty">N/A</span>';
             
             case 'other':
                 if (typeof value === 'object') {
