@@ -61,6 +61,7 @@ main.css                    # Main file that imports all modules
 ### modal-tabs.css
 - Overview tab content
 - Versions tab styling
+- Definition tab layout and property display
 - Technical tab layout
 - Property badges
 - Version cards

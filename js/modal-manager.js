@@ -63,8 +63,7 @@ class ModalManager {
                     </div>
                 </div>
             </div>
-            
-            <!-- Tab Navigation -->
+              <!-- Tab Navigation -->
             <div class="modal-tabs">
                 <button class="modal-tab-button active" onclick="window.modalManager.switchModalTab(event, 'overview')">
                     📊 Overview
@@ -74,6 +73,9 @@ class ModalManager {
                 </button>
                 <button class="modal-tab-button" onclick="window.modalManager.switchModalTab(event, 'entitlements')">
                     🔐 Entitlements (${Object.keys(entitlementInfo).length})
+                </button>
+                <button class="modal-tab-button" onclick="window.modalManager.switchModalTab(event, 'definition')">
+                    📋 Definition
                 </button>
                 <button class="modal-tab-button" onclick="window.modalManager.switchModalTab(event, 'technical')">
                     ⚙️ Technical
@@ -127,10 +129,14 @@ class ModalManager {
                         </div>
                     </div>
                 </div>
-                
-                <!-- Entitlements Tab -->
+                  <!-- Entitlements Tab -->
                 <div id="modal-tab-entitlements" class="modal-tab-pane">
                     ${this.renderPreconfiguredEntitlements(entitlementInfo)}
+                </div>
+                
+                <!-- Definition Tab -->
+                <div id="modal-tab-definition" class="modal-tab-pane">
+                    ${this.renderAppDefinition(audienceMap, appId)}
                 </div>
                 
                 <!-- Technical Tab -->
@@ -674,6 +680,179 @@ class ModalManager {
         
         return audienceEntitlements;
     }
+    
+    /**
+     * Render app definition for modal
+     */
+    renderAppDefinition(audienceMap, appId) {
+        if (!audienceMap || audienceMap.size === 0) {
+            return `
+                <div class="definition-empty">
+                    <div class="empty-state">
+                        <div class="empty-icon">📋</div>
+                        <h5>No App Definition Available</h5>
+                        <p>No app definition data found for this application.</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Get all unique audiences and their app data
+        const audienceEntries = Array.from(audienceMap.entries()).sort(([a], [b]) => a.localeCompare(b));
+        
+        let html = `
+            <div class="definition-container">
+                <div class="definition-header">
+                    <h5>📋 Complete App Definition</h5>
+                    <div class="definition-summary">
+                        <span class="summary-item">
+                            <strong>${audienceEntries.length}</strong> audience group${audienceEntries.length !== 1 ? 's' : ''}
+                        </span>
+                        <span class="summary-item">
+                            App ID: <strong>${appId}</strong>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="definition-grid">
+        `;
+
+        // Create a definition card for each audience group
+        audienceEntries.forEach(([audience, app]) => {
+            const shorthand = window.utils.getAudienceGroupShorthand(audience);
+            
+            html += `
+                <div class="definition-audience-card">
+                    <div class="audience-header">
+                        <h6>
+                            <span class="audience-bubble" data-audience="${audience.toLowerCase()}">${shorthand}</span>
+                            ${audience}
+                        </h6>
+                        ${app.sourceType ? `<span class="source-badge">${app.sourceType}</span>` : ''}
+                    </div>
+                    
+                    <div class="definition-content">
+                        ${this.renderAppProperties(app, appId)}
+                    </div>
+                </div>
+            `;
+        });
+
+        html += `
+                </div>
+            </div>
+        `;
+        
+        return html;
+    }
+
+    /**
+     * Render app properties in a readable format
+     */
+    renderAppProperties(app, appId) {
+        const properties = [
+            { label: 'App ID', value: appId, type: 'code' },
+            { label: 'Name', value: app.name, type: 'text' },
+            { label: 'Version', value: app.version, type: 'version' },
+            { label: 'Developer Name', value: app.developerName, type: 'text' },
+            { label: 'Developer URL', value: app.developerUrl, type: 'url' },
+            { label: 'Description', value: app.description, type: 'description' },
+            { label: 'Manifest Version', value: app.manifestVersion, type: 'text' },
+            { label: 'Office Asset ID', value: app.officeAssetId, type: 'code' },
+            { label: 'Large Image URL', value: app.largeImageUrl, type: 'url' },
+            { label: 'Last Updated', value: app.lastUpdatedAt, type: 'date' },
+            { label: 'Source Type', value: app.sourceType, type: 'badge' },
+            { label: 'Audience Group', value: app.audienceGroup, type: 'text' },
+            { label: 'Core App', value: app.isCoreApp, type: 'boolean' },
+            { label: 'Teams Owned', value: app.isTeamsOwned, type: 'boolean' },
+            { label: 'Pinnable', value: app.isPinnable, type: 'boolean' },
+            { label: 'Preinstallable', value: app.isPreinstallable, type: 'boolean' },
+            { label: 'Blockable', value: app.isBlockable, type: 'boolean' },
+            { label: 'Full Trust', value: app.isFullTrust, type: 'boolean' },
+            { label: 'Categories', value: app.categories, type: 'array' },
+            { label: 'Industries', value: app.industries, type: 'array' }
+        ];
+
+        let html = '<div class="definition-properties">';
+
+        properties.forEach(prop => {
+            if (prop.value !== undefined && prop.value !== null && prop.value !== '') {
+                html += `<div class="definition-property">`;
+                html += `<span class="property-label">${prop.label}:</span>`;
+                html += `<span class="property-value ${prop.type}">${this.formatPropertyValue(prop.value, prop.type)}</span>`;
+                html += `</div>`;
+            }
+        });
+
+        // Add any additional properties that might exist in the app object
+        const knownProperties = new Set([
+            'id', 'name', 'version', 'developerName', 'developerUrl', 'description', 
+            'manifestVersion', 'officeAssetId', 'largeImageUrl', 'lastUpdatedAt', 
+            'sourceType', 'audienceGroup', 'isCoreApp', 'isTeamsOwned', 'isPinnable', 
+            'isPreinstallable', 'isBlockable', 'isFullTrust', 'categories', 'industries'
+        ]);
+
+        Object.keys(app).forEach(key => {
+            if (!knownProperties.has(key) && app[key] !== undefined && app[key] !== null && app[key] !== '') {
+                html += `<div class="definition-property">`;
+                html += `<span class="property-label">${key}:</span>`;
+                html += `<span class="property-value other">${this.formatPropertyValue(app[key], 'other')}</span>`;
+                html += `</div>`;
+            }
+        });
+
+        html += '</div>';
+        return html;
+    }
+
+    /**
+     * Format property values based on their type
+     */
+    formatPropertyValue(value, type) {
+        if (value === undefined || value === null) {
+            return '<span class="property-empty">N/A</span>';
+        }
+
+        switch (type) {
+            case 'boolean':
+                return value ? '<span class="property-true">✅ Yes</span>' : '<span class="property-false">❌ No</span>';
+            
+            case 'date':
+                return value ? new Date(value).toLocaleString() : '<span class="property-empty">N/A</span>';
+            
+            case 'url':
+                return value ? `<a href="${window.utils.escapeHtml(value)}" target="_blank" class="property-link">${window.utils.escapeHtml(value)} ↗</a>` : '<span class="property-empty">N/A</span>';
+            
+            case 'code':
+                return `<code class="property-code">${window.utils.escapeHtml(value)}</code>`;
+            
+            case 'version':
+                return `<span class="property-version">v${window.utils.escapeHtml(value)}</span>`;
+            
+            case 'badge':
+                return `<span class="property-badge">${window.utils.escapeHtml(value)}</span>`;
+            
+            case 'array':
+                if (Array.isArray(value) && value.length > 0) {
+                    return value.map(item => `<span class="property-tag">${window.utils.escapeHtml(item)}</span>`).join('');
+                }
+                return '<span class="property-empty">None</span>';
+            
+            case 'description':
+                return value ? `<span class="property-description">${window.utils.escapeHtml(value)}</span>` : '<span class="property-empty">N/A</span>';
+            
+            case 'other':
+                if (typeof value === 'object') {
+                    return `<pre class="property-json">${JSON.stringify(value, null, 2)}</pre>`;
+                }
+                return window.utils.escapeHtml(String(value));
+            
+            default:
+                return window.utils.escapeHtml(String(value));
+        }
+    }
+
+    // ...existing code...
 }
 
 // Make ModalManager available globally

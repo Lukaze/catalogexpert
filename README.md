@@ -26,7 +26,8 @@ A powerful web-based tool for exploring and analyzing Microsoft Teams applicatio
 ### 📊 Comprehensive App Details
 - **Multi-audience support**: View app versions across different audience groups
 - **Detailed app information**: Developer details, manifest versions, descriptions
-- **Tabbed modal interface**: Organized presentation of app data
+- **Tabbed modal interface**: Organized presentation of app data with Overview, Versions, Entitlements, Definition, and Technical tabs
+- **Complete app definition**: View all app properties and metadata in a readable format
 - **Entitlement visualization**: Color-coded state badges with icons
 
 ### 🎯 Advanced Filtering
