@@ -5,6 +5,23 @@ All notable changes to the Microsoft Teams App Catalog Explorer will be document
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.1] - 2025-06-12
+
+### 🔧 Definition Tab Refinements
+
+### Removed
+- **Localized Definitions Property**: Removed from property display to reduce clutter
+
+### Fixed
+- **Object Property Display**: All object properties in App Capabilities section now consistently show as collapsible "View Object" sections
+- **Consistent Object Handling**: Eliminated `[object Object]` display issues across all property categories
+- **Property Type Consistency**: Standardized all complex object properties to use collapsible JSON viewers
+
+### Enhanced
+- **App Capabilities Section**: All capability properties (bots, connectors, plugins, etc.) now display as expandable object viewers
+- **Uniform Object Display**: Consistent "View Object (X properties)" format across all sections
+- **Clean Property Layout**: Removed unnecessary properties that added visual noise
+
 ## [2.0.0] - 2025-06-12
 
 ### 🎉 Major Release: Enhanced Definition Tab & Modular Architecture

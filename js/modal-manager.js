@@ -755,14 +755,35 @@ class ModalManager {
                 
                 <div class="definition-grid">
         `;
-        
-        // Create a definition card for each unique version
+          // Create a definition card for each unique version
         sortedVersions.forEach(([version, versionData], index) => {
             const { audiences, app } = versionData;
             const collapseId = `definition-collapse-${index}`;
             
             // Sort audiences for consistent display
             const sortedAudiences = audiences.sort();
+            
+            // Get all source types for this version across audiences
+            const sourceTypes = new Set();
+            for (const [audience, appData] of audienceMap.entries()) {
+                if (audiences.includes(audience) && appData.sourceType) {
+                    sourceTypes.add(appData.sourceType);
+                }
+            }
+            
+            // Create source badge display
+            let sourceBadgeHtml = '';
+            if (sourceTypes.size > 0) {
+                const sourceTypesArray = Array.from(sourceTypes);
+                if (sourceTypesArray.length === 1) {
+                    sourceBadgeHtml = `<span class="source-badge">${sourceTypesArray[0]}</span>`;
+                } else {
+                    // Multiple source types
+                    sourceBadgeHtml = sourceTypesArray.map(type => 
+                        `<span class="source-badge multiple">${type}</span>`
+                    ).join('');
+                }
+            }
             
             html += `
                 <div class="definition-version-card">
@@ -777,11 +798,10 @@ class ModalManager {
                                 }).join('')}
                             </div>
                         </h6>
-                        ${app.sourceType ? `<span class="source-badge">${app.sourceType}</span>` : ''}
+                        ${sourceBadgeHtml}
                     </div>
-                    
-                    <div class="definition-content collapsed" id="${collapseId}">
-                        ${this.renderAppProperties(app, appId)}
+                      <div class="definition-content collapsed" id="${collapseId}">
+                        ${this.renderAppProperties(app, appId, versionData, audienceMap)}
                     </div>
                 </div>
             `;
@@ -793,10 +813,48 @@ class ModalManager {
         `;
         
         return html;
-    }/**
+    }    /**
      * Render app properties in a readable format
      */
-    renderAppProperties(app, appId) {
+    renderAppProperties(app, appId, versionData = null, audienceMap = null) {
+        // Create version summary section
+        let versionSummaryHtml = '';
+        if (versionData && versionData.audiences.length > 1) {
+            // Only show summary for multi-audience versions
+            const uniqueSourceTypes = [...new Set(versionData.audiences.map(audience => {
+                // Get the app data for this audience from the audienceMap
+                if (audienceMap && audienceMap.has(audience)) {
+                    return audienceMap.get(audience).sourceType;
+                }
+                return null;
+            }).filter(Boolean))];
+            
+            versionSummaryHtml = `
+                <div class="property-category version-summary">
+                    <h6 class="category-header">Version Information</h6>
+                    <div class="category-properties">
+                        <div class="definition-property">
+                            <span class="property-label">Version:</span>
+                            <span class="property-value version">v${app.version}</span>
+                        </div>
+                        <div class="definition-property">
+                            <span class="property-label">Audience Groups:</span>
+                            <span class="property-value">${versionData.audiences.map(audience => {
+                                const shorthand = window.utils.getAudienceGroupShorthand(audience);
+                                return `<span class="property-tag audience-tag" data-audience="${audience.toLowerCase()}">${shorthand}</span>`;
+                            }).join('')}</span>
+                        </div>
+                        ${uniqueSourceTypes.length > 0 ? `
+                        <div class="definition-property">
+                            <span class="property-label">Source Types:</span>
+                            <span class="property-value">${uniqueSourceTypes.map(type => 
+                                `<span class="property-badge source-type">${type}</span>`                            ).join('')}</span>
+                        </div>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+        }
         // Define property categories with all known properties
         const propertyCategories = {
             'Core App Properties': [
@@ -833,23 +891,22 @@ class ModalManager {
                 { key: 'webApplicationInfo', label: 'Web Application Info', type: 'object' },
                 { key: 'securityComplianceInfo', label: 'Security Compliance Info', type: 'object' },
                 { key: 'sensitivityLabel', label: 'Sensitivity Label', type: 'text' }
-            ],
-            'App Capabilities': [
-                { key: 'bots', label: 'Bots', type: 'array' },
-                { key: 'customBots', label: 'Custom Bots', type: 'array' },
-                { key: 'galleryTabs', label: 'Gallery Tabs', type: 'array' },
-                { key: 'staticTabs', label: 'Static Tabs', type: 'array' },
-                { key: 'inputExtensions', label: 'Input Extensions', type: 'array' },
-                { key: 'connectors', label: 'Connectors', type: 'array' },
-                { key: 'mobileModules', label: 'Mobile Modules', type: 'array' },
-                { key: 'hostedCapabilities', label: 'Hosted Capabilities', type: 'array' },
+            ],            'App Capabilities': [
+                { key: 'bots', label: 'Bots', type: 'object' },
+                { key: 'customBots', label: 'Custom Bots', type: 'object' },
+                { key: 'galleryTabs', label: 'Gallery Tabs', type: 'object' },
+                { key: 'staticTabs', label: 'Static Tabs', type: 'object' },
+                { key: 'inputExtensions', label: 'Input Extensions', type: 'object' },
+                { key: 'connectors', label: 'Connectors', type: 'object' },
+                { key: 'mobileModules', label: 'Mobile Modules', type: 'object' },
+                { key: 'hostedCapabilities', label: 'Hosted Capabilities', type: 'object' },
                 { key: 'meetingExtensionDefinition', label: 'Meeting Extension Definition', type: 'object' },
-                { key: 'extensionItems', label: 'Extension Items', type: 'array' },
-                { key: 'dashboardCards', label: 'Dashboard Cards', type: 'array' },
-                { key: 'plugins', label: 'Plugins', type: 'array' },
-                { key: 'copilotGpts', label: 'Copilot GPTs', type: 'array' },
-                { key: 'customEngineCopilots', label: 'Custom Engine Copilots', type: 'array' },
-                { key: 'copilotActions', label: 'Copilot Actions', type: 'array' }
+                { key: 'extensionItems', label: 'Extension Items', type: 'object' },
+                { key: 'dashboardCards', label: 'Dashboard Cards', type: 'object' },
+                { key: 'plugins', label: 'Plugins', type: 'object' },
+                { key: 'copilotGpts', label: 'Copilot GPTs', type: 'object' },
+                { key: 'customEngineCopilots', label: 'Custom Engine Copilots', type: 'object' },
+                { key: 'copilotActions', label: 'Copilot Actions', type: 'object' }
             ],
             'Display & UI': [
                 { key: 'isFullScreen', label: 'Is Full Screen', type: 'boolean' },
@@ -863,11 +920,9 @@ class ModalManager {
                 { key: 'creatorId', label: 'Creator ID', type: 'code' },
                 { key: 'restrictedTenantTypes', label: 'Restricted Tenant Types', type: 'array' },
                 { key: 'supportedTenantRegions', label: 'Supported Tenant Regions', type: 'array' }
-            ],
-            'Localization': [
+            ],            'Localization': [
                 { key: 'supportedLanguages', label: 'Supported Languages', type: 'array' },
-                { key: 'languageTag', label: 'Language Tag', type: 'text' },
-                { key: 'localizedDefinitions', label: 'Localized Definitions', type: 'array' }
+                { key: 'languageTag', label: 'Language Tag', type: 'text' }
             ],
             'Business & Marketplace': [
                 { key: 'subscriptionOffer', label: 'Subscription Offer', type: 'object' },
@@ -935,10 +990,7 @@ class ModalManager {
                 { key: 'isAppIOSAcquirable', label: 'Is App iOS Acquirable', type: 'boolean' },
                 { key: 'requiredServicePlanIdSets', label: 'Required Service Plan ID Sets', type: 'array' },
                 { key: 'isUninstallable', label: 'Is Uninstallable', type: 'boolean' }
-            ],
-            'Additional Properties': [
-                { key: 'sourceType', label: 'Source Type', type: 'badge' },
-                { key: 'audienceGroup', label: 'Audience Group', type: 'text' },
+            ],            'Additional Properties': [
                 { key: 'description', label: 'Description', type: 'description' }
             ]
         };
@@ -974,14 +1026,15 @@ class ModalManager {
 
                 html += `</div></div>`;
             }
-        });
-
-        // Add any remaining properties that weren't categorized
+        });        // Add any remaining properties that weren't categorized
         const remainingProperties = Object.keys(app).filter(key => 
             !displayedProperties.has(key) && 
             app[key] !== undefined && 
             app[key] !== null && 
-            app[key] !== ''
+            app[key] !== '' &&
+            key !== 'localizedDefinitions' && // Explicitly exclude localizedDefinitions
+            key !== 'sourceType' && // Exclude source type (version-specific, shown in header)
+            key !== 'audienceGroup' // Exclude audience group (shown as bubbles in header)
         );
 
         if (remainingProperties.length > 0) {
@@ -1067,13 +1120,12 @@ class ModalManager {
                 if (Array.isArray(value) && value.length > 0) {
                     return value.map(item => `<span class="property-tag">${window.utils.escapeHtml(String(item))}</span>`).join('');
                 }
-                return '<span class="property-empty">None</span>';
-            
-            case 'description':
+                return '<span class="property-empty">None</span>';            case 'description':
                 return value ? `<span class="property-description">${window.utils.escapeHtml(value)}</span>` : '<span class="property-empty">N/A</span>';
             
             case 'object':
                 if (value && typeof value === 'object') {
+                    const uniqueId = 'obj-' + Math.random().toString(36).substr(2, 9);
                     return `<details class="property-object-details">
                         <summary class="property-object-summary">View Object (${Object.keys(value).length} properties)</summary>
                         <pre class="property-json">${JSON.stringify(value, null, 2)}</pre>
@@ -1082,15 +1134,51 @@ class ModalManager {
                 return '<span class="property-empty">N/A</span>';
             
             case 'other':
-                if (typeof value === 'object') {
-                    return `<pre class="property-json">${JSON.stringify(value, null, 2)}</pre>`;
+                // Handle objects that weren't explicitly categorized
+                if (typeof value === 'object' && value !== null) {
+                    if (Array.isArray(value)) {
+                        if (value.length === 0) {
+                            return '<span class="property-empty">Empty array</span>';
+                        }
+                        // If array contains objects, show collapsible JSON
+                        if (typeof value[0] === 'object') {
+                            const uniqueId = 'arr-' + Math.random().toString(36).substr(2, 9);
+                            return `<details class="property-object-details">
+                                <summary class="property-object-summary">View Array (${value.length} items)</summary>
+                                <pre class="property-json">${JSON.stringify(value, null, 2)}</pre>
+                            </details>`;
+                        }
+                        // Simple array of primitives
+                        return value.map(item => `<span class="property-tag">${window.utils.escapeHtml(String(item))}</span>`).join('');
+                    }
+                    // Regular object - show collapsible JSON
+                    const uniqueId = 'obj-' + Math.random().toString(36).substr(2, 9);
+                    return `<details class="property-object-details">
+                        <summary class="property-object-summary">View Object (${Object.keys(value).length} properties)</summary>
+                        <pre class="property-json">${JSON.stringify(value, null, 2)}</pre>
+                    </details>`;
                 }
+                // Primitive value
                 return window.utils.escapeHtml(String(value));
             
             default:
-                return window.utils.escapeHtml(String(value));
-        }
-    }    // ...existing code...
+                // Default case - handle any remaining objects
+                if (typeof value === 'object' && value !== null) {
+                    if (Array.isArray(value)) {
+                        if (value.length === 0) {
+                            return '<span class="property-empty">Empty array</span>';
+                        }
+                        return value.map(item => `<span class="property-tag">${window.utils.escapeHtml(String(item))}</span>`).join('');
+                    }
+                    // Object - show collapsible JSON
+                    const uniqueId = 'obj-' + Math.random().toString(36).substr(2, 9);
+                    return `<details class="property-object-details">
+                        <summary class="property-object-summary">View Object (${Object.keys(value).length} properties)</summary>
+                        <pre class="property-json">${JSON.stringify(value, null, 2)}</pre>
+                    </details>`;
+                }
+                return window.utils.escapeHtml(String(value));        }
+    }
 }
 
 // Global function to toggle definition collapse

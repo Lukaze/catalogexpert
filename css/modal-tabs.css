@@ -175,6 +175,18 @@
     letter-spacing: 0.5px;
 }
 
+/* Enhanced source badge styling for multiple source types */
+.source-badge.multiple {
+    font-size: 0.7rem;
+    margin-left: 4px;
+    background: linear-gradient(135deg, #64748b, #475569);
+    border: 1px solid #94a3b8;
+}
+
+.source-badge.multiple:first-of-type {
+    margin-left: 8px;
+}
+
 /* Technical Tab Styles */
 .technical-grid {
     display: grid;
@@ -843,3 +855,5 @@
     min-width: 12px;
     color: #6b7280;
 }
+
+
