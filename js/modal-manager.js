@@ -680,8 +680,7 @@ class ModalManager {
         
         return audienceEntitlements;
     }
-    
-    /**
+      /**
      * Render app definition for modal
      */
     renderAppDefinition(audienceMap, appId) {
@@ -697,38 +696,86 @@ class ModalManager {
             `;
         }
 
-        // Get all unique audiences and their app data
-        const audienceEntries = Array.from(audienceMap.entries()).sort(([a], [b]) => a.localeCompare(b));
-          let html = `
+        // Group audiences by version instead of audience
+        const versionGroups = new Map();
+        
+        for (const [audience, app] of audienceMap.entries()) {
+            const version = app.version || 'N/A';
+            if (!versionGroups.has(version)) {
+                versionGroups.set(version, {
+                    audiences: [],
+                    app: app // Use the first app data found for this version
+                });
+            }
+            versionGroups.get(version).audiences.push(audience);
+        }
+
+        // Sort versions (handle both string and numeric versions)
+        const sortedVersions = Array.from(versionGroups.entries()).sort(([a], [b]) => {
+            // Handle N/A versions
+            if (a === 'N/A' && b === 'N/A') return 0;
+            if (a === 'N/A') return 1;
+            if (b === 'N/A') return -1;
+            
+            // Try to compare as semantic versions
+            const parseVersion = (v) => {
+                const parts = v.split('.').map(part => parseInt(part, 10) || 0);
+                return parts;
+            };
+            
+            const versionA = parseVersion(a);
+            const versionB = parseVersion(b);
+            
+            for (let i = 0; i < Math.max(versionA.length, versionB.length); i++) {
+                const partA = versionA[i] || 0;
+                const partB = versionB[i] || 0;
+                if (partA !== partB) {
+                    return partB - partA; // Descending order (newest first)
+                }
+            }
+            return 0;
+        });        let html = `
             <div class="definition-container">
                 <div class="definition-header">
-                    <h5>📋 Complete App Definition</h5>
+                    <h5>📋 App Definition by Version</h5>
                     <div class="definition-summary">
-                        <span class="summary-item">
-                            <strong>${audienceEntries.length}</strong> audience group${audienceEntries.length !== 1 ? 's' : ''}
-                        </span>
-                        <span class="summary-item">
-                            App ID: <strong>${appId}</strong>
-                        </span>
-                        <span class="summary-item" style="font-style: italic; color: #64748b;">
-                            💡 Click audience headers to expand/collapse sections
-                        </span>
+                        <div class="summary-stats">
+                            <span class="summary-item">
+                                <strong>${sortedVersions.length}</strong> unique version${sortedVersions.length !== 1 ? 's' : ''}
+                            </span>
+                            <span class="summary-item">
+                                <strong>${audienceMap.size}</strong> audience group${audienceMap.size !== 1 ? 's' : ''}
+                            </span>
+                        </div>
+                        <div class="summary-hint">
+                            💡 Click version headers to expand/collapse sections
+                        </div>
                     </div>
                 </div>
                 
                 <div class="definition-grid">
-        `;        // Create a definition card for each audience group
-        audienceEntries.forEach(([audience, app], index) => {
-            const shorthand = window.utils.getAudienceGroupShorthand(audience);
+        `;
+        
+        // Create a definition card for each unique version
+        sortedVersions.forEach(([version, versionData], index) => {
+            const { audiences, app } = versionData;
             const collapseId = `definition-collapse-${index}`;
             
+            // Sort audiences for consistent display
+            const sortedAudiences = audiences.sort();
+            
             html += `
-                <div class="definition-audience-card">
-                    <div class="audience-header collapsible" onclick="toggleDefinitionCollapse('${collapseId}')">
+                <div class="definition-version-card">
+                    <div class="version-header collapsible" onclick="toggleDefinitionCollapse('${collapseId}')">
                         <h6>
                             <span class="collapse-indicator" id="${collapseId}-indicator">▶</span>
-                            <span class="audience-bubble" data-audience="${audience.toLowerCase()}">${shorthand}</span>
-                            <span class="audience-version">v${app.version || 'N/A'}</span>
+                            <span class="version-display">v${version}</span>
+                            <div class="audience-bubbles-group">
+                                ${sortedAudiences.map(audience => {
+                                    const shorthand = window.utils.getAudienceGroupShorthand(audience);
+                                    return `<span class="audience-bubble" data-audience="${audience.toLowerCase()}">${shorthand}</span>`;
+                                }).join('')}
+                            </div>
                         </h6>
                         ${app.sourceType ? `<span class="source-badge">${app.sourceType}</span>` : ''}
                     </div>
@@ -746,7 +793,7 @@ class ModalManager {
         `;
         
         return html;
-    }    /**
+    }/**
      * Render app properties in a readable format
      */
     renderAppProperties(app, appId) {

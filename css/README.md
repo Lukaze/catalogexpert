@@ -1,96 +1,113 @@
 # CSS Architecture Documentation
 
 ## Overview
-The CSS has been refactored from a single large file (`styles.css` - 2000+ lines) into a modular architecture for better maintainability and organization.
+The CSS has been refactored from a single large file into a modular architecture for better maintainability, performance, and organization. The new structure separates concerns and makes it easier to maintain specific features.
 
 ## File Structure
 
 ```
 css/
-├── base.css                 # Base styles, reset, global animations
+├── base.css                 # Core styles, variables, reset, global utilities
 ├── header.css              # Header and navigation components
 ├── search.css              # Search functionality and controls
-├── search-results.css      # Search results grid and cards
+├── search-results.css      # Search results grid and app tiles
+├── entitlements.css        # Entitlement visualization and components
+├── entitlement-states.css  # State cards, filtering, and analysis
 ├── modals.css              # Base modal styles and animations
-├── modal-tabs.css          # Modal tab content (Overview, Versions, Technical)
-├── entitlements.css        # Entitlements tab and related components
-├── entitlement-states.css  # Entitlement states management
+├── modal-tabs.css          # Modal tabs and Definition tab (NEW)
 ├── state-modals.css        # State reference and details modals
-├── loaders.css             # Loading states and progress indicators
-└── validation-test.css     # Development CSS validation (remove in production)
+└── loaders.css             # Loading states and progress indicators
 
 main.css                    # Main file that imports all modules
 ```
 
 ## Module Responsibilities
 
-### base.css
-- CSS reset and base styles
-- Global animations (spin, fadeIn)
-- Responsive design utilities
-- Small icon utilities
+### base.css (Core Foundation)
+- CSS reset and normalization
+- CSS custom properties (variables) for colors, spacing, typography
+- Global animations (spin, fadeIn, slideIn)
+- Responsive design utilities and breakpoints
+- Accessibility helpers
+- Icon utilities and common components
 
-### header.css
-- Header section styling
+### header.css (Navigation & Branding)
+- Header section styling and layout
 - Built-by credit component
-- Tab navigation
-- Tab content management
+- Main tab navigation (Search Apps, Entitlement States)
+- Tab switching animations and active states
+- Responsive header behavior
 
-### search.css
-- Search section layout
-- Search input styling
+### search.css (Search Interface)
+- Search section layout and styling
+- Search input field with enhanced focus states
+- Audience group filters with selection states
 - Status messages (loading, success, error)
-- Search summary display
-- No results messaging
+- Search summary display with statistics
+- No results messaging with helpful hints
 
-### search-results.css
-- Search results grid layout
-- Search result cards
-- Card components (header, content, badges)
-- Audience group bubbles
-- Entitlement badges
+### search-results.css (App Display)
+- Search results grid layout with responsive columns
+- App result cards with hover effects and animations
+- Card components (header, content, footer, badges)
+- Audience group bubbles with color coding
+- Entitlement badges with state-specific styling
+- App icons and metadata display
 
-### modals.css
-- Base modal structure and animations
-- Modal header and body
-- Close button
-- App header within modals
-- Modal stats display
-- Modal tabs navigation
+### modals.css (Modal Foundation)
+- Base modal overlay and container styles
+- Modal animations (fadeIn, slideIn from various directions)
+- Modal header, body, and footer layouts
+- Close button styling and positioning
+- Modal responsive behavior
+- Focus management and accessibility
 
-### modal-tabs.css
-- Overview tab content
-- Versions tab styling
-- Definition tab layout and property display with enhanced categorization
-- Enhanced property type formatting (color swatches, collapsible objects, smart arrays)
-- Technical tab layout
-- Property badges and categorized display
-- Version cards
-- Interactive elements (hover effects, collapsible details)
+### modal-tabs.css (Enhanced Modal Content) ⭐ NEW
+- **Modal tab navigation and switching**
+- **Overview tab with app properties and categories**
+- **Versions tab with version cards and grids**
+- **Enhanced Definition tab with comprehensive features:**
+  - Version-based grouping instead of audience-based
+  - Collapsible sections with smooth animations
+  - Professional header with statistics and hints
+  - Comprehensive property formatting for 8+ data types
+  - Property categorization with gradient headers
+  - Interactive elements (color swatches, JSON viewers)
+  - Responsive design for all screen sizes
+- **Technical tab styling**
+- **Property type-specific formatting**
 
-### entitlements.css
-- Entitlements container
-- Entitlement audience cards
-- State-specific badges
-- Empty state styling
+### entitlements.css (Entitlement Visualization)
+- Entitlement tab layout and grid system
+- Entitlement audience cards with grouping
+- Entitlement lists and individual entitlement cards
+- State badges with icons and color coding
+- Scope and context display formatting
+- Empty state messaging for no entitlements
 
-### entitlement-states.css
-- State management cards
-- Stats display
-- Preconfigured entitlement badges
-- Clickable state cards
+### entitlement-states.css (State Analysis)
+- Entitlement states overview layout
+- State cards with statistics and hover effects
+- State filtering controls and audience selection
+- State drill-down interactions
+- App lists within states
+- Audience filter buttons and selection states
 
-### state-modals.css
-- State reference modal
-- State details modal
-- Audience filtering
-- State app lists
+### state-modals.css (State Details)
+- State reference modal styling
+- State details modal with filtering capabilities
+- Audience filter buttons within modals
+- App lists with search result integration
+- State-specific color coding and badges
+- Modal content scrolling and layout
 
-### loaders.css
-- Blocking loader overlay
-- Progress bars
-- Loading statistics
-- Loading animations
+### loaders.css (Loading States)
+- Loading screen animations and progress indicators
+- Spinner components with various sizes
+- Progress bars and loading statistics
+- Skeleton loading states for content
+- Error state styling with retry buttons
+- Success state confirmations
 
 ## Benefits of Modular Architecture
 
@@ -137,3 +154,56 @@ Include in HTML:
 2. Implement CSS-in-JS for dynamic styling
 3. Add CSS purging for production builds
 4. Consider CSS modules for component isolation
+
+## Performance Benefits
+
+1. **Modular Loading**: Browsers can cache individual modules separately
+2. **Maintainability**: Each file focuses on specific functionality
+3. **Development**: Easier to locate and modify specific styles
+4. **Build Optimization**: Can optimize/minify individual modules
+5. **Debugging**: CSS issues isolated to specific modules
+
+## Responsive Design Strategy
+
+All modules follow a mobile-first approach with:
+- Base styles for mobile (320px+)
+- Tablet breakpoint (768px+)
+- Desktop breakpoint (1024px+)
+- Large desktop (1440px+)
+
+## Color System
+
+Consistent color variables defined in `base.css`:
+- Primary: #4f46e5 (Indigo)
+- Success: #10b981 (Emerald)
+- Warning: #f59e0b (Amber)
+- Error: #ef4444 (Red)
+- Gray scale: 50-900 variations
+- Audience-specific colors for R1-R4 groups
+
+## Development Guidelines
+
+### Adding New Styles
+1. Determine which module the styles belong to
+2. Follow existing naming conventions
+3. Use CSS custom properties for colors and spacing
+4. Ensure responsive design
+5. Add hover and focus states for interactive elements
+
+### Modifying Existing Styles
+1. Locate the appropriate module
+2. Check for dependencies in other modules
+3. Test across all breakpoints
+4. Verify accessibility compliance
+
+### Creating New Modules
+1. Follow the existing module structure
+2. Add import to `main.css`
+3. Document the module purpose in this README
+4. Ensure no style conflicts with existing modules
+
+## Browser Support
+- Modern browsers (Chrome 90+, Firefox 88+, Safari 14+, Edge 90+)
+- CSS Grid and Flexbox support required
+- CSS Custom Properties support required
+- Graceful degradation for older browsers

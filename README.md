@@ -27,10 +27,14 @@ A powerful web-based tool for exploring and analyzing Microsoft Teams applicatio
 - **Multi-audience support**: View app versions across different audience groups
 - **Detailed app information**: Developer details, manifest versions, descriptions
 - **Tabbed modal interface**: Organized presentation of app data with Overview, Versions, Entitlements, Definition, and Technical tabs
-- **Enhanced Definition tab**: Complete app properties display with 107+ categorized properties across 15 categories
-- **Advanced property formatting**: Smart formatting for different data types (URLs, colors, objects, arrays, dates, codes)
-- **Collapsible object views**: Interactive details for complex object properties
-- **Entitlement visualization**: Color-coded state badges with icons
+- **Enhanced Definition tab**: 
+  - **Version-based grouping**: Apps organized by unique versions with multiple audience bubbles
+  - **Collapsible sections**: All version sections collapsed by default with expand/collapse functionality
+  - **Comprehensive property display**: 107+ app properties organized into 15 logical categories
+  - **Smart property formatting**: Handles 8+ data types (text, URLs, colors, objects, arrays, dates, codes, booleans)
+  - **Interactive elements**: Collapsible JSON viewers, color swatches, clickable links
+  - **Professional styling**: Categorized layout with responsive design and hover effects
+- **Entitlement visualization**: Color-coded state badges with icons and detailed drill-down
 
 ### 🎯 Advanced Filtering
 - **Global audience filters**: Filter all data by audience groups
@@ -102,10 +106,20 @@ Catalog Configs → Data Loader → App Definitions + Entitlements → Search En
 ```
 CatalogExpert/
 ├── index.html                 # Main application interface
-├── styles.css                 # Complete styling and responsive design
+├── main.css                   # Base styling and layout
 ├── start-server.ps1           # PowerShell development server
-├── validate.html              # Development validation tools
-├── validation-suite.js        # Testing and validation utilities
+├── README.md                  # Project documentation
+├── css/                       # Modular CSS organization
+│   ├── base.css               # Core styles and variables
+│   ├── header.css             # Header and navigation styling
+│   ├── search.css             # Search interface styles
+│   ├── search-results.css     # Search results and app tiles
+│   ├── entitlements.css       # Entitlement visualization
+│   ├── entitlement-states.css # State cards and filtering
+│   ├── modals.css             # Modal dialog styles
+│   ├── modal-tabs.css         # Tabbed interface and Definition tab
+│   ├── state-modals.css       # State details modal styling
+│   └── loaders.css            # Loading animations and states
 ├── js/                        # JavaScript modules
 │   ├── app-explorer.js        # Main application controller
 │   ├── data-loader.js         # Data loading and caching
@@ -164,15 +178,27 @@ The application expects JSON files with the following structure:
 - **Cross-reference**: See which audience groups have specific entitlements
 
 ### Definition Tab Features
+- **Version-Based Organization**: Apps grouped by unique versions instead of audience groups for cleaner presentation
+- **Smart Version Sorting**: Semantic version sorting with newest versions displayed first
+- **Multiple Audience Display**: Shows all audience groups (R4, R3, R2, R1) that share the same version as bubbles
+- **Collapsible Interface**: All version sections collapsed by default with intuitive expand/collapse controls
 - **Comprehensive Property Display**: 107+ app properties organized into 15 logical categories:
   - Core App Properties, Developer Information, Security & Permissions
   - App Capabilities, Display & UI, Tenant & Identity
   - Localization, Business & Marketplace, Configuration
   - Status & Metadata, Office Add-ins, App Enhancement Features
   - MetaOS Features, Copilot & AI Features, Security & Compliance
-- **Smart Data Type Handling**: Automatic formatting for booleans, URLs, arrays, codes, versions, colors, objects, dates, and descriptions
-- **Interactive Elements**: Collapsible object viewers, color swatches, clickable links
-- **Professional Styling**: Categorized layout with gradient headers and hover effects
+- **Advanced Data Type Handling**: 
+  - **Text**: Proper typography and styling
+  - **Colors**: Visual color swatches with hex values
+  - **URLs**: Clickable links with external indicators
+  - **Objects**: Collapsible JSON viewers for complex data
+  - **Arrays**: Formatted lists with proper spacing
+  - **Booleans**: Visual checkmarks and X marks
+  - **Dates**: Formatted date strings
+  - **Codes**: Monospace styling for technical identifiers
+- **Interactive Elements**: Hover effects, expandable sections, and responsive design
+- **Professional Layout**: Clean categorization with gradient headers and consistent spacing
 
 ### Data Management
 - **Intelligent Caching**: Reduces redundant network requests
@@ -257,11 +283,22 @@ This project is available under the MIT License. See the LICENSE file for more d
 
 ## 🎯 Roadmap
 
+### Recently Completed ✅
+- Enhanced Definition tab with version-based grouping
+- Comprehensive property formatting with 8+ data types
+- Collapsible interface for better UX
+- Modular CSS architecture for maintainability
+- Responsive design improvements
+- Professional styling throughout the application
+
+### Upcoming Features 🚀
 - [ ] Export functionality for search results
 - [ ] Advanced analytics dashboard
 - [ ] Custom entitlement state definitions
 - [ ] Integration with Microsoft Graph API
 - [ ] Bulk operations for app management
+- [ ] Dark mode theme option
+- [ ] Advanced property filtering and search within definitions
 
 ---
 
