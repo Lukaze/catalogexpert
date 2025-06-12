@@ -273,6 +273,8 @@
     gap: 20px;
     font-size: 0.9rem;
     color: #6b7280;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
 .definition-summary .summary-item strong {
@@ -612,6 +614,62 @@
 
 .property-tag:hover {
     transform: translateY(-1px);
+}
+
+/* Collapsible Definition Sections */
+.audience-header.collapsible {
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s ease;
+}
+
+.audience-header.collapsible:hover {
+    background: linear-gradient(135deg, #5856eb 0%, #8b5cf6 100%);
+}
+
+.audience-header h6 {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 12px;
+}
+
+.collapse-indicator {
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: transform 0.2s ease;
+    margin-right: 5px;
+    min-width: 12px;
+}
+
+.audience-version {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-left: auto;
+    padding: 2px 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+}
+
+.definition-content.collapsed {
+    display: none;
+}
+
+.definition-content.expanded {
+    display: block;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        max-height: 0;
+    }
+    to {
+        opacity: 1;
+        max-height: 1000px;
+    }
 }
 
 @media (max-width: 768px) {

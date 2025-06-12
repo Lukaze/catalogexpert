@@ -61,10 +61,12 @@ main.css                    # Main file that imports all modules
 ### modal-tabs.css
 - Overview tab content
 - Versions tab styling
-- Definition tab layout and property display
+- Definition tab layout and property display with enhanced categorization
+- Enhanced property type formatting (color swatches, collapsible objects, smart arrays)
 - Technical tab layout
-- Property badges
+- Property badges and categorized display
 - Version cards
+- Interactive elements (hover effects, collapsible details)
 
 ### entitlements.css
 - Entitlements container

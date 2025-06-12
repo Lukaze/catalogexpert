@@ -27,7 +27,9 @@ A powerful web-based tool for exploring and analyzing Microsoft Teams applicatio
 - **Multi-audience support**: View app versions across different audience groups
 - **Detailed app information**: Developer details, manifest versions, descriptions
 - **Tabbed modal interface**: Organized presentation of app data with Overview, Versions, Entitlements, Definition, and Technical tabs
-- **Complete app definition**: View all app properties and metadata in a readable format
+- **Enhanced Definition tab**: Complete app properties display with 107+ categorized properties across 15 categories
+- **Advanced property formatting**: Smart formatting for different data types (URLs, colors, objects, arrays, dates, codes)
+- **Collapsible object views**: Interactive details for complex object properties
 - **Entitlement visualization**: Color-coded state badges with icons
 
 ### 🎯 Advanced Filtering
@@ -160,6 +162,17 @@ The application expects JSON files with the following structure:
 - **Audience Filtering**: View entitlements specific to audience groups
 - **Detailed Drill-down**: Click state cards to see all apps in that state
 - **Cross-reference**: See which audience groups have specific entitlements
+
+### Definition Tab Features
+- **Comprehensive Property Display**: 107+ app properties organized into 15 logical categories:
+  - Core App Properties, Developer Information, Security & Permissions
+  - App Capabilities, Display & UI, Tenant & Identity
+  - Localization, Business & Marketplace, Configuration
+  - Status & Metadata, Office Add-ins, App Enhancement Features
+  - MetaOS Features, Copilot & AI Features, Security & Compliance
+- **Smart Data Type Handling**: Automatic formatting for booleans, URLs, arrays, codes, versions, colors, objects, dates, and descriptions
+- **Interactive Elements**: Collapsible object viewers, color swatches, clickable links
+- **Professional Styling**: Categorized layout with gradient headers and hover effects
 
 ### Data Management
 - **Intelligent Caching**: Reduces redundant network requests

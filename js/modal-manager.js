@@ -699,8 +699,7 @@ class ModalManager {
 
         // Get all unique audiences and their app data
         const audienceEntries = Array.from(audienceMap.entries()).sort(([a], [b]) => a.localeCompare(b));
-        
-        let html = `
+          let html = `
             <div class="definition-container">
                 <div class="definition-header">
                     <h5>📋 Complete App Definition</h5>
@@ -711,27 +710,30 @@ class ModalManager {
                         <span class="summary-item">
                             App ID: <strong>${appId}</strong>
                         </span>
+                        <span class="summary-item" style="font-style: italic; color: #64748b;">
+                            💡 Click audience headers to expand/collapse sections
+                        </span>
                     </div>
                 </div>
                 
                 <div class="definition-grid">
-        `;
-
-        // Create a definition card for each audience group
-        audienceEntries.forEach(([audience, app]) => {
+        `;        // Create a definition card for each audience group
+        audienceEntries.forEach(([audience, app], index) => {
             const shorthand = window.utils.getAudienceGroupShorthand(audience);
+            const collapseId = `definition-collapse-${index}`;
             
             html += `
                 <div class="definition-audience-card">
-                    <div class="audience-header">
+                    <div class="audience-header collapsible" onclick="toggleDefinitionCollapse('${collapseId}')">
                         <h6>
+                            <span class="collapse-indicator" id="${collapseId}-indicator">▶</span>
                             <span class="audience-bubble" data-audience="${audience.toLowerCase()}">${shorthand}</span>
-                            ${audience}
+                            <span class="audience-version">v${app.version || 'N/A'}</span>
                         </h6>
                         ${app.sourceType ? `<span class="source-badge">${app.sourceType}</span>` : ''}
                     </div>
                     
-                    <div class="definition-content">
+                    <div class="definition-content collapsed" id="${collapseId}">
                         ${this.renderAppProperties(app, appId)}
                     </div>
                 </div>
@@ -1041,10 +1043,29 @@ class ModalManager {
             default:
                 return window.utils.escapeHtml(String(value));
         }
-    }
-
-    // ...existing code...
+    }    // ...existing code...
 }
+
+// Global function to toggle definition collapse
+function toggleDefinitionCollapse(collapseId) {
+    const content = document.getElementById(collapseId);
+    const indicator = document.getElementById(collapseId + '-indicator');
+    
+    if (content && indicator) {
+        if (content.classList.contains('collapsed')) {
+            content.classList.remove('collapsed');
+            content.classList.add('expanded');
+            indicator.textContent = '▼';
+        } else {
+            content.classList.remove('expanded');
+            content.classList.add('collapsed');
+            indicator.textContent = '▶';
+        }
+    }
+}
+
+// Make functions available globally
+window.toggleDefinitionCollapse = toggleDefinitionCollapse;
 
 // Make ModalManager available globally
 window.ModalManager = ModalManager;
