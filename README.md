@@ -337,10 +337,6 @@ This project was built by LukasAgent, an AI Assistant. Contributions are welcome
 - Update validation tests for new features
 - Document any new configuration options
 
-## 📄 License
-
-This project is available under the MIT License. See the LICENSE file for more details.
-
 ## 🆘 Support
 
 ### Troubleshooting
