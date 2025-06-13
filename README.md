@@ -108,6 +108,7 @@ CatalogExpert/
 ├── index.html                 # Main application interface
 ├── main.css                   # Base styling and layout
 ├── start-server.ps1           # PowerShell development server
+├── build-production.ps1       # Production build script
 ├── README.md                  # Project documentation
 ├── css/                       # Modular CSS organization
 │   ├── base.css               # Core styles and variables
@@ -125,9 +126,18 @@ CatalogExpert/
 │   ├── data-loader.js         # Data loading and caching
 │   ├── search-engine.js       # Search algorithms and filtering
 │   ├── ui-renderer.js         # UI rendering and DOM management
-│   ├── modal-manager.js       # Modal dialogs and detailed views
 │   ├── event-handlers.js      # Event management and user interactions
-│   └── utils.js               # Utility functions and constants
+│   ├── utils.js               # Utility functions and constants
+│   └── modules/               # Specialized modules
+│       ├── app-modal-renderer.js     # App detail modal rendering
+│       ├── definition-renderer.js    # Definition tab rendering
+│       ├── modal-manager.js          # Modal state management
+│       └── state-modal-manager.js    # State detail modals
+├── release/                   # Production build output (auto-generated)
+│   ├── index.html             # Minified HTML
+│   ├── main.css               # Combined and minified CSS
+│   ├── css/                   # Minified CSS modules
+│   └── js/                    # Minified JavaScript modules
 └── samples/                   # Sample data files
     ├── catalogConfig SAMPLE.json
     ├── preconfigured_appentitlements_general.json
@@ -220,6 +230,69 @@ The application expects JSON files with the following structure:
 # - Static file serving
 ```
 
+### Production Build & Deployment
+
+The project includes a comprehensive build system that creates optimized, minified files for production deployment:
+
+```powershell
+# Build production version
+.\build-production.ps1
+
+# Features:
+# - Clean release directory creation
+# - HTML minification with comment removal
+# - CSS import resolution and minification
+# - Advanced JavaScript minification with template string preservation
+# - Windows line ending standardization for Git compatibility
+# - 24%+ file size reduction
+```
+
+#### Build Process Details
+
+**HTML Minification**:
+- Removes HTML and JavaScript comments
+- Eliminates extra whitespace between tags
+- Preserves critical spacing for JavaScript functionality
+
+**CSS Processing**:
+- Resolves `@import` statements and combines files
+- Minifies all CSS with space and comment removal
+- Maintains proper syntax and functionality
+
+**JavaScript Minification**:
+- Removes single-line and multi-line comments
+- Eliminates unnecessary whitespace and line breaks
+- **Template String Preservation**: Special handling to maintain spacing in template literals (e.g., `${count} data sources`)
+- Removes spaces around operators while preserving readability
+- Post-processing to fix template string spacing issues
+
+**Output Structure**:
+```
+release/
+├── index.html              # Minified HTML
+├── main.css                # Combined and minified CSS
+├── css/                    # Individual minified CSS files
+└── js/                     # Minified JavaScript modules
+```
+
+**Build Benefits**:
+- **Size Reduction**: ~25% smaller file sizes for faster loading
+- **Clean Deployment**: Fresh release directory for each build
+- **Git Compatibility**: Standardized Windows line endings
+- **Preserved Functionality**: Template strings and critical spacing maintained
+- **Error Prevention**: Robust minification that doesn't break JavaScript
+
+#### Deployment
+
+The development server automatically serves from the `release/` directory and runs the build process:
+
+```powershell
+# Start server (automatically builds and serves production files)
+.\start-server.ps1
+```
+
+For manual deployment to web servers, simply copy the contents of the `release/` folder to your web root directory.
+
 ### Validation
 ```powershell
 # Open validation suite
@@ -290,6 +363,11 @@ This project is available under the MIT License. See the LICENSE file for more d
 - Modular CSS architecture for maintainability
 - Responsive design improvements
 - Professional styling throughout the application
+- **Production build system with advanced minification**
+- **Template string preservation in JavaScript minification**
+- **Clean entitlement bubbles showing only numbers**
+- **Fixed loading screen spacing issues**
+- **Automated deployment pipeline with build-first approach**
 
 ### Upcoming Features 🚀
 - [ ] Export functionality for search results

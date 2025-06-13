@@ -45,6 +45,15 @@
     font-size: 1rem;
 }
 
+.built-by-credit a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.built-by-credit a:hover {
+    color: inherit;
+}
+
 /* Tab Navigation Styles */
 .tab-navigation {
     display: flex;
