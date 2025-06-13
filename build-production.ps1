@@ -18,10 +18,15 @@ Write-Host "🚀 Starting Microsoft Teams App Catalog Explorer build process..."
 Write-Host "Source: $SourceRoot" -ForegroundColor Cyan
 Write-Host "Output: $ReleaseDir" -ForegroundColor Cyan
 
-# Clean previous build if requested
-if ($Clean -and (Test-Path $ReleaseDir)) {
-    Write-Host "🧹 Cleaning previous release..." -ForegroundColor Yellow
+# Always clean the release folder first for a fresh build
+if (Test-Path $ReleaseDir) {
+    Write-Host "🧹 Cleaning release folder..." -ForegroundColor Yellow
     Remove-Item $ReleaseDir -Recurse -Force
+}
+
+# Additional clean if requested (for backwards compatibility)
+if ($Clean) {
+    Write-Host "🧹 Additional cleanup requested..." -ForegroundColor Yellow
 }
 
 # Create output directories
@@ -31,7 +36,6 @@ $Directories = @(
     (Join-Path $ReleaseDir "css"),
     (Join-Path $ReleaseDir "js"),
     (Join-Path $ReleaseDir "js\modules"),
-    (Join-Path $ReleaseDir "samples"),
     $TempDir
 )
 
@@ -308,19 +312,6 @@ if (Test-Path $ModulesDir) {
         if ($Verbose) {
             Write-Host "    Original: $OriginalSize bytes | Minified: $NewSize bytes | Saved: $Savings%" -ForegroundColor Gray
         }
-    }
-}
-
-# Copy sample files (no minification needed for JSON)
-Write-Host "📋 Copying sample files..." -ForegroundColor Blue
-$SamplesDir = Join-Path $SourceRoot "samples"
-if (Test-Path $SamplesDir) {
-    $SampleFiles = Get-ChildItem -Path $SamplesDir -File
-    
-    foreach ($SampleFile in $SampleFiles) {
-        Write-Host "  Copying: samples\$($SampleFile.Name)" -ForegroundColor White
-        $OutputPath = Join-Path $ReleaseDir "samples" $SampleFile.Name
-        Copy-Item $SampleFile.FullName $OutputPath -Force
     }
 }
 

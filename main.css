@@ -31,9 +31,6 @@
 /* Loading states and spinners */
 @import url('css/loaders.css');
 
-/* Development CSS validation test - remove in production */
-@import url('css/validation-test.css');
-
 /* Legacy app cards - to be refactored later */
 .app-card {
     background: white;
