@@ -17,12 +17,12 @@
     background-color: white;
     margin: 0;
     padding: 0;
-    border-radius: 15px;
+    border-radius: 12px;
     width: 90%;
     max-width: 900px;
     max-height: 85vh;
     overflow-y: auto;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
     animation: modalSlideIn 0.3s ease-out;
 }
 
@@ -40,8 +40,8 @@
 .modal-header {
     background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
     color: white;
-    padding: 20px 30px;
-    border-radius: 15px 15px 0 0;
+    padding: 15px 20px;
+    border-radius: 12px 12px 0 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -75,27 +75,27 @@
 }
 
 .modal-body {
-    padding: 30px;
+    padding: 20px;
 }
 
 /* Enhanced Modal Styles */
 .modal-app-header {
     display: flex;
     align-items: flex-start;
-    gap: 20px;
-    margin-bottom: 25px;
-    padding-bottom: 20px;
+    gap: 15px;
+    margin-bottom: 18px;
+    padding-bottom: 15px;
     border-bottom: 1px solid #e5e7eb;
     background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-    padding: 20px;
-    border-radius: 12px;
-    margin: -30px -30px 25px -30px;
+    padding: 15px;
+    border-radius: 10px;
+    margin: -20px -20px 18px -20px;
 }
 
 .modal-app-icon {
-    width: 64px;
-    height: 64px;
-    border-radius: 12px;
+    width: 56px;
+    height: 56px;
+    border-radius: 10px;
     object-fit: cover;
     border: 2px solid #e2e8f0;
     flex-shrink: 0;
@@ -168,19 +168,19 @@
 .modal-tabs {
     display: flex;
     border-bottom: 2px solid #f1f5f9;
-    margin-bottom: 25px;
-    gap: 4px;
+    margin-bottom: 18px;
+    gap: 2px;
 }
 
 .modal-tab-button {
     background: none;
     border: none;
-    padding: 12px 20px;
-    font-size: 0.9rem;
+    padding: 10px 16px;
+    font-size: 0.85rem;
     font-weight: 500;
     color: #6b7280;
     cursor: pointer;
-    border-radius: 8px 8px 0 0;
+    border-radius: 6px 6px 0 0;
     transition: all 0.2s ease;
     position: relative;
 }
@@ -197,7 +197,7 @@
 }
 
 .modal-tab-content {
-    min-height: 300px;
+    min-height: 250px;
 }
 
 .modal-tab-pane {

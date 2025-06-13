@@ -1,23 +1,24 @@
 /* Search Results Grid */
 .search-results-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 15px;
-    padding: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+    padding: 15px;
 }
 
 .search-result-card {
     background: white;
-    border-radius: 10px;
-    padding: 16px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
     cursor: pointer;
     border: 2px solid #e2e8f0;
     position: relative;
-    min-height: 180px;
+    min-height: 160px;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 .search-result-card:hover {
@@ -33,14 +34,14 @@
 .card-header {
     display: flex;
     align-items: flex-start;
-    gap: 10px;
-    margin-bottom: 12px;
+    gap: 8px;
+    margin-bottom: 10px;
 }
 
 .card-icon {
-    width: 28px;
-    height: 28px;
-    border-radius: 6px;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
     flex-shrink: 0;
     border: 1px solid #e2e8f0;
     overflow: hidden;
@@ -154,7 +155,7 @@
 
 .card-footer {
     margin-top: auto;
-    padding-top: 10px;
+    padding-top: 8px;
     border-top: 1px solid #e5e7eb;
 }
 
@@ -200,24 +201,23 @@
     display: flex;
     flex-wrap: wrap;
     gap: 4px;
-    margin-top: auto;
-    padding: 8px 12px;
-    margin-left: -16px;
-    margin-right: -16px;
-    margin-bottom: -16px;
-    border-top: 1px solid #f1f5f9;
-    background: linear-gradient(to right, #f8fafc, #f1f5f9);
-    border-radius: 0 0 10px 10px;
-    min-height: 32px;
+    margin-top: 8px;
+    padding: 6px;
+    border-top: 1px solid #e5e7eb;
+    background: #f8fafc;
+    border-radius: 6px;
+    min-height: 28px;
     align-items: center;
+    justify-content: flex-start;
+    overflow: hidden;
 }
 
 /* Base audience bubble style */
 .audience-bubble {
     display: inline-block;
     color: white;
-    padding: 3px 8px;
-    border-radius: 12px;
+    padding: 2px 6px;
+    border-radius: 10px;
     font-size: 0.65rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -225,6 +225,7 @@
     white-space: nowrap;
     transition: all 0.2s ease;
     border: 1px solid transparent;
+    line-height: 1.2;
 }
 
 .audience-bubble:hover {

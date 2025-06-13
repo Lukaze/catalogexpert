@@ -200,33 +200,33 @@
 
 /* Audience Group Filter Styles for State Details Modal */
 .audience-filter-container {
-    margin-bottom: 25px;
-    padding: 20px;
+    margin-bottom: 18px;
+    padding: 15px;
     background: #f8fafc;
-    border-radius: 12px;
+    border-radius: 10px;
     border: 1px solid #e2e8f0;
 }
 
 .audience-filter-title {
-    margin: 0 0 12px 0;
+    margin: 0 0 10px 0;
     color: #4338ca;
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 600;
 }
 
 .audience-filter-buttons {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 6px;
 }
 
 .audience-filter-btn {
-    padding: 6px 12px;
+    padding: 5px 10px;
     border: 2px solid #e2e8f0;
     background: white;
     color: #64748b;
-    border-radius: 20px;
-    font-size: 0.8rem;
+    border-radius: 15px;
+    font-size: 0.75rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
