@@ -147,12 +147,10 @@ function Minify-JavaScript {
     $Content = $CleanedLines -join "`r`n"
     
     # Safe minification - only remove obviously safe whitespace
-    $Content = $Content -replace '\s*{\s*', '{'     # Remove spaces around opening braces
-    $Content = $Content -replace '\s*}\s*', '}'     # Remove spaces around closing braces  
+    $Content = $Content -replace '\s*{\s*', '{'     # Remove spaces around opening braces    $Content = $Content -replace '\s*}\s*', '}'     # Remove spaces around closing braces
     $Content = $Content -replace '\s*;\s*', ';'     # Remove spaces around semicolons
     $Content = $Content -replace '\s*,\s*', ','     # Remove spaces around commas
-    $Content = $Content -replace '\s*=\s*', '='     # Remove spaces around equals
-    $Content = $Content -replace '\s*\+\s*', '+'    # Remove spaces around plus
+    $Content = $Content -replace '\s*=\s*', '='     # Remove spaces around equals    # Skip minifying plus operators to preserve template string spacing
     $Content = $Content -replace '\s*-\s*', '-'     # Remove spaces around minus (careful with --)
     $Content = $Content -replace '\s*\*\s*', '*'    # Remove spaces around multiply
     $Content = $Content -replace '\s*\/\s*', '/'    # Remove spaces around divide
@@ -160,10 +158,11 @@ function Minify-JavaScript {
     $Content = $Content -replace '\s*\)\s*', ')'    # Remove spaces around closing parentheses
     $Content = $Content -replace '\s*\[\s*', '['    # Remove spaces around opening brackets
     $Content = $Content -replace '\s*\]\s*', ']'    # Remove spaces around closing brackets
-    
-    # Remove excessive whitespace but preserve single spaces where needed
-    $Content = $Content -replace '\n{2,}', "`n"     # Multiple newlines to single
-    $Content = $Content -replace '[ \t]{2,}', ' '   # Multiple spaces/tabs to single space
+      # Remove excessive whitespace but preserve single spaces where needed (avoid affecting template strings)
+    $Content = $Content -replace '\n{2,}', "`n"     # Multiple newlines to single    # Be more careful with space removal to preserve template string spacing
+    $Content = $Content -replace '  +', ' '         # Multiple spaces to single space (but preserve single spaces)
+      # Post-process to fix common template string spacing issues
+    $Content = $Content -replace '(\$\{[^}]+\})([a-zA-Z])', '$1 $2'
     
     return $Content.Trim()
 }

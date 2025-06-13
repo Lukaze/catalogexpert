@@ -1,10 +1,12 @@
 class AppModalRenderer{generateDetailedAppContent(audienceMap,appId,dataLoader,constants){const entitlementInfo=this.getAppPreconfiguredEntitlementsGrouped(appId,dataLoader);const firstApp=audienceMap.values().next().value;const audienceVersionsHtml=this.createAudienceVersionsHtml(audienceMap);return `
 <div class="modal-app-header">
-${firstApp.largeImageUrl ? `<img src="${firstApp.largeImageUrl}" alt="${firstApp.name}" class="modal-app-icon" onerror="this.style.display='none'">` : ''}<div class="modal-app-basic-info">
+${firstApp.largeImageUrl ? `<img src="${firstApp.largeImageUrl}" alt="${firstApp.name}" class="modal-app-icon" onerror="this.style.display='none'">` : ''}
+<div class="modal-app-basic-info">
 <h4>${window.utils.escapeHtml(firstApp.name || 'Unknown App')}</h4>
 <p class="app-id-modal">ID: ${appId}</p>
 <p>Developer: ${window.utils.escapeHtml(firstApp.developerName || 'Unknown')}</p>
-${firstApp.description ? `<p class="app-description-modal">${window.utils.escapeHtml(firstApp.description)}</p>` : ''}</div>
+${firstApp.description ? `<p class="app-description-modal">${window.utils.escapeHtml(firstApp.description)}</p>` : ''}
+</div>
 <div class="modal-app-stats">
 <div class="modal-stat">
 <div class="modal-stat-number">${audienceMap.size}</div>
@@ -41,12 +43,21 @@ ${firstApp.description ? `<p class="app-description-modal">${window.utils.escape
 <div class="overview-card">
 <h5>📱 App Properties</h5>
 <div class="property-badges">
-${firstApp.isCoreApp ? '<span class="property-badge core">Core App</span>' : ''}${firstApp.isTeamsOwned ? '<span class="property-badge teams">Teams Owned</span>' : ''}${firstApp.isPinnable ? '<span class="property-badge feature">Pinnable</span>' : ''}${firstApp.isPreinstallable ? '<span class="property-badge feature">Preinstallable</span>' : ''}${firstApp.isBlockable ? '<span class="property-badge warning">Blockable</span>' : ''}${firstApp.isFullTrust ? '<span class="property-badge trust">Full Trust</span>' : ''}${!firstApp.isCoreApp && !firstApp.isTeamsOwned && !firstApp.isPinnable && !firstApp.isPreinstallable && !firstApp.isBlockable && !firstApp.isFullTrust ? '<span class="property-badge default">Standard App</span>' : ''}</div>
+${firstApp.isCoreApp ? '<span class="property-badge core">Core App</span>' : ''}
+${firstApp.isTeamsOwned ? '<span class="property-badge teams">Teams Owned</span>' : ''}
+${firstApp.isPinnable ? '<span class="property-badge feature">Pinnable</span>' : ''}
+${firstApp.isPreinstallable ? '<span class="property-badge feature">Preinstallable</span>' : ''}
+${firstApp.isBlockable ? '<span class="property-badge warning">Blockable</span>' : ''}
+${firstApp.isFullTrust ? '<span class="property-badge trust">Full Trust</span>' : ''}
+${!firstApp.isCoreApp && !firstApp.isTeamsOwned && !firstApp.isPinnable && !firstApp.isPreinstallable && !firstApp.isBlockable && !firstApp.isFullTrust ? '<span class="property-badge default">Standard App</span>' : ''}
+</div>
 </div>
 <div class="overview-card">
 <h5>🏷️ Categories & Industries</h5>
 <div class="tag-container">
-${firstApp.categories ? firstApp.categories.map(cat=> `<span class="tag category-tag">${cat}</span>`).join(''): '<span class="no-data">No categories</span>'}${firstApp.industries ? firstApp.industries.map(ind=> `<span class="tag industry-tag">${ind}</span>`).join(''): '<span class="no-data">No industries</span>'}</div>
+${firstApp.categories ? firstApp.categories.map(cat=> `<span class="tag category-tag">${cat}</span>`).join(''): '<span class="no-data">No categories</span>'}
+${firstApp.industries ? firstApp.industries.map(ind=> `<span class="tag industry-tag">${ind}</span>`).join(''): '<span class="no-data">No industries</span>'}
+</div>
 </div>
 ${firstApp.developerUrl ? `
 <div class="overview-card">
@@ -56,22 +67,26 @@ Visit Developer Website
 <span class="external-icon">↗</span>
 </a>
 </div>
-` : ''}</div>
+` : ''}
+</div>
 </div>
 <!--Versions Tab-->
 <div id="modal-tab-versions" class="modal-tab-pane">
 <div class="versions-container">
 <h5>📋 Audience Group Versions</h5>
 <div class="versions-grid">
-${this.createVersionsGrid(audienceMap)}</div>
+${this.createVersionsGrid(audienceMap)}
+</div>
 </div>
 </div>
 <!--Entitlements Tab-->
 <div id="modal-tab-entitlements" class="modal-tab-pane">
-${this.renderPreconfiguredEntitlements(entitlementInfo)}</div>
+${this.renderPreconfiguredEntitlements(entitlementInfo)}
+</div>
 <!--Definition Tab-->
 <div id="modal-tab-definition" class="modal-tab-pane">
-${window.definitionRenderer.renderAppDefinition(audienceMap,appId)}</div>
+${window.definitionRenderer.renderAppDefinition(audienceMap,appId)}
+</div>
 <!--Technical Tab-->
 <div id="modal-tab-technical" class="modal-tab-pane">
 <div class="technical-grid">
@@ -95,15 +110,19 @@ ${window.definitionRenderer.renderAppDefinition(audienceMap,appId)}</div>
 </div>
 </div>
 </div>
-`;}createAudienceVersionsHtml(audienceMap){return Array.from(audienceMap.entries()).sort(([a],[b])=> a.localeCompare(b)).map(([audience,app])=>{const shorthand=window.utils.getAudienceGroupShorthand(audience);return `
+`;}
+createAudienceVersionsHtml(audienceMap){return Array.from(audienceMap.entries()).sort(([a],[b])=> a.localeCompare(b)).map(([audience,app])=>{const shorthand=window.utils.getAudienceGroupShorthand(audience);return `
 <div class="detail-item">
 <span class="detail-label">
 <span class="audience-bubble" data-audience="${audience.toLowerCase()}">${shorthand}</span>:
 </span>
 <span class="detail-value">
-v${app.version}${app.sourceType ? `<span class="tag" style="margin-left: 8px;font-size: 0.7rem;">${app.sourceType}</span>` : ''}</span>
+v${app.version}
+${app.sourceType ? `<span class="tag" style="margin-left: 8px;font-size: 0.7rem;">${app.sourceType}</span>` : ''}
+</span>
 </div>
-`}).join('');}createVersionsGrid(audienceMap){return Array.from(audienceMap.entries()).sort(([a],[b])=> a.localeCompare(b)).map(([audience,app])=>{const shorthand=window.utils.getAudienceGroupShorthand(audience);return `
+`}).join('');}
+createVersionsGrid(audienceMap){return Array.from(audienceMap.entries()).sort(([a],[b])=> a.localeCompare(b)).map(([audience,app])=>{const shorthand=window.utils.getAudienceGroupShorthand(audience);return `
 <div class="version-card">
 <div class="version-header">
 <h6>
@@ -111,8 +130,10 @@ v${app.version}${app.sourceType ? `<span class="tag" style="margin-left: 8px;fon
 </h6>
 <span class="version-number">v${app.version}</span>
 </div>
-${app.sourceType ? `<div class="version-source">${app.sourceType}</div>` : ''}</div>
-`}).join('');}renderPreconfiguredEntitlements(entitlementInfo){if(Object.keys(entitlementInfo).length===0){return `
+${app.sourceType ? `<div class="version-source">${app.sourceType}</div>` : ''}
+</div>
+`}).join('');}
+renderPreconfiguredEntitlements(entitlementInfo){if(Object.keys(entitlementInfo).length===0){return `
 <div class="entitlements-empty">
 <div class="empty-state">
 <div class="empty-icon">🔐</div>
@@ -120,7 +141,8 @@ ${app.sourceType ? `<div class="version-source">${app.sourceType}</div>` : ''}</
 <p>This app doesn't have any preconfigured entitlement states defined for any audience groups.</p>
 </div>
 </div>
-`;}let html=`
+`;}
+let html=`
 <div class="entitlements-container">
 <div class="entitlements-header">
 <h5>🔐 Preconfigured Entitlements</h5>
@@ -129,21 +151,21 @@ ${app.sourceType ? `<div class="version-source">${app.sourceType}</div>` : ''}</
 <strong>${Object.keys(entitlementInfo).length}</strong> audience groups
 </span>
 <span class="summary-item">
-<strong>${Object.values(entitlementInfo).reduce((total,ents)=> total+ents.length,0)}</strong> total entitlements
+<strong>${Object.values(entitlementInfo).reduce((total,ents)=> total + ents.length,0)}</strong> total entitlements
 </span>
 </div>
 </div>
 <div class="entitlements-grid">
-`;Object.entries(entitlementInfo).forEach(([audience,entitlements])=>{const shorthand=window.utils.getAudienceGroupShorthand(audience);html+=`
+`;Object.entries(entitlementInfo).forEach(([audience,entitlements])=>{const shorthand=window.utils.getAudienceGroupShorthand(audience);html +=`
 <div class="entitlement-audience-card">
 <div class="audience-header">
 <h6>
 <span class="audience-bubble" data-audience="${audience.toLowerCase()}">${shorthand}</span>
 </h6>
-<span class="entitlement-count">${entitlements.length}entitlement${entitlements.length !==1 ? 's' : ''}</span>
+<span class="entitlement-count">${entitlements.length} entitlement${entitlements.length !==1 ? 's' : ''}</span>
 </div>
 <div class="entitlements-list">
-`;entitlements.forEach(entitlement=>{const stateClass=window.modalManager.getStateClass(entitlement.state);const stateIcon=window.modalManager.getStateIcon(entitlement.state);html+=`
+`;entitlements.forEach(entitlement=>{const stateClass=window.modalManager.getStateClass(entitlement.state);const stateIcon=window.modalManager.getStateIcon(entitlement.state);html +=`
 <div class="entitlement-card">
 <div class="entitlement-main">
 <div class="entitlement-scope-context">
@@ -156,10 +178,16 @@ ${app.sourceType ? `<div class="version-source">${app.sourceType}</div>` : ''}</
 </div>
 </div>
 </div>
-`;});html+=`
+`;});html +=`
 </div>
 </div>
-`;});html+=`
+`;});html +=`
 </div>
 </div>
-`;return html;}getAppPreconfiguredEntitlementsGrouped(appId,dataLoader){const rawEntitlements=dataLoader.getAppPreconfiguredEntitlements(appId);const audienceEntitlements={};for(const[key,entitlement]of Object.entries(rawEntitlements)){const[audienceGroup,scope,context]=key.split('.');if(!audienceEntitlements[audienceGroup]){audienceEntitlements[audienceGroup]=[];}const entitlementWithContext={...entitlement,scope: scope,context: context};audienceEntitlements[audienceGroup].push(entitlementWithContext);}return audienceEntitlements;}}window.AppModalRenderer=AppModalRenderer;window.appModalRenderer=new AppModalRenderer();
+`;return html;}
+getAppPreconfiguredEntitlementsGrouped(appId,dataLoader){const rawEntitlements=dataLoader.getAppPreconfiguredEntitlements(appId);const audienceEntitlements={};for(const[key,entitlement]of Object.entries(rawEntitlements)){const[audienceGroup,scope,context]=key.split('.');if(!audienceEntitlements[audienceGroup]){audienceEntitlements[audienceGroup]=[];}
+const entitlementWithContext={...entitlement,scope: scope,context: context
+};audienceEntitlements[audienceGroup].push(entitlementWithContext);}
+return audienceEntitlements;}
+}
+window.AppModalRenderer=AppModalRenderer;window.appModalRenderer=new AppModalRenderer();

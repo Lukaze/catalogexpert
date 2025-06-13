@@ -77,7 +77,7 @@ class UIRenderer {
                 <div class="entitlement-state-card" onclick="window.appExplorer.showStateDetails('${window.utils.escapeHtml(state)}')">
                     <div class="entitlement-state-header">
                         <h3 class="entitlement-state-title">${window.utils.escapeHtml(state)}</h3>
-                        <span class="entitlement-state-count">${appsArray.length} app${appsArray.length !== 1 ? 's' : ''}</span>
+                        <span class="entitlement-state-count">${appsArray.length}</span>
                     </div>
                     <div class="entitlement-apps-list">
                         ${appsArray.slice(0, 8).map(appId => {
