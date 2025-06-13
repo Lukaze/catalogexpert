@@ -4,7 +4,7 @@
 # Usage:
 #   .\start-server.ps1                    # Build and serve (default)
 #   .\start-server.ps1 -Clean             # Clean build and serve
-#   .\start-server.ps1 -NoBuild           # Skip build, serve existing release
+#   .\start-server.ps1 -NoBuild           # Skip build, serve existing docs
 #   .\start-server.ps1 -Port 3000         # Use custom port
 #   .\start-server.ps1 -Clean -Port 3000  # Clean build with custom port
 
@@ -15,7 +15,7 @@ param(
 )
 
 $url = "http://localhost:$Port"
-$ReleaseDir = Join-Path $PSScriptRoot "release"
+$DocsDir = Join-Path $PSScriptRoot "docs"
 
 # Function to check if port is already in use
 function Test-Port {
@@ -61,9 +61,9 @@ if (-not $NoBuild) {
     Write-Host "⚡ Skipping build process..." -ForegroundColor Yellow
 }
 
-# Verify release directory exists
-if (-not (Test-Path $ReleaseDir)) {
-    Write-Host "❌ Release directory not found: $ReleaseDir" -ForegroundColor Red
+# Verify docs directory exists
+if (-not (Test-Path $DocsDir)) {
+    Write-Host "❌ Docs directory not found: $DocsDir" -ForegroundColor Red
     Write-Host "Please run the build process first or remove the -NoBuild flag." -ForegroundColor Red
     exit 1
 }
@@ -79,7 +79,7 @@ if (Test-Port -Port $Port) {
 }
 
 Write-Host "🚀 Starting production server on $url" -ForegroundColor Green
-Write-Host "📁 Serving from: $ReleaseDir" -ForegroundColor Cyan
+Write-Host "📁 Serving from: $DocsDir" -ForegroundColor Cyan
 Write-Host "Press Ctrl+C to stop the server" -ForegroundColor Yellow
 Write-Host "Opening browser..." -ForegroundColor Cyan
 
@@ -106,9 +106,8 @@ try {
         $response = $context.Response
           $path = $request.Url.LocalPath
         if ($path -eq "/") { $path = "/index.html" }
-        
-        # Serve files from the release directory
-        $filePath = Join-Path $ReleaseDir $path.TrimStart('/')
+          # Serve files from the docs directory
+        $filePath = Join-Path $DocsDir $path.TrimStart('/')
         
         if (Test-Path $filePath) {
             try {

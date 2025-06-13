@@ -133,7 +133,7 @@ CatalogExpert/
 │       ├── definition-renderer.js    # Definition tab rendering
 │       ├── modal-manager.js          # Modal state management
 │       └── state-modal-manager.js    # State detail modals
-├── release/                   # Production build output (auto-generated)
+├── docs/                      # Production build output (auto-generated)
 │   ├── index.html             # Minified HTML
 │   ├── main.css               # Combined and minified CSS
 │   ├── css/                   # Minified CSS modules
@@ -268,7 +268,7 @@ The project includes a comprehensive build system that creates optimized, minifi
 
 **Output Structure**:
 ```
-release/
+docs/
 ├── index.html              # Minified HTML
 ├── main.css                # Combined and minified CSS
 ├── css/                    # Individual minified CSS files
@@ -277,21 +277,21 @@ release/
 
 **Build Benefits**:
 - **Size Reduction**: ~25% smaller file sizes for faster loading
-- **Clean Deployment**: Fresh release directory for each build
+- **Clean Deployment**: Fresh docs directory for each build
 - **Git Compatibility**: Standardized Windows line endings
 - **Preserved Functionality**: Template strings and critical spacing maintained
 - **Error Prevention**: Robust minification that doesn't break JavaScript
 
 #### Deployment
 
-The development server automatically serves from the `release/` directory and runs the build process:
+The development server automatically serves from the `docs/` directory and runs the build process:
 
 ```powershell
 # Start server (automatically builds and serves production files)
 .\start-server.ps1
 ```
 
-For manual deployment to web servers, simply copy the contents of the `release/` folder to your web root directory.
+For manual deployment to web servers, simply copy the contents of the `docs/` folder to your web root directory.
 
 ### Validation
 ```powershell

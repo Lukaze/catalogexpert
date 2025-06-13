@@ -11,17 +11,17 @@ $ErrorActionPreference = "Stop"
 
 # Define paths
 $SourceRoot = $PSScriptRoot
-$ReleaseDir = Join-Path $SourceRoot "release"
+$DocsDir = Join-Path $SourceRoot "docs"
 $TempDir = Join-Path $SourceRoot "temp-build"
 
 Write-Host "🚀 Starting Microsoft Teams App Catalog Explorer build process..." -ForegroundColor Green
 Write-Host "Source: $SourceRoot" -ForegroundColor Cyan
-Write-Host "Output: $ReleaseDir" -ForegroundColor Cyan
+Write-Host "Output: $DocsDir" -ForegroundColor Cyan
 
-# Always clean the release folder first for a fresh build
-if (Test-Path $ReleaseDir) {
-    Write-Host "🧹 Cleaning release folder..." -ForegroundColor Yellow
-    Remove-Item $ReleaseDir -Recurse -Force
+# Always clean the docs folder first for a fresh build
+if (Test-Path $DocsDir) {
+    Write-Host "🧹 Cleaning docs folder..." -ForegroundColor Yellow
+    Remove-Item $DocsDir -Recurse -Force
 }
 
 # Additional clean if requested (for backwards compatibility)
@@ -31,11 +31,10 @@ if ($Clean) {
 
 # Create output directories
 Write-Host "📁 Creating output directories..." -ForegroundColor Blue
-$Directories = @(
-    $ReleaseDir,
-    (Join-Path $ReleaseDir "css"),
-    (Join-Path $ReleaseDir "js"),
-    (Join-Path $ReleaseDir "js\modules"),
+$Directories = @(    $DocsDir,
+    (Join-Path $DocsDir "css"),
+    (Join-Path $DocsDir "js"),
+    (Join-Path $DocsDir "js\modules"),
     $TempDir
 )
 
@@ -211,7 +210,7 @@ foreach ($HtmlFile in $HtmlFiles) {
     $Content = Get-Content $HtmlFile.FullName -Raw -Encoding UTF8
     $MinifiedContent = Minify-Html $Content
     
-    $OutputPath = Join-Path $ReleaseDir $HtmlFile.Name
+    $OutputPath = Join-Path $DocsDir $HtmlFile.Name
     Set-Content -Path $OutputPath -Value $MinifiedContent -Encoding UTF8
     
     $OriginalSize = $HtmlFile.Length
@@ -233,7 +232,7 @@ if (Test-Path $MainCssFile) {
     $ResolvedCss = Resolve-CssImports $MainCssFile $SourceRoot
     $MinifiedCss = Minify-Css $ResolvedCss
     
-    $OutputPath = Join-Path $ReleaseDir "main.css"
+    $OutputPath = Join-Path $DocsDir "main.css"
     Set-Content -Path $OutputPath -Value $MinifiedCss -Encoding UTF8
     
     $OriginalSize = (Get-Content $MainCssFile -Raw).Length
@@ -254,7 +253,7 @@ foreach ($CssFile in $CssFiles) {
     $Content = Get-Content $CssFile.FullName -Raw -Encoding UTF8
     $MinifiedContent = Minify-Css $Content
     
-    $OutputPath = Join-Path $ReleaseDir "css" $CssFile.Name
+    $OutputPath = Join-Path $DocsDir "css" $CssFile.Name
     Set-Content -Path $OutputPath -Value $MinifiedContent -Encoding UTF8
     
     $OriginalSize = $CssFile.Length
@@ -278,7 +277,7 @@ foreach ($JsFile in $JsFiles) {
     $Content = Get-Content $JsFile.FullName -Raw -Encoding UTF8
     $MinifiedContent = Minify-JavaScript $Content
     
-    $OutputPath = Join-Path $ReleaseDir "js" $JsFile.Name
+    $OutputPath = Join-Path $DocsDir "js" $JsFile.Name
     Set-Content -Path $OutputPath -Value $MinifiedContent -Encoding UTF8
     
     $OriginalSize = $JsFile.Length
@@ -301,7 +300,7 @@ if (Test-Path $ModulesDir) {
         $Content = Get-Content $ModuleFile.FullName -Raw -Encoding UTF8
         $MinifiedContent = Minify-JavaScript $Content
         
-        $OutputPath = Join-Path $ReleaseDir "js\modules" $ModuleFile.Name
+        $OutputPath = Join-Path $DocsDir "js\modules" $ModuleFile.Name
         Set-Content -Path $OutputPath -Value $MinifiedContent -Encoding UTF8
         
         $OriginalSize = $ModuleFile.Length
@@ -329,7 +328,7 @@ Get-ChildItem -Path $SourceRoot -Include "*.html", "*.css", "*.js" -File -Recurs
     }
 }
 
-Get-ChildItem -Path $ReleaseDir -Include "*.html", "*.css", "*.js" -File -Recurse | ForEach-Object {
+Get-ChildItem -Path $DocsDir -Include "*.html", "*.css", "*.js" -File -Recurse | ForEach-Object {
     $NewTotalSize += $_.Length
 }
 
@@ -341,6 +340,6 @@ Write-Host "📊 Summary:" -ForegroundColor Yellow
 Write-Host "  Original size: $([math]::Round($OriginalTotalSize / 1KB, 1)) KB" -ForegroundColor White
 Write-Host "  Minified size: $([math]::Round($NewTotalSize / 1KB, 1)) KB" -ForegroundColor White
 Write-Host "  Total savings: $TotalSavings%" -ForegroundColor Green
-Write-Host "  Output directory: $ReleaseDir" -ForegroundColor Cyan
+Write-Host "  Output directory: $DocsDir" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "🎉 Production build ready for deployment!" -ForegroundColor Green
