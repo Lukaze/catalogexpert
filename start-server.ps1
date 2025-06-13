@@ -1,8 +1,21 @@
-# Simple PowerShell HTTP Server for testing
-# Run this script to serve the web application locally
+# Microsoft Teams App Catalog Explorer - Development Server
+# This script builds the production version and serves it locally
+#
+# Usage:
+#   .\start-server.ps1                    # Build and serve (default)
+#   .\start-server.ps1 -Clean             # Clean build and serve
+#   .\start-server.ps1 -NoBuild           # Skip build, serve existing release
+#   .\start-server.ps1 -Port 3000         # Use custom port
+#   .\start-server.ps1 -Clean -Port 3000  # Clean build with custom port
 
-$port = 8080
-$url = "http://localhost:$port"
+param(
+    [switch]$NoBuild = $false,
+    [switch]$Clean = $false,
+    [int]$Port = 8080
+)
+
+$url = "http://localhost:$Port"
+$ReleaseDir = Join-Path $PSScriptRoot "release"
 
 # Function to check if port is already in use
 function Test-Port {
@@ -18,9 +31,46 @@ function Test-Port {
     }
 }
 
+# Run build process first (unless skipped)
+if (-not $NoBuild) {
+    Write-Host "🔨 Building production version..." -ForegroundColor Blue
+    
+    $BuildScript = Join-Path $PSScriptRoot "build-production.ps1"
+    
+    if (Test-Path $BuildScript) {
+        $BuildArgs = @()
+        if ($Clean) { $BuildArgs += "-Clean" }
+        
+        try {
+            & $BuildScript @BuildArgs
+            Write-Host "✅ Build completed successfully!" -ForegroundColor Green
+        }
+        catch {
+            Write-Host "❌ Build failed: $($_.Exception.Message)" -ForegroundColor Red
+            Write-Host "Aborting server start..." -ForegroundColor Red
+            exit 1
+        }
+    } else {
+        Write-Host "❌ Build script not found: $BuildScript" -ForegroundColor Red
+        Write-Host "Aborting server start..." -ForegroundColor Red
+        exit 1
+    }
+    
+    Write-Host ""
+} else {
+    Write-Host "⚡ Skipping build process..." -ForegroundColor Yellow
+}
+
+# Verify release directory exists
+if (-not (Test-Path $ReleaseDir)) {
+    Write-Host "❌ Release directory not found: $ReleaseDir" -ForegroundColor Red
+    Write-Host "Please run the build process first or remove the -NoBuild flag." -ForegroundColor Red
+    exit 1
+}
+
 # Check if server is already running on the port
-if (Test-Port -Port $port) {
-    Write-Host "Server is already running on $url" -ForegroundColor Green
+if (Test-Port -Port $Port) {
+    Write-Host "🌐 Server is already running on $url" -ForegroundColor Green
     Write-Host "Using existing server..." -ForegroundColor Cyan
     Write-Host "Opening browser..." -ForegroundColor Cyan
     Start-Process $url
@@ -28,7 +78,8 @@ if (Test-Port -Port $port) {
     exit 0
 }
 
-Write-Host "Starting HTTP server on $url" -ForegroundColor Green
+Write-Host "🚀 Starting production server on $url" -ForegroundColor Green
+Write-Host "📁 Serving from: $ReleaseDir" -ForegroundColor Cyan
 Write-Host "Press Ctrl+C to stop the server" -ForegroundColor Yellow
 Write-Host "Opening browser..." -ForegroundColor Cyan
 
@@ -40,10 +91,11 @@ $listener = New-Object System.Net.HttpListener
 $listener.Prefixes.Add("$url/")
 try {
     $listener.Start()
-    Write-Host "HTTP server started successfully!" -ForegroundColor Green
+    Write-Host "✅ Production server started successfully!" -ForegroundColor Green
+    Write-Host "🌍 Access your application at: $url" -ForegroundColor Green
 }
 catch {
-    Write-Host "Failed to start server on port $port. Error: $($_.Exception.Message)" -ForegroundColor Red
+    Write-Host "Failed to start server on port $Port. Error: $($_.Exception.Message)" -ForegroundColor Red
     exit 1
 }
 
@@ -52,11 +104,11 @@ try {
         $context = $listener.GetContext()
         $request = $context.Request
         $response = $context.Response
-        
-        $path = $request.Url.LocalPath
+          $path = $request.Url.LocalPath
         if ($path -eq "/") { $path = "/index.html" }
         
-        $filePath = Join-Path $PSScriptRoot $path.TrimStart('/')
+        # Serve files from the release directory
+        $filePath = Join-Path $ReleaseDir $path.TrimStart('/')
         
         if (Test-Path $filePath) {
             try {

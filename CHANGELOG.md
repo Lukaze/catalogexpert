@@ -5,6 +5,24 @@ All notable changes to the Microsoft Teams App Catalog Explorer will be document
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2025-06-13
+
+### 🛠️ Build System Overhaul
+
+### Added
+- **Production Build Script**: New `build-production.ps1` script minifies all HTML, JavaScript, and CSS files and outputs them to a `release/` directory.
+- **Preserves Originals**: Development files remain unchanged; all minified files are now in `release/` for safe production deployment.
+- **Directory Structure**: Automatically creates `release/js/`, `release/js/modules/`, and `release/css/` as needed.
+- **Sample Copying**: Copies the `samples/` directory into `release/` if present.
+
+### Changed
+- **No More In-Place Minification**: The build no longer overwrites development files, preventing accidental loss of formatting and comments.
+- **Improved Error Handling**: Build script now provides clearer error messages and summary output.
+
+### How to Use
+- Run `./build-production.ps1` to generate a fully minified production build in the `release/` directory.
+- All original files remain untouched for development.
+
 ## [2.0.1] - 2025-06-12
 
 ### 🔧 Definition Tab Refinements
